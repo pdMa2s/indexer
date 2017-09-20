@@ -4,7 +4,7 @@ public abstract class CorpusReader {
     public CorpusReader(DocumentReader reader){
         this.reader = reader;
     }
-    
+
     public abstract String processDocument();
 
 }
