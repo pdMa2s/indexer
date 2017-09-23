@@ -20,7 +20,7 @@ public class MainClass {
             String docContent = corpusReader.processDocument();
             System.out.println(docContent);
             List<String> tokens = st.tokenize(docContent);
-            tokens.removeAll(stopWordList);
+            //tokens.removeAll(stopWordList);
             for (int i = 0; i < tokens.size(); i++) {
                 stemmer.setCurrent(tokens.get(i));
                 stemmer.stem();
@@ -37,7 +37,7 @@ public class MainClass {
         ArrayList<String> stopWords = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader("StopWordList"));
-            String line = br.readLine();
+            String line = "";
             while (line != null) {
                 line = br.readLine();
                 stopWords.add(line);
