@@ -1,35 +1,31 @@
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
 import java.io.File;
 
-public class DirIteratorCorpusReader extends CorpusReader {
-    private String dirName;
+public class DirIteratorCorpusReader implements CorpusReader {
+    private File[] dirFiles;
     private DocumentReader reader;
     private DefaultCorpusXMLHandler xmlHandler;
+    private int fileIndex;
 
     public DirIteratorCorpusReader(String dirName){
         initializeReader();
-        this.dirName = dirName;
-        startIterativeProcessing();
+        dirFiles = new File(dirName).listFiles();
+        fileIndex = 0;
+
     }
 
-    public DirIteratorCorpusReader(){
-        initializeReader();
-        startIterativeProcessing();
-    }
-
-    public void startIterativeProcessing(){
-        File[] files = new File(dirName).listFiles();
-        for (File file : files) {
-            processDocument(file);
-        }
+    public boolean hasDocument(){
+        return !(fileIndex == dirFiles.length-1);
     }
 
     @Override
-    public String processDocument(File document) {
-        reader.open(document);
+    public String processDocument() {
+        if(!hasDocument())
+            return null;
+        reader.open(dirFiles[fileIndex]);
+        fileIndex++;
         return reader.parse();
     }
 
