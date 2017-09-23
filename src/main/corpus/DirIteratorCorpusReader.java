@@ -2,6 +2,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
+import java.io.File;
 
 public class DirIteratorCorpusReader extends CorpusReader {
     private String dirName;
@@ -11,15 +12,25 @@ public class DirIteratorCorpusReader extends CorpusReader {
     public DirIteratorCorpusReader(String dirName){
         initializeReader();
         this.dirName = dirName;
+        startIterativeProcessing();
     }
 
     public DirIteratorCorpusReader(){
         initializeReader();
+        startIterativeProcessing();
+    }
+
+    public void startIterativeProcessing(){
+        File[] files = new File(dirName).listFiles();
+        for (File file : files) {
+            processDocument(file);
+        }
     }
 
     @Override
-    public String processDocument() {
-        return null;
+    public String processDocument(File document) {
+        reader.open(document);
+        return reader.parse();
     }
 
     private void initializeReader(){
