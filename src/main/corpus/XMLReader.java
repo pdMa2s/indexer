@@ -12,9 +12,8 @@ public class XMLReader implements DocumentReader {
     private DefaultCorpusXMLHandler xmlHandler;
     private SAXParser saxParser;
 
-    public XMLReader(DefaultCorpusXMLHandler xmlHandler, File contentFile)
+    public XMLReader(DefaultCorpusXMLHandler xmlHandler)
             throws ParserConfigurationException, SAXException {
-        this.contentFile = contentFile;
         this.xmlHandler = xmlHandler;
         SAXParserFactory factory = SAXParserFactory.newInstance();
         this.saxParser = factory.newSAXParser();
