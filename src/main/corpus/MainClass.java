@@ -1,3 +1,4 @@
+import org.tartarus.snowball.ext.englishStemmer;
 import java.util.Scanner;
 
 public class MainClass {
@@ -10,13 +11,16 @@ public class MainClass {
 
         CorpusReader corpusReader = new DirIteratorCorpusReader(DirName);
         SimpleTokenizer st = new SimpleTokenizer();
+        englishStemmer stemmer = new englishStemmer();
 
         while(corpusReader.hasDocument()){
             String docContent = corpusReader.processDocument();
             System.out.println(docContent);
             String[] tokens = st.tokenize(docContent);
             for (int i=0 ; i<tokens.length; i++){
-                System.out.println(tokens[i]);
+                stemmer.setCurrent(tokens[i]);
+                stemmer.stem();
+                tokens[i] = stemmer.getCurrent();
             }
             break;
         }
