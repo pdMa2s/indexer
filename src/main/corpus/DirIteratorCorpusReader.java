@@ -7,7 +7,6 @@ public class DirIteratorCorpusReader extends CorpusReader {
     private String dirName;
     private DocumentReader reader;
     private DefaultCorpusXMLHandler xmlHandler;
-    private SAXParser saxParser;
 
     public DirIteratorCorpusReader(String dirName){
         initializeReader();
