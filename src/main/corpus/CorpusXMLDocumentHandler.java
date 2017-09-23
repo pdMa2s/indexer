@@ -1,22 +1,21 @@
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
-public class CorpusXMLDocumentHandler extends DefaultHandler {
+public class CorpusXMLDocumentHandler extends DefaultCorpusXMLHandler {
 
     private boolean titleElement = false;
     private boolean bodyElement = false;
 
     private String title;
     private String body;
-    private StringBuilder allTheText;
+    private StringBuilder text;
 
     static final String TITLETAG = "TITLE";
     static final String BODYTAG = "TEXT";
 
     public CorpusXMLDocumentHandler(){
         super();
-        allTheText = new StringBuilder();
+        text = new StringBuilder();
     }
 
     public String getBody() {
@@ -27,9 +26,7 @@ public class CorpusXMLDocumentHandler extends DefaultHandler {
         return title;
     }
 
-    public String getAllTheText() {
-        return allTheText.toString();
-    }
+
 
     @Override
     public void startElement(
@@ -48,12 +45,13 @@ public class CorpusXMLDocumentHandler extends DefaultHandler {
     public void characters(char ch[], int start, int length) throws SAXException {
 
         if(titleElement) {
-            title = new String(ch, start, length);
-            allTheText.append(title);
+            title = new String(ch, start, length).trim();
+            text.append(title);
+            titleElement = false;
         }
         else if(bodyElement){
-            body = new String(ch, start, length);
-            allTheText.append(body);
+            body = new String(ch, start, length).trim();
+            text.append(body);
         }
     }
 
@@ -67,5 +65,10 @@ public class CorpusXMLDocumentHandler extends DefaultHandler {
         else if(qName.equalsIgnoreCase(TITLETAG))
             titleElement = false;
 
+    }
+
+    @Override
+    public String getText() {
+        return text.toString();
     }
 }

@@ -11,7 +11,7 @@ public class Tester {
             CorpusXMLDocumentHandler userhandler = new CorpusXMLDocumentHandler();
             saxParser.parse(inputFile, userhandler);
 
-            System.out.println(userhandler.getAllTheText());
+            System.out.println("text: "+ userhandler.getText().trim());
         } catch (Exception e) {
             e.printStackTrace();
         }
