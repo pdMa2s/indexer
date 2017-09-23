@@ -45,12 +45,12 @@ public class XMLDocumentHandler extends DefaultCorpusXMLHandler {
     public void characters(char ch[], int start, int length) throws SAXException {
 
         if(titleElement) {
-            title = new String(ch, start, length).trim();
+            title = new String(ch, start, length);
             text.append(title);
             titleElement = false;
         }
         else if(bodyElement){
-            body = new String(ch, start, length).trim()     ;
+            body = new String(ch, start, length)  ;
             text.append(body);
         }
     }
