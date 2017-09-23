@@ -13,8 +13,11 @@ public class MainClass {
 
         while(corpusReader.hasDocument()){
             String docContent = corpusReader.processDocument();
-            st.tokenize(docContent);
             System.out.println(docContent);
+            String[] tokens = st.tokenize(docContent);
+            for (int i=0 ; i<tokens.length; i++){
+                System.out.println(tokens[i]);
+            }
             break;
         }
     }
