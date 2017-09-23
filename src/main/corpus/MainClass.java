@@ -11,6 +11,5 @@ public class MainClass {
     String DirName = sc.nextLine();
 
     DirIteratorCorpusReader dirReader = new DirIteratorCorpusReader(DirName);
-
     }
 }
