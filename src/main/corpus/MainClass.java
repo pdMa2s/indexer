@@ -57,6 +57,6 @@ public class MainClass {
 
     public static void changeTermRow(Map index, String token){
         Pair tuple = (Pair) index.get(token);
-
+        tuple.setTermFreq((Double)tuple.getTermFreq()+1);
     }
 }
