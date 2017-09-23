@@ -3,7 +3,9 @@ import java.util.List;
 public class SimpleTokenizer implements Tokenizer{
 
     @Override
-    public List<String> tokenize() {
-        return null;
+    public String[] tokenize (String docInfo) {
+        return docInfo.split("[^-\\w]+");
     }
+
+    public SimpleTokenizer(){}
 }
