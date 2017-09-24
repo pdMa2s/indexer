@@ -13,7 +13,7 @@ public class MainClass {
             System.out.println(docContent);
             List<String> tokens = st.tokenize(docContent);
             for(int i = 0; i < tokens.size(); i++){
-                
+
                 englishStemmer stemmer = new englishStemmer();
 
                 stemmer.setCurrent(tokens.get(i));
