@@ -1,26 +1,44 @@
-public class IndexEntry<U, V> {
+public class IndexEntry {
 
-    public U docsIDs;
-    public V termFreq;
+    String docsIDs;
+    int termFreq;
 
-    public IndexEntry(U docsIDs, V termFreq){
+    public IndexEntry(String docsIDs, int termFreq) {
         this.docsIDs = docsIDs;
         this.termFreq = termFreq;
     }
 
-    public U getDocsID(){
+    public String getDocID() {
         return docsIDs;
     }
 
-    public V getTermFreq(){
+    public int getTermFreq() {
         return termFreq;
     }
 
-    public void setDocsIDs(U docID){
+    public void setDocIDs(String docID) {
         this.docsIDs = docID;
     }
 
-    public void setTermFreq(V tFreq){
+    public void setTermFreq(int tFreq) {
         this.termFreq = tFreq;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof IndexEntry)) return false;
+
+        IndexEntry that = (IndexEntry) o;
+
+        if (getTermFreq() != that.getTermFreq()) return false;
+        return docsIDs != null ? docsIDs.equals(that.docsIDs) : that.docsIDs == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = docsIDs != null ? docsIDs.hashCode() : 0;
+        result = 31 * result + getTermFreq();
+        return result;
     }
 }
