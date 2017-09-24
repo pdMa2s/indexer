@@ -11,6 +11,7 @@ public class XMLReader implements DocumentReader {
     private File contentFile;
     private DefaultCorpusXMLHandler xmlHandler;
     private SAXParser saxParser;
+    private int docID;
 
     public XMLReader(DefaultCorpusXMLHandler xmlHandler)
             throws ParserConfigurationException, SAXException {

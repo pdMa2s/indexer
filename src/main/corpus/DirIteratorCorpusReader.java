@@ -21,9 +21,15 @@ public class DirIteratorCorpusReader implements CorpusReader {
     }
 
     @Override
+    public String getDocumentID() {
+        return dirFiles[fileIndex].getName();
+    }
+
+    @Override
     public String processDocument() {
         if(!hasDocument())
             return null;
+
         reader.open(dirFiles[fileIndex]);
         fileIndex++;
         return reader.parse();
@@ -35,7 +41,7 @@ public class DirIteratorCorpusReader implements CorpusReader {
             reader = new XMLReader(xmlHandler);
           
         } catch (ParserConfigurationException | SAXException e) {
-            System.out.println("ERROR Configurating SAX parser");
+            System.err.println("ERROR Configurating SAX parser");
             System.exit(1);
         }
     }
