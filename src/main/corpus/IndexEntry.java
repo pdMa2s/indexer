@@ -41,4 +41,9 @@ public class IndexEntry {
         result = 31 * result + getTermFreq();
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Entry{" + "dID='" + docsIDs + '\'' + ", tF=" + termFreq + '}';
+    }
 }

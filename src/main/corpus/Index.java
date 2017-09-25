@@ -35,4 +35,9 @@ public class Index {
          }
          return null;
      }
+
+    @Override
+    public String toString() {
+        return "Index{" + "index=" + index + '}';
+    }
 }
