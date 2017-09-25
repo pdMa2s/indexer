@@ -44,6 +44,6 @@ public class IndexEntry {
 
     @Override
     public String toString() {
-        return "Entry{" + "dID='" + docsIDs + '\'' + ", tF=" + termFreq + '}';
+        return "Entry{" +  docsIDs + '\'' + "," + termFreq + '}';
     }
 }

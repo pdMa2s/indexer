@@ -28,6 +28,7 @@ public class Indexer {
             System.out.println(tokens);
             break;
         }
+        System.out.println(index);
     }
 
     static List<String> fillStopWordList() {
