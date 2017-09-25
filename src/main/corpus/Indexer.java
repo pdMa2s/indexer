@@ -24,10 +24,9 @@ public class Indexer {
             String docContent = corpusReader.processDocument();
             List<String> tokens = st.tokenize(docContent);
             filterStopWordsFromTokens(tokens, stopWordList);
-            fillIndexWithStemmizedTokens(index,stemmer, tokens);
+            fillIndexWithStemmizedTokens(index,stemmer, tokens, corpusReader.getDocumentID());
             System.out.println(tokens);
             break;
-
         }
     }
 
@@ -45,14 +44,15 @@ public class Indexer {
         }
         return stopWords;
     }
-    static void fillIndexWithStemmizedTokens(Index index ,SnowballStemmer stemmer, List<String> tokens){
+    static void fillIndexWithStemmizedTokens(Index index ,SnowballStemmer stemmer, List<String> tokens, String docId){
 
         for (int i = 0; i < tokens.size(); i++) {
 
             stemmer.setCurrent(tokens.get(i));
             stemmer.stem();
             tokens.set(i, stemmer.getCurrent());
-            //add token occurences to index
+            index.addTokenOcurrence(tokens.get(i), docId);
+
         }
 
     }
