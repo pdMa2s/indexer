@@ -38,6 +38,6 @@ public class Index {
 
     @Override
     public String toString() {
-        return "Index{" + "index=" + index + '}';
+        return "Index{"+ index + '}';
     }
 }
