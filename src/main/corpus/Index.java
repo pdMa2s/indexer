@@ -15,16 +15,16 @@ public class Index {
 
          if(entryList != null){
              IndexEntry entry = findEntry(entryList, docID);
-
-             entry.termFreq++;
+             if(entry != null)
+                entry.termFreq++;
+             else
+                 entryList.add(new IndexEntry(docID,1));
          }
          else{
              List<IndexEntry> newEntryList = new ArrayList<>();
              newEntryList.add(new IndexEntry(docID,1));
              index.put(token,newEntryList);
          }
-
-
      }
 
 
