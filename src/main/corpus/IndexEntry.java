@@ -1,27 +1,33 @@
 public class IndexEntry {
 
-    String docsIDs;
+    int docID;
     int termFreq;
 
-    public IndexEntry(String docsIDs, int termFreq) {
-        this.docsIDs = docsIDs;
+    public IndexEntry(int docID, int termFreq) {
+        this.docID = docID;
         this.termFreq = termFreq;
     }
 
-    public String getDocID() {
-        return docsIDs;
+    public int getDocID() {
+        return docID;
     }
 
     public int getTermFreq() {
         return termFreq;
     }
 
-    public void setDocIDs(String docID) {
-        this.docsIDs = docID;
+    public void setDocIDs(int docID) {
+        this.docID = docID;
     }
 
     public void setTermFreq(int tFreq) {
         this.termFreq = tFreq;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Entry{" +  docID + '\'' + "," + termFreq + '}';
     }
 
     @Override
@@ -31,19 +37,14 @@ public class IndexEntry {
 
         IndexEntry that = (IndexEntry) o;
 
-        if (getTermFreq() != that.getTermFreq()) return false;
-        return docsIDs != null ? docsIDs.equals(that.docsIDs) : that.docsIDs == null;
+        if (getDocID() != that.getDocID()) return false;
+        return getTermFreq() == that.getTermFreq();
     }
 
     @Override
     public int hashCode() {
-        int result = docsIDs != null ? docsIDs.hashCode() : 0;
+        int result = getDocID();
         result = 31 * result + getTermFreq();
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Entry{" +  docsIDs + '\'' + "," + termFreq + '}';
     }
 }

@@ -22,13 +22,14 @@ public class Indexer {
 
         while (corpusReader.hasDocument()) {
             String docContent = corpusReader.processDocument();
-            List<String> tokens = st.tokenize(docContent);
-            filterStopWordsFromTokens(tokens, stopWordList);
-            fillIndexWithStemmizedTokens(index,stemmer, tokens, corpusReader.getDocumentID());
+            //List<String> tokens = st.tokenize(docContent);
+            List<String> tokens = st.tokenize("an experimental study of a wing in a propeller slipstream was \n made in order to determine the spanwise distribution of the lift increase due to slipstream at");
+            //filterStopWordsFromTokens(tokens, stopWordList);
+            //fillIndexWithStemmizedTokens(index,stemmer, tokens, corpusReader.getDocumentID());
             System.out.println(tokens);
             break;
         }
-        System.out.println(index);
+        //System.out.println(index);
     }
 
     static List<String> fillStopWordList() {
@@ -45,7 +46,7 @@ public class Indexer {
         }
         return stopWords;
     }
-    static void fillIndexWithStemmizedTokens(Index index ,SnowballStemmer stemmer, List<String> tokens, String docId){
+    static void fillIndexWithStemmizedTokens(Index index ,SnowballStemmer stemmer, List<String> tokens, int docId){
 
         for (int i = 0; i < tokens.size(); i++) {
 

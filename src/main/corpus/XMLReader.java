@@ -11,7 +11,6 @@ public class XMLReader implements DocumentReader {
     private File contentFile;
     private DefaultCorpusXMLHandler xmlHandler;
     private SAXParser saxParser;
-    private int docID;
 
     public XMLReader(DefaultCorpusXMLHandler xmlHandler)
             throws ParserConfigurationException, SAXException {
@@ -36,5 +35,10 @@ public class XMLReader implements DocumentReader {
             System.exit(1);
         }
         return xmlHandler.getText();
+    }
+
+    @Override
+    public int getDocumentID() {
+        return xmlHandler.getID();
     }
 }

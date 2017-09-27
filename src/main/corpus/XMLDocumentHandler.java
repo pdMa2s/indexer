@@ -9,7 +9,7 @@ public class XMLDocumentHandler extends DefaultCorpusXMLHandler {
 
     private String title;
     private String body;
-    private double docNr;
+    private int docNr;
 
     private StringBuilder text;
 
@@ -30,7 +30,7 @@ public class XMLDocumentHandler extends DefaultCorpusXMLHandler {
         return title;
     }
 
-    public double getDocumentID() {return docNr; }
+    public int getID() {return docNr; }
 
     @Override
     public void startElement(
@@ -59,7 +59,8 @@ public class XMLDocumentHandler extends DefaultCorpusXMLHandler {
             text.append(body);
         }
         else if(docElement){
-            docNr = Double.parseDouble(new String(ch, start, length));
+            Double id =  Double.parseDouble(new String(ch, start, length));
+            docNr = id.intValue();
         }
     }
 

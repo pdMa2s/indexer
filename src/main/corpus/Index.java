@@ -10,7 +10,7 @@ public class Index {
          this.index = new HashMap<>();
      }
 
-     public void addTokenOcurrence(String token, String docID){
+     public void addTokenOcurrence(String token, int docID){
          List<IndexEntry> entryList = index.get(token);
 
          if(entryList != null){
@@ -28,9 +28,9 @@ public class Index {
      }
 
 
-     private IndexEntry findEntry(List<IndexEntry> entryList, String docID){
+     private IndexEntry findEntry(List<IndexEntry> entryList, int docID){
          for(IndexEntry entry : entryList){
-             if(entry.getDocID().equals(docID))
+             if(entry.getDocID() == docID)
                  return entry;
          }
          return null;

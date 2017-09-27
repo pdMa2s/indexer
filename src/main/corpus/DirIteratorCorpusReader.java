@@ -16,13 +16,14 @@ public class DirIteratorCorpusReader implements CorpusReader {
 
     }
 
+    @Override
     public boolean hasDocument(){
         return !(fileIndex == dirFiles.length-1);
     }
 
     @Override
-    public String getDocumentID() {
-        return dirFiles[fileIndex].getName();
+    public int getDocumentID() {
+        return reader.getDocumentID();
     }
 
     @Override
