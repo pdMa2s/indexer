@@ -13,6 +13,7 @@ public class SimpleTokenizer implements Tokenizer{
                 .map(w -> w.replaceAll("[^a-z\\s]+", ""))
                 .map(w -> w.replaceAll("\\b[a-z]{1,2}\\b", ""))
                 .map(w -> w.replaceAll("\\s+", " "))
+                .map(w -> w.trim())
                 .map(s -> s.split("\\s")).flatMap(Arrays::stream)
                 .collect(Collectors.toList());
 
