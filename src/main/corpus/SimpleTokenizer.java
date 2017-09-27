@@ -16,7 +16,5 @@ public class SimpleTokenizer implements Tokenizer{
                 .map(w -> w.trim())
                 .map(s -> s.split("\\s")).flatMap(Arrays::stream)
                 .collect(Collectors.toList());
-
-
     }
 }
