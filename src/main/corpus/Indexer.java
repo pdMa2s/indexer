@@ -12,10 +12,11 @@ public class Indexer {
 
     public static void main(String[] args) {
 
-        String DirName = "cranfield";
+        //String DirName = "cranfield";
+        String DirName = args[0]; 
 
         CorpusReader corpusReader = new DirIteratorCorpusReader(DirName);
-        SimpleTokenizer st = new SimpleTokenizer();
+        Tokenizer st = getTokenizer(args[1]);
         List<String> stopWordList = fillStopWordList();
         englishStemmer stemmer = new englishStemmer();
         Index index = new Index();
@@ -63,4 +64,17 @@ public class Indexer {
         tokens.removeAll(stopWords);
     }
 
+    static Tokenizer getTokenizer(String className){
+        Class classTemp = null;
+        Tokenizer st = null;
+
+        try {
+            classTemp = Class.forName(className);
+            st = (Tokenizer) classTemp.newInstance();
+        }
+        catch(ClassNotFoundException e) {System.out.println("Class not found");}
+        catch(InstantiationException a){}
+        catch(IllegalAccessException e){}
+        return st;
+    }
 }
