@@ -18,7 +18,7 @@ public class DirIteratorCorpusReader implements CorpusReader {
 
     @Override
     public boolean hasDocument(){
-        return !(fileIndex == dirFiles.length-1);
+        return !(fileIndex == dirFiles.length);
     }
 
     @Override
