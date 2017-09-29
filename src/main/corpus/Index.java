@@ -1,13 +1,10 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Index {
      private Map<String, List<IndexEntry>> index;
 
      public Index(){
-         this.index = new HashMap<>();
+         this.index = new LinkedHashMap<>();
      }
 
      public void addTokenOcurrence(String token, int docID){
@@ -21,12 +18,28 @@ public class Index {
                  entryList.add(new IndexEntry(docID,1));
          }
          else{
-             List<IndexEntry> newEntryList = new ArrayList<>();
+             List<IndexEntry> newEntryList = new LinkedList<>();
              newEntryList.add(new IndexEntry(docID,1));
              index.put(token,newEntryList);
          }
      }
 
+    public void mergeIndex(Index indexTomerge){
+        for (String x : indexTomerge.index.keySet()){
+            if(this.index.containsKey(x)){
+                List<IndexEntry> temp = this.index.get(x);
+                temp.addAll(indexTomerge.index.get(x));
+                this.index.put(x,temp);
+            }
+            else{
+                this.index.put(x, indexTomerge.index.get(x));
+            }
+        }
+    }
+
+    public int vocabularySize(){
+        return index.size();
+    }
 
      private IndexEntry findEntry(List<IndexEntry> entryList, int docID){
          for(IndexEntry entry : entryList){
@@ -36,8 +49,13 @@ public class Index {
          return null;
      }
 
+
     @Override
     public String toString() {
-        return "Index{"+ index + '}';
+        StringBuilder sb = new StringBuilder();
+        for(String k : index.keySet()){
+            sb.append(k+ ": " + index.get(k)+ "\n");
+        }
+        return sb.toString();
     }
 }

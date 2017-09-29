@@ -26,11 +26,6 @@ public class IndexEntry {
 
 
     @Override
-    public String toString() {
-        return "Entry{" +  docID + '\'' + "," + termFreq + '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof IndexEntry)) return false;
@@ -46,5 +41,13 @@ public class IndexEntry {
         int result = getDocID();
         result = 31 * result + getTermFreq();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "{"+
+                "docID=" + docID +
+                ", termFreq=" + termFreq +
+                '}';
     }
 }
