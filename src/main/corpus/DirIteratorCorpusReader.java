@@ -29,7 +29,6 @@ public class DirIteratorCorpusReader implements CorpusReader {
     public String processDocument() {
         if(!hasDocument())
             return null;
-
         reader.open(dirFiles[fileIndex]);
         fileIndex++;
         return reader.parse();

@@ -78,6 +78,8 @@ public class XMLDocumentHandler extends DefaultCorpusXMLHandler {
 
     @Override
     public String getText() {
-        return text.toString();
+        String clear = text.toString();
+        text.setLength(0);
+        return clear;
     }
 }

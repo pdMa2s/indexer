@@ -4,7 +4,7 @@ public class Index {
      private Map<String, List<IndexEntry>> index;
 
      public Index(){
-         this.index = new LinkedHashMap<>();
+         this.index = new HashMap<>();
      }
 
      public void addTokenOcurrence(String token, int docID){
@@ -18,23 +18,52 @@ public class Index {
                  entryList.add(new IndexEntry(docID,1));
          }
          else{
-             List<IndexEntry> newEntryList = new LinkedList<>();
+             List<IndexEntry> newEntryList = new ArrayList<>();
              newEntryList.add(new IndexEntry(docID,1));
              index.put(token,newEntryList);
          }
      }
 
-    public void mergeIndex(Index indexTomerge){
-        for (String x : indexTomerge.index.keySet()){
-            if(this.index.containsKey(x)){
-                List<IndexEntry> temp = this.index.get(x);
-                temp.addAll(indexTomerge.index.get(x));
-                this.index.put(x,temp);
-            }
-            else{
-                this.index.put(x, indexTomerge.index.get(x));
-            }
+    public List<String> getTop10Terms(int DocId){
+         List<String> termsInDoc = new ArrayList();
+         for(String x: index.keySet()){
+             List<IndexEntry> entry = index.get(x);
+             for(int j=0; j<entry.size(); j++){
+                if(entry.get(j).docID == DocId) {
+                    termsInDoc.add(x);
+                    break;
+                }
+             }
+         }
+         Collections.sort(termsInDoc);
+         return termsInDoc.subList(0,10);
+    }
+
+    public List<String> getTopFreqTerms(){
+        String[] topTen = new String[10];
+        Integer[] tempMax = new Integer[10];
+        int count = 0, min = 99999;
+
+        for(int n=0;n<10;n++){
+            tempMax[n] = 0;
+            topTen[n] = "";
         }
+
+        for(String x: index.keySet()){
+            for(int i=0; i<10; i++){
+                if(min > tempMax[i])
+                    min = tempMax[i];
+            }
+            for(int j=0; j<10; j++){
+                if(tempMax[j] == min && tempMax[j] < index.get(x).size()){
+                    tempMax[j] = index.get(x).size();
+                    topTen[j] = x;
+                    break;
+                }
+            }
+            min=99999;
+        }
+        return Arrays.asList(topTen);
     }
 
     public int vocabularySize(){
