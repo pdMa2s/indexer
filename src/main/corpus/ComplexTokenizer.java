@@ -1,6 +1,5 @@
 import org.tartarus.snowball.SnowballStemmer;
 import org.tartarus.snowball.ext.englishStemmer;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -42,11 +41,14 @@ public class ComplexTokenizer implements Tokenizer{
         ArrayList<String> stopWords = new ArrayList<>();
         try {
             BufferedReader br = new BufferedReader(new FileReader("StopWordList"));
-            String line = "";
-            while (line != null) {
+            String line;
+            do{
                 line = br.readLine();
-                stopWords.add(line);
+                if(line != null)
+                    stopWords.add(line.trim());
             }
+            while (line != null);
+
         } catch (IOException e) {
             System.err.println("ERROR Loading Stop Words");
             System.exit(1);

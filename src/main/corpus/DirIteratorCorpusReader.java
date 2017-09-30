@@ -5,7 +5,6 @@ import java.io.File;
 public class DirIteratorCorpusReader implements CorpusReader {
     private File[] dirFiles;
     private DocumentReader reader;
-    private DefaultCorpusXMLHandler xmlHandler;
     private int fileIndex;
 
     public DirIteratorCorpusReader(String dirName){
@@ -29,19 +28,17 @@ public class DirIteratorCorpusReader implements CorpusReader {
     public String processDocument() {
         if(!hasDocument())
             return null;
-
         reader.open(dirFiles[fileIndex]);
         fileIndex++;
         return reader.parse();
     }
 
     private void initializeReader(){
-        xmlHandler = new XMLDocumentHandler();
         try {
-            reader = new XMLReader(xmlHandler);
+            reader = new XMLReader(new XMLDocumentHandler());
           
         } catch (ParserConfigurationException | SAXException e) {
-            System.err.println("ERROR Configurating SAX parser");
+            System.err.println("ERROR Configuring SAX parser");
             System.exit(1);
         }
     }
