@@ -1,9 +1,10 @@
 public class Main {
     public static void main(String[] args){
-        //String dirName = args[0];
+        checkParameterLength(args);
+        String dirName = args[0];
         Indexer indexer;
         Index index;
-        IndexerBuilder builder = parseTokenizerTyoe( "");//args[1]);
+        IndexerBuilder builder = parseTokenizerType( args[1],dirName );
         indexer = builder.constructIndexer();
         index = indexer.createIndex();
 
@@ -13,14 +14,35 @@ public class Main {
         System.out.println("Ten terms with the higher doc frequency: " + index.getTopFreqTerms());
     }
 
-    static void checkParameterLength(String[] args){
-        if(args.length != 3){
-            System.err.println("USAGE: java Main <corpusDirectory> <tokenizerType>");
+    private static void checkParameterLength(String[] args){
+        if(args.length != 2){
+            printUSAGE();
         }
 
     }
 
-    static IndexerBuilder parseTokenizerTyoe(String arg){
-        return new ComplexTokenizerIndexerBuilder("cranfield");
+    private static IndexerBuilder parseTokenizerType(String arg, String dirName){
+        switch (arg){
+            case "st":
+                return new SimpleTokenizerIndexerBuilder(dirName);
+            case "ct":
+                return new ComplexTokenizerIndexerBuilder(dirName);
+            case "cts":
+                return new CTStemmingIndexerBuilder(dirName);
+            default:
+                printUSAGE();
+
+
+        }
+        return null;
+
+    }
+    private static void printUSAGE(){
+        System.err.println("USAGE: java Main <corpusDirectory> <tokenizerType>\n"+
+                            "Tokenizer types:\n"+
+                            "st - Simple Tokenizer\n"+
+                            "ct - Complex Tokenizer\n"+
+                            "cts - Complex Tokenizer with Stemming");
+        System.exit(1);
     }
 }

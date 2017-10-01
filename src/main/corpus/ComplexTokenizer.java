@@ -12,13 +12,17 @@ import java.util.stream.Stream;
 public class ComplexTokenizer implements Tokenizer{
     private SnowballStemmer stemmer;
     private List<String> stopWordList;
-
+    private static String STOPWORDFILENAME = "StopWordList";
 
     public ComplexTokenizer() {
-        this.stemmer = new englishStemmer();
         this.stopWordList = fillStopWordList();
-
+        this.stemmer = null;
     }
+    public ComplexTokenizer(SnowballStemmer stemmer) {
+        this.stopWordList = fillStopWordList();
+        this.stemmer = stemmer;
+    }
+
 
     @Override
     public List<String> tokenize(String docInfo) {
@@ -31,7 +35,8 @@ public class ComplexTokenizer implements Tokenizer{
                 .map(s -> s.split("\\s")).flatMap(Arrays::stream)
                 .collect(Collectors.toList());
         filterTokensFromStopWords(tokens, stopWordList);
-        stemmize(tokens);
+        if(stemmer != null)
+            stemmize(tokens);
         return tokens;
     }
 
@@ -40,7 +45,7 @@ public class ComplexTokenizer implements Tokenizer{
 
         ArrayList<String> stopWords = new ArrayList<>();
         try {
-            BufferedReader br = new BufferedReader(new FileReader("StopWordList"));
+            BufferedReader br = new BufferedReader(new FileReader(STOPWORDFILENAME));
             String line;
             do{
                 line = br.readLine();
