@@ -7,8 +7,8 @@ public class DirIteratorCorpusReader implements CorpusReader {
     private DocumentReader reader;
     private int fileIndex;
 
-    public DirIteratorCorpusReader(String dirName){
-        initializeReader();
+    public DirIteratorCorpusReader(String dirName,DocumentReader reader){
+        this.reader = reader;
         dirFiles = new File(dirName).listFiles();
         fileIndex = 0;
 
@@ -33,14 +33,6 @@ public class DirIteratorCorpusReader implements CorpusReader {
         return reader.parse();
     }
 
-    private void initializeReader(){
-        try {
-            reader = new XMLReader(new XMLDocumentHandler());
-          
-        } catch (ParserConfigurationException | SAXException e) {
-            System.err.println("ERROR Configuring SAX parser");
-            System.exit(1);
-        }
-    }
+
 }
 

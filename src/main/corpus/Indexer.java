@@ -1,46 +1,37 @@
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class Indexer {
+    private CorpusReader corpusReader;
+    private Tokenizer tokenizer;
+    private Index index;
 
-    public static void main(String[] args) {
+    public Index createIndex() {
 
-        String DirName = args[0];
-        CorpusReader corpusReader = new DirIteratorCorpusReader(DirName);
-
-        Tokenizer st = getTokenizer(args[1]);
-        Index index = new Index();
+        index = new Index();
 
         while (corpusReader.hasDocument()) {
             String docContent = corpusReader.processDocument();
-            List<String> tokens = st.tokenize(docContent);
+            List<String> tokens = tokenizer.tokenize(docContent);
             fillIndexWithTokens(index, tokens, corpusReader.getDocumentID());
         }
-        //System.out.println(index);
-        System.out.println("Vocabulary size: " +index.vocabularySize());
-        System.out.println("Ten First terms in document 1 with alphabetical order: " + index.getTop10TermsOccurrences(1));
-        System.out.println("Ten terms with the higher doc frequency: " + index.getTopFreqTerms());
+        return index;
     }
 
-    static void fillIndexWithTokens(Index index , List<String> tokens, int docId){
+    public Index getIndex(){
+        return index;
+    }
+    private void fillIndexWithTokens(Index index , List<String> tokens, int docId){
         for (int i = 0; i < tokens.size(); i++) {
             index.addTokenOcurrence(tokens.get(i), docId);
         }
     }
 
-    static Tokenizer getTokenizer(String className){
-        Class classTemp = null;
-        Tokenizer st = null;
+    public void setCorpusReader(CorpusReader corpusReader) {
+        this.corpusReader = corpusReader;
+    }
 
-        try {
-            classTemp = Class.forName(className);
-            st = (Tokenizer) classTemp.newInstance();
-        }
-        catch(ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-            System.err.println("ERROR Loading Tokenizer");
-            System.exit(1);
-        }
-        return st;
+    public void setTokenizer(Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
     }
 }
