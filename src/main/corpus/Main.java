@@ -1,5 +1,8 @@
 public class Main {
     public static void main(String[] args){
+        long beforeUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+
+        long startTime = System.currentTimeMillis();
         checkParameterLength(args);
         String dirName = args[0];
         Indexer indexer;
@@ -12,6 +15,16 @@ public class Main {
         System.out.println("Vocabulary size: " +index.vocabularySize());
         System.out.println("Ten First terms in document 1 with alphabetical order: " + index.getTop10TermsOccurrences(1));
         System.out.println("Ten terms with the higher doc frequency: " + index.getTopFreqTerms());
+
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+
+        System.out.println("Run time: "+elapsedTime+"ms");
+
+        long afterUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
+        long actualMemUsed=afterUsedMem-beforeUsedMem;
+
+        System.out.println("Memory: "+actualMemUsed);
     }
 
     private static void checkParameterLength(String[] args){

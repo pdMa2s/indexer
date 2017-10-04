@@ -1,9 +1,9 @@
-public class IndexEntry {
+public class Posting implements Comparable<Posting>{
 
     int docID;
     int termFreq;
 
-    public IndexEntry(int docID, int termFreq) {
+    public Posting(int docID, int termFreq) {
         this.docID = docID;
         this.termFreq = termFreq;
     }
@@ -28,9 +28,9 @@ public class IndexEntry {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof IndexEntry)) return false;
+        if (!(o instanceof Posting)) return false;
 
-        IndexEntry that = (IndexEntry) o;
+        Posting that = (Posting) o;
 
         if (getDocID() != that.getDocID()) return false;
         return getTermFreq() == that.getTermFreq();
@@ -49,5 +49,10 @@ public class IndexEntry {
                 "docID=" + docID +
                 ", termFreq=" + termFreq +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Posting posting) {
+        return this.docID - posting.docID;
     }
 }

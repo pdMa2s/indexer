@@ -9,7 +9,7 @@ import java.util.*;
  * @since 09-27-2017
  * */
 public class Index {
-     private Map<String, List<IndexEntry>> index;
+     private Map<String, List<Posting>> index;
 
     /**
      * Constructs an empty index.
@@ -25,18 +25,18 @@ public class Index {
       *
       * */
      public void addTokenOcurrence(String token, int docID){
-         List<IndexEntry> entryList = index.get(token);
+         List<Posting> entryList = index.get(token);
 
          if(entryList != null){
-             IndexEntry entry = findEntry(entryList, docID);
+             Posting entry = findEntry(entryList, docID);
              if(entry != null)
                 entry.termFreq++;
              else
-                 entryList.add(new IndexEntry(docID,1));
+                 entryList.add(new Posting(docID,1));
          }
          else{
-             List<IndexEntry> newEntryList = new ArrayList<>();
-             newEntryList.add(new IndexEntry(docID,1));
+             List<Posting> newEntryList = new ArrayList<>();
+             newEntryList.add(new Posting(docID,1));
              index.put(token,newEntryList);
          }
      }
@@ -51,7 +51,7 @@ public class Index {
     public List<String> getTop10TermsOccurrences(int docID){
          List<String> termsInDoc = new ArrayList();
          for(String x: index.keySet()){
-             List<IndexEntry> entry = index.get(x);
+             List<Posting> entry = index.get(x);
              for(int j=0; j<entry.size(); j++){
                 if(entry.get(j).docID == docID) {
                     termsInDoc.add(x);
@@ -112,8 +112,8 @@ public class Index {
         return sb.toString();
     }
 
-    private IndexEntry findEntry(List<IndexEntry> entryList, int docID){
-        for(IndexEntry entry : entryList){
+    private Posting findEntry(List<Posting> entryList, int docID){
+        for(Posting entry : entryList){
             if(entry.getDocID() == docID)
                 return entry;
         }
