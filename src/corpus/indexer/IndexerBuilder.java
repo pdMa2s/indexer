@@ -1,3 +1,5 @@
+package indexer;
+
 public abstract class IndexerBuilder {
     protected Indexer indexer;
     protected String directoryName;

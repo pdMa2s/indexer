@@ -1,3 +1,5 @@
+package indexer;
+
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -100,11 +102,16 @@ public class Index {
         return Arrays.asList(topTen);
     }
 
-    public void saveIndexToFile(String fileName) throws FileNotFoundException {
+    /**
+     * Saves a representation of the index in a CSV(Comma Separated Value) file.
+     * @param fileName The of the file where the index Will the saved to.
+     * @see <a href="https://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a>
+     */
+    public void saveIndexToFile(String fileName)  {
         PrintWriter writer = null;
         try {
              writer = new PrintWriter(fileName, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
+        } catch (UnsupportedEncodingException | FileNotFoundException e) {
             System.err.println("ERROR: Writing index to file");
             System.exit(3);
         }

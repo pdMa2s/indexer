@@ -1,6 +1,6 @@
+package indexer;
+
 import java.io.File;
-import java.lang.reflect.Array;
-import java.text.CollationElementIterator;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

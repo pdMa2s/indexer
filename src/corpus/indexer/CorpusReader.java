@@ -1,3 +1,5 @@
+package indexer;
+
 /**
  * A reader of a collection of documents(corpus). The user of this interface knows if there is still objects in
  * a directory to be processed. After a document is processed the user as access to a @see String that represents

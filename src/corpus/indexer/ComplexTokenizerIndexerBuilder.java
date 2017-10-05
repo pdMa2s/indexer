@@ -1,12 +1,12 @@
-import org.tartarus.snowball.ext.englishStemmer;
+package indexer;
+
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-public class CTStemmingIndexerBuilder extends IndexerBuilder {
+public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
 
-
-    public CTStemmingIndexerBuilder(String dirName) {
+    public ComplexTokenizerIndexerBuilder(String dirName) {
         super(dirName);
     }
 
@@ -15,10 +15,9 @@ public class CTStemmingIndexerBuilder extends IndexerBuilder {
         indexer.setCorpusReader(new DirIteratorCorpusReader(directoryName,initializeReader()));
     }
 
-
     @Override
     public void buildTokenizer() {
-        indexer.setTokenizer(new ComplexTokenizer(new englishStemmer()));
+        indexer.setTokenizer(new ComplexTokenizer());
     }
 
     private XMLReader initializeReader(){

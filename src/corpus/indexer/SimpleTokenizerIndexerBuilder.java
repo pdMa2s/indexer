@@ -1,10 +1,12 @@
+package indexer;
+
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
+public class SimpleTokenizerIndexerBuilder extends IndexerBuilder {
 
-    public ComplexTokenizerIndexerBuilder(String dirName) {
+    public SimpleTokenizerIndexerBuilder(String dirName) {
         super(dirName);
     }
 
@@ -15,7 +17,7 @@ public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
 
     @Override
     public void buildTokenizer() {
-        indexer.setTokenizer(new ComplexTokenizer());
+        indexer.setTokenizer(new SimpleTokenizer());
     }
 
     private XMLReader initializeReader(){

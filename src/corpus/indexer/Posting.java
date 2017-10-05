@@ -1,3 +1,15 @@
+package indexer;
+
+/**
+ * This class represents an entry on the index, it has representative purposes. This class stores the
+ * the ID of a document where a certain term appears as well as the number of occurrences of the term
+ * in that document.
+ *
+ * @author Pedro Matos
+ * @author David Ferreira
+ * @since 09-27-2017
+ * @see Index
+ */
 public class Posting implements Comparable<Posting>{
 
     int docID;

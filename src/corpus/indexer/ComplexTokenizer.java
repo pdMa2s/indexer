@@ -1,5 +1,7 @@
+package indexer;
+
 import org.tartarus.snowball.SnowballStemmer;
-import org.tartarus.snowball.ext.englishStemmer;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
