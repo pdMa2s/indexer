@@ -67,7 +67,10 @@ public class Index {
              }
          }
          Collections.sort(termsInDoc);
-         return termsInDoc.subList(0,10);
+         if(termsInDoc.size()>=10)
+            return termsInDoc.subList(0,10);
+         else
+             return termsInDoc.subList(0, termsInDoc.size());
     }
 
     /**
