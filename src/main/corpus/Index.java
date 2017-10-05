@@ -1,12 +1,17 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
  * A data structure that represents an index that stores how many times a
- * term appears in each file along with the document id.
+ * term appears in each file along with the document id. Each index entry points to a
+ * list of Postings.
  *
  * @author Pedro Matos
  * @author David Ferreira
  * @since 09-27-2017
+ * @see Posting
  * */
 public class Index {
      private Map<String, List<Posting>> index;
@@ -95,6 +100,20 @@ public class Index {
         return Arrays.asList(topTen);
     }
 
+    public void saveIndexToFile(String fileName) throws FileNotFoundException {
+        PrintWriter writer = null;
+        try {
+             writer = new PrintWriter(fileName, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            System.err.println("ERROR: Writing index to file");
+            System.exit(3);
+        }
+        for(String term: index.keySet()){
+            for(Posting post : index.get(term)){
+                writer.print(term + "," + post.getDocID() + "," + post.getTermFreq()+",");
+            }
+        }
+    }
     /**
      * Returns the size of the index vocabulary which corresponds to the number of terms in the index.
      * @return The size of the vocabulary that is indexed.
