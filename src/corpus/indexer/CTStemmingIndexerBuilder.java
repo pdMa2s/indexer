@@ -7,7 +7,9 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class CTStemmingIndexerBuilder extends IndexerBuilder {
 
-
+    /**
+     * {@inheritDoc}
+     */
     public CTStemmingIndexerBuilder(String dirName) {
         super(dirName);
     }
