@@ -24,8 +24,8 @@ public class Indexer {
         return index;
     }
     private void fillIndexWithTokens(Index index , List<String> tokens, int docId){
-        for (int i = 0; i < tokens.size(); i++) {
-            index.addTokenOcurrence(tokens.get(i), docId);
+        for (String token: tokens) {
+            index.addTokenOcurrence(token, docId);
         }
     }
 

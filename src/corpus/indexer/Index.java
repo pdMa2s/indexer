@@ -57,11 +57,11 @@ public class Index {
      */
     public List<String> getTop10TermsOccurrences(int docID){
          List<String> termsInDoc = new ArrayList();
-         for(String x: index.keySet()){
-             List<Posting> entry = index.get(x);
+         for(String key: index.keySet()){
+             List<Posting> entry = index.get(key);
              for(int j=0; j<entry.size(); j++){
                 if(entry.get(j).docID == docID) {
-                    termsInDoc.add(x);
+                    termsInDoc.add(key);
                     break;
                 }
              }

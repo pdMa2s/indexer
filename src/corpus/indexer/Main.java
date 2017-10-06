@@ -56,7 +56,7 @@ public class Main {
         System.err.println("USAGE: java indexer.Main <corpusDirectory> <tokenizerType> <indexFile>(Optional)\n"+
                             "<corpusDirectory> - The directory where the corpus is located\n"+
                             "<tokenizerType> - The of tokenizer you want to use\n"+
-                            "indexer.Tokenizer types:\n"+
+                            "Tokenizer types:\n"+
                             "st - Simple indexer.Tokenizer\n"+
                             "ct - Complex indexer.Tokenizer\n"+
                             "cts - Complex indexer.Tokenizer with Stemming\n"+
