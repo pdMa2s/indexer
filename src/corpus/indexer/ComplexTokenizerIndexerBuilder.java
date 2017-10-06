@@ -4,17 +4,30 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+/**
+ *An implementation of IndexerBuilder. Constructs an Indexer with a {@link ComplexTokenizer} and with
+ *  a {@link DirIteratorCorpusReader}
+ */
 public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
-
+    /**
+     *
+     *{@inheritDoc}
+     */
     public ComplexTokenizerIndexerBuilder(String dirName) {
         super(dirName);
     }
 
+    /**
+     * Configures a {@link CorpusReader} of a type {@link DirIteratorCorpusReader} with a {@link XMLReader}.
+     */
     @Override
     public void buildCorpusReader() {
         indexer.setCorpusReader(new DirIteratorCorpusReader(directoryName,initializeReader()));
     }
 
+    /**
+     * Configures a {@link Tokenizer} of a type {@link ComplexTokenizer}.
+     */
     @Override
     public void buildTokenizer() {
         indexer.setTokenizer(new ComplexTokenizer());

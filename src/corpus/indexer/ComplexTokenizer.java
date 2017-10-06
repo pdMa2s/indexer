@@ -16,6 +16,8 @@ import java.util.stream.Stream;
  * Reads a set of stop words from a file and filters tokens based on that set.
  * Applying stemming is optional, if a user wishes to apply it, it must pass a Stemmer as a parameter through
  * the constructor.
+ * @author Pedro Matos
+ * @author David Ferreira
  * @see Tokenizer
  * @see SnowballStemmer
  */
