@@ -11,12 +11,11 @@ public class SimpleTokenizer implements Tokenizer{
     public List<String> tokenize(String docInfo) {
         return Stream
                 .of(docInfo)
-                .map(String::toLowerCase)
                 .map(w -> w.replaceAll("[^a-z\\s]+", ""))
                 .map(w -> w.replaceAll("\\b[a-z]{1,2}\\b", ""))
-                .map(w -> w.replaceAll("\\s+", " "))
                 .map(w -> w.trim())
-                .map(s -> s.split("\\s")).flatMap(Arrays::stream)
+                .map(String::toLowerCase)
+                .map(s -> s.split("\\s+")).flatMap(Arrays::stream)
                 .collect(Collectors.toList());
     }
 }

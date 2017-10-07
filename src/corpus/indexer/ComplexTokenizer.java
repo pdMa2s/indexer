@@ -59,11 +59,10 @@ public class ComplexTokenizer implements Tokenizer{
     public List<String> tokenize(String docInfo) {
         List<String> tokens = Stream
                 .of(docInfo)
-                .map(String::toLowerCase)
                 .map(w -> w.replaceAll("[^\\w\\s]+", ""))
-                .map(w -> w.replaceAll("\\s+", " "))
                 .map(w -> w.trim())
-                .map(s -> s.split("\\s")).flatMap(Arrays::stream)
+                .map(String::toLowerCase)
+                .map(s -> s.split("\\s+")).flatMap(Arrays::stream)
                 .collect(Collectors.toList());
         filterTokensFromStopWords(tokens, stopWordList);
         if(stemmer != null)

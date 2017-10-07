@@ -120,7 +120,7 @@ public class Index {
         }
         for(String term: index.keySet()){
             for(Posting post : index.get(term)){
-                writer.print(term + "," + post.getDocID() + "," + post.getTermFreq()+",");
+                writer.println(term + "," + post.getDocID() + "," + post.getTermFreq());
             }
         }
     }

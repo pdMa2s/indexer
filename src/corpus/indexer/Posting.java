@@ -15,15 +15,28 @@ public class Posting implements Comparable<Posting>{
     int docID;
     int termFreq;
 
+    /**
+     * Constructs a Posting object.
+     * @param docID The ID of a document.
+     * @param termFreq The frequency of a term/word.
+     */
     public Posting(int docID, int termFreq) {
         this.docID = docID;
         this.termFreq = termFreq;
     }
 
+    /**
+     *
+     * @return The ID of this posting document.
+     */
     public int getDocID() {
         return docID;
     }
 
+    /**
+     *
+     * @return The frequency of the term/word.
+     */
     public int getTermFreq() {
         return termFreq;
     }
