@@ -8,12 +8,26 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * An implementation of a {@link DocumentReader} with the purpose of reading files in XML format.
+ * This class uses a {@link SAXParser} for file parsing.
+ * @author Pedro Matos
+ * @author David Ferreira
+ * @since 09-27-2017
+ * @see <a href="https://en.wikipedia.org/wiki/XML">XML</a>
+ */
 public class XMLReader implements DocumentReader {
 
     private File contentFile;
     private DefaultCorpusXMLHandler xmlHandler;
     private SAXParser saxParser;
 
+    /**
+     * Constructs a XMLReader object and initializes a {@link SAXParser} using a {@link DefaultCorpusXMLHandler}.
+     * @param xmlHandler An handler for dealing with the relevant document tags
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     */
     public XMLReader(DefaultCorpusXMLHandler xmlHandler)
             throws ParserConfigurationException, SAXException {
         this.xmlHandler = xmlHandler;
@@ -22,11 +36,19 @@ public class XMLReader implements DocumentReader {
 
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public void open(File file) {
         this.contentFile = file;
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public String parse() {
 
@@ -39,6 +61,10 @@ public class XMLReader implements DocumentReader {
         return xmlHandler.getText();
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public int getDocumentID() {
         return xmlHandler.getID();

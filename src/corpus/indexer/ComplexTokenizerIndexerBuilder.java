@@ -7,6 +7,9 @@ import javax.xml.parsers.ParserConfigurationException;
 /**
  *An implementation of IndexerBuilder. Constructs an Indexer with a {@link ComplexTokenizer} and with
  *  a {@link DirIteratorCorpusReader}
+ * @author Pedro Matos
+ * @author David Ferreira
+ * @since 09-27-2017
  */
 public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
     /**

@@ -41,12 +41,20 @@ public class Posting implements Comparable<Posting>{
         return termFreq;
     }
 
+    /**
+     *
+     * @param docID The ID of a document.
+     */
     public void setDocIDs(int docID) {
         this.docID = docID;
     }
 
-    public void setTermFreq(int tFreq) {
-        this.termFreq = tFreq;
+    /**
+     *
+     * @param termFreq The frequency of a term in a certain document.
+     */
+    public void setTermFreq(int termFreq) {
+        this.termFreq = termFreq;
     }
 
 

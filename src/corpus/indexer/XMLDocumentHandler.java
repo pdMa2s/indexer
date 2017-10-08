@@ -3,6 +3,12 @@ package indexer;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+/**
+ * A derived class of {@link DefaultCorpusXMLHandler}
+ * @author Pedro Matos
+ * @author David Ferreira
+ * @since 09-27-2017
+ */
 public class XMLDocumentHandler extends DefaultCorpusXMLHandler {
 
     private boolean titleElement = false;
@@ -19,19 +25,34 @@ public class XMLDocumentHandler extends DefaultCorpusXMLHandler {
     static final String BODYTAG = "TEXT";
     static final String IDTAG = "DOCNO";
 
+    /**
+     * {@inheritDoc}
+     */
     public XMLDocumentHandler(){
         super();
         text = new StringBuilder();
     }
 
+    /**
+     *
+     *  @return A String with contents of the body tag.
+     */
     public String getBody() {
         return body;
     }
 
+    /**
+     *
+     * @return A String with contents of the title tag.
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     public int getID() {return docNr; }
 
     @Override
@@ -78,6 +99,10 @@ public class XMLDocumentHandler extends DefaultCorpusXMLHandler {
             docElement = false;
     }
 
+    /**
+     *
+     * {@inheritDoc}
+     */
     @Override
     public String getText() {
         String clear = text.toString();

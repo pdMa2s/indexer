@@ -18,6 +18,7 @@ import java.util.stream.Stream;
  * the constructor.
  * @author Pedro Matos
  * @author David Ferreira
+ * @since 09-27-2017
  * @see Tokenizer
  * @see SnowballStemmer
  */
