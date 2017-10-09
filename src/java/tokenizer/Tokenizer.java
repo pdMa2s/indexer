@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * An Object the implements the tokenizer.tokenizer interface has to breakdown a String into several tokens using a certain set of
  * rules which the Object is free to chose.
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @see String
  */

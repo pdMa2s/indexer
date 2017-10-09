@@ -14,7 +14,7 @@ import javax.xml.parsers.ParserConfigurationException;
 /**
  * A builder that constructs {@link Indexer} with a {@link ComplexTokenizer} that uses an English Stemmer,
  * the {@link CorpusReader} used here is a {@link DirIteratorCorpusReader}.
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  *

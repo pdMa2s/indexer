@@ -10,7 +10,7 @@ import java.util.*;
  * term appears in each file along with the document id. Each index entry points to a
  * list of Postings.
  *
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  * @see Posting

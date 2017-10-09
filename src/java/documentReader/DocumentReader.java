@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * A reader for the documents of a corpus, an implementation of this class has to be able to provide information
  * that is processing.
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  *

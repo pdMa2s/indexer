@@ -6,7 +6,7 @@ package corpus;
  * the content of a file. The ID of the file is also provided.
  * The documents are meant to be processed in a iterative way.
  *
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @since 09-27-2017
  * */
 public interface CorpusReader {

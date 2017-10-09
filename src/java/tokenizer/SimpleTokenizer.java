@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  * An implementation of the interface {@link Tokenizer}, creates a collection of tokens based on a documents content.
  * Token filtration is made by removing all non-alphabetic characters, eliminating words with three characters or less and
  * set all the characters to lower case.
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  * @see Tokenizer

@@ -8,7 +8,7 @@ import tokenizer.Tokenizer;
  * purpose of creating an instance of an Indexer.
  * An indexer class needs a {@link CorpusReader} and a {@link Tokenizer}, as such, this class can have many configurations depending on the
  * user's preferences, so, in order to hide some complexity a builder pattern is applied.
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  * @see Indexer

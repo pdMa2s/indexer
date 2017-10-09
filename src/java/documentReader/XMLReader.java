@@ -11,7 +11,7 @@ import java.io.IOException;
 /**
  * An implementation of a {@link DocumentReader} with the purpose of reading files in XML format.
  * This class uses a {@link SAXParser} for file parsing.
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  * @see <a href="https://en.wikipedia.org/wiki/XML">XML</a>

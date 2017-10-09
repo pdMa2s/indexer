@@ -5,7 +5,7 @@ import org.xml.sax.helpers.DefaultHandler;
 /**
  * An abstract implementation of a {@link DefaultHandler}, adds complexity to this class by forcing the users that use
  * this class to implement methods that are useful for processing the documents of the sample corpus.
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  *

@@ -5,7 +5,7 @@ package indexer;
  * the ID of a document where a certain term appears as well as the number of occurrences of the term
  * in that document.
  *
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  * @see Index

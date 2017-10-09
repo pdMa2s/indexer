@@ -12,7 +12,7 @@ import java.util.List;
  * a {@link Tokenizer} is used to provide the tokens/words from that document content. Finally an {@link Index} is
  * filled with the occurrences of those tokens/words.
  *
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  * @see Tokenizer

@@ -5,7 +5,7 @@ import org.xml.sax.SAXException;
 
 /**
  * A derived class of {@link DefaultCorpusXMLHandler}
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  */

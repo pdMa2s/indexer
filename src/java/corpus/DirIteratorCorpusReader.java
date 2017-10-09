@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * A class that iterates files in a directory, returning their content.
  * The files are processed in alphabetic order.
- * @author Pedro Matos
+ * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  *
