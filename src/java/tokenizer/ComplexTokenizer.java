@@ -1,4 +1,4 @@
-package indexer;
+package tokenizer;
 
 import org.tartarus.snowball.SnowballStemmer;
 
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * An implementation of the interface Tokenizer, creates a collection of tokens based on a documents content.
+ * An implementation of the interface tokenizer, creates a collection of tokens based on a documents content.
  * Reads a set of stop words from a file and filters tokens based on that set.
  * Applying stemming is optional, if a user wishes to apply it, it must pass a Stemmer as a parameter through
  * the constructor.
@@ -60,10 +60,10 @@ public class ComplexTokenizer implements Tokenizer{
     public List<String> tokenize(String docInfo) {
         List<String> tokens = Stream
                 .of(docInfo)
-                .map(w -> w.replaceAll("[^\\w\\s]+", ""))
-                .map(w -> w.trim())
-                .map(String::toLowerCase)
-                .map(s -> s.split("\\s+")).flatMap(Arrays::stream)
+                .map(w -> w.replaceAll("[^\\w\\s]+", "")).parallel()
+                .map(w -> w.trim()).parallel()
+                .map(String::toLowerCase).parallel()
+                .map(s -> s.split("\\s+")).flatMap(Arrays::stream).parallel()
                 .collect(Collectors.toList());
         filterTokensFromStopWords(tokens, stopWordList);
         if(stemmer != null)

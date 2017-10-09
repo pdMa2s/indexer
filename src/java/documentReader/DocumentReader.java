@@ -1,4 +1,4 @@
-package indexer;
+package documentReader;
 
 import java.io.File;
 

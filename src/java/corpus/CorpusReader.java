@@ -1,4 +1,4 @@
-package indexer;
+package corpus;
 
 /**
  * A reader of a collection of documents(corpus). The user of this interface knows if there is still objects in

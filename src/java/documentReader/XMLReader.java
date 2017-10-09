@@ -1,4 +1,4 @@
-package indexer;
+package documentReader;
 
 import org.xml.sax.SAXException;
 

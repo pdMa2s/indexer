@@ -1,5 +1,8 @@
 package indexer;
 
+import corpus.CorpusReader;
+import tokenizer.Tokenizer;
+
 /**
  * This abstract class serves as a starting point for the an implementation of the builder pattern with the
  * purpose of creating an instance of an Indexer.
@@ -55,7 +58,7 @@ public abstract class IndexerBuilder {
     public abstract void buildCorpusReader();
 
     /**
-     * The purpose of this function is to configure a Tokenizer for this Indexer instance.
+     * The purpose of this function is to configure a tokenizer for this Indexer instance.
      * @see Tokenizer
      */
     public abstract void buildTokenizer();

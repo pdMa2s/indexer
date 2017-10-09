@@ -116,7 +116,7 @@ var activeTableTab = "activeTableTab";
 extends java.lang.Object</pre>
 <div class="block">This abstract class serves as a starting point for the an implementation of the builder pattern with the
  purpose of creating an instance of an Indexer.
- An indexer class needs a <a href="../indexer/CorpusReader.html" title="interface in indexer"><code>CorpusReader</code></a> and a <a href="../indexer/Tokenizer.html" title="interface in indexer"><code>Tokenizer</code></a>, as such, this class can have many configurations depending on the
+ An indexer class needs a <a href="../indexer/CorpusReader.html" title="interface in indexer"><code>CorpusReader</code></a> and a <a href="../indexer/Tokenizer.html" title="interface in indexer"><code>tokenizer</code></a>, as such, this class can have many configurations depending on the
  user's preferences, so, in order to hide some complexity a builder pattern is applied.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -126,7 +126,7 @@ extends java.lang.Object</pre>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../indexer/Indexer.html" title="class in indexer"><code>Indexer</code></a>, 
 <a href="../indexer/CorpusReader.html" title="interface in indexer"><code>CorpusReader</code></a>, 
-<a href="../indexer/Tokenizer.html" title="interface in indexer"><code>Tokenizer</code></a>, 
+<a href="../indexer/Tokenizer.html" title="interface in indexer"><code>tokenizer</code></a>,
 <a href="../indexer/ComplexTokenizerIndexerBuilder.html" title="class in indexer"><code>ComplexTokenizerIndexerBuilder</code></a></dd>
 </dl>
 </li>
@@ -198,7 +198,7 @@ extends java.lang.Object</pre>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>abstract void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../indexer/IndexerBuilder.html#buildTokenizer--">buildTokenizer</a></span>()</code>
-<div class="block">The purpose of this function is to configure a Tokenizer for this Indexer instance.</div>
+<div class="block">The purpose of this function is to configure a tokenizer for this Indexer instance.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -347,10 +347,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>buildTokenizer</h4>
 <pre>public abstract&nbsp;void&nbsp;buildTokenizer()</pre>
-<div class="block">The purpose of this function is to configure a Tokenizer for this Indexer instance.</div>
+<div class="block">The purpose of this function is to configure a tokenizer for this Indexer instance.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../indexer/Tokenizer.html" title="interface in indexer"><code>Tokenizer</code></a></dd>
+<dd><a href="../indexer/Tokenizer.html" title="interface in indexer"><code>tokenizer</code></a></dd>
 </dl>
 </li>
 </ul>

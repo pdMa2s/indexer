@@ -1,4 +1,4 @@
-package indexer;
+import indexer.*;
 
 public class Main {
     public static void main(String[] args){
@@ -12,6 +12,10 @@ public class Main {
         indexer = builder.constructIndexer();
         index = indexer.createIndex();
 
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+
+        System.out.println("Indexing time: "+elapsedTime+"ms");
         //System.out.println(index);
         System.out.println("Vocabulary size: " +index.vocabularySize());
         System.out.println("Ten First terms in document 1 with alphabetical order: " + index.getTop10TermsOccurrences(1));
@@ -19,10 +23,7 @@ public class Main {
 
         index.saveIndexToFile(FILETOSAVEINDEX);
 
-        long stopTime = System.currentTimeMillis();
-        long elapsedTime = stopTime - startTime;
 
-        System.out.println("Run time: "+elapsedTime+"ms");
     }
 
     private static void checkParameterLength(String[] args){
@@ -53,13 +54,13 @@ public class Main {
 
     }
     private static void printUSAGE(){
-        System.err.println("USAGE: java indexer.Main <corpusDirectory> <tokenizerType> <indexFile>(Optional)\n"+
+        System.err.println("USAGE: java Main <corpusDirectory> <tokenizerType> <indexFile>(Optional)\n"+
                             "<corpusDirectory> - The directory where the corpus is located\n"+
                             "<tokenizerType> - The of tokenizer you want to use\n"+
-                            "Tokenizer types:\n"+
-                            "st - Simple indexer.Tokenizer\n"+
-                            "ct - Complex indexer.Tokenizer\n"+
-                            "cts - Complex indexer.Tokenizer with Stemming\n"+
+                            "tokenizer types:\n"+
+                            "st - Simple tokenizer.tokenizer\n"+
+                            "ct - Complex tokenizer.tokenizer\n"+
+                            "cts - Complex tokenizer.tokenizer with Stemming\n"+
                             "<indexFile> - The optional parameter lets you pick the name of the file where the index will be saved to\n");
         System.exit(1);
     }

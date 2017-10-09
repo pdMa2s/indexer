@@ -1,5 +1,8 @@
 package indexer;
 
+import corpus.CorpusReader;
+import tokenizer.Tokenizer;
+
 import java.util.List;
 
 /**

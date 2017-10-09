@@ -1,5 +1,11 @@
 package indexer;
 
+import corpus.CorpusReader;
+import corpus.DirIteratorCorpusReader;
+import documentReader.XMLDocumentHandler;
+import documentReader.XMLReader;
+import tokenizer.ComplexTokenizer;
+import tokenizer.Tokenizer;
 import org.tartarus.snowball.ext.englishStemmer;
 import org.xml.sax.SAXException;
 

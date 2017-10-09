@@ -1,5 +1,11 @@
 package indexer;
 
+import corpus.CorpusReader;
+import corpus.DirIteratorCorpusReader;
+import documentReader.XMLDocumentHandler;
+import documentReader.XMLReader;
+import tokenizer.ComplexTokenizer;
+import tokenizer.Tokenizer;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

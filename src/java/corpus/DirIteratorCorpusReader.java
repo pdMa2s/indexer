@@ -1,4 +1,6 @@
-package indexer;
+package corpus;
+
+import documentReader.DocumentReader;
 
 import java.io.File;
 import java.util.Arrays;
