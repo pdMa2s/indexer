@@ -1,3 +1,7 @@
+
+corpus
+documentReader
 indexer
 org.tartarus.snowball
 org.tartarus.snowball.ext
+tokenizer

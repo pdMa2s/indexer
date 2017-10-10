@@ -28,9 +28,16 @@ public class DirIteratorCorpusReader implements CorpusReader {
      */
     public DirIteratorCorpusReader(String dirName,DocumentReader reader){
         this.reader = reader;
-        dirFiles = Arrays.asList(new File(dirName).listFiles());
+        File corpusDirectory = new File(dirName);
+        checkIfFileIsDirectory(corpusDirectory);
+        dirFiles = Arrays.asList(corpusDirectory.listFiles());
         Collections.sort(dirFiles);
         fileIndex = 0;
+    }
+    private void checkIfFileIsDirectory(File dir){
+        if(!dir.exists() || !dir.isDirectory()){
+            throw new IllegalArgumentException("The corpus location that was provided is not a directory");
+        }
     }
 
     /**

@@ -50,6 +50,7 @@ public class Main {
             case "cts":
                 return new CTStemmingIndexerBuilder(dirName);
             default:
+                System.err.println("ERROR: Unknown Tokenizer type");
                 printUSAGE();
 
         }
