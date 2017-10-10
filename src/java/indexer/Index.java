@@ -119,9 +119,11 @@ public class Index {
             System.exit(3);
         }
         for(String term: index.keySet()){
+            writer.print(term);
             for(Posting post : index.get(term)){
-                writer.println(term + "," + post.getDocID() + "," + post.getTermFreq());
+                writer.print(","+post.getDocID() + ":" + post.getTermFreq());
             }
+            writer.print("\n");
         }
     }
     /**
