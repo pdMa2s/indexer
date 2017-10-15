@@ -55,7 +55,6 @@ public class Main {
 
         }
         return null;
-
     }
     private static void printUSAGE(){
         System.err.println("USAGE: java Main <corpusDirectory> <tokenizerType> <indexFile>(Optional)\n"+
