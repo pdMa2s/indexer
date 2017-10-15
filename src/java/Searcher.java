@@ -17,14 +17,15 @@ public class Searcher {
         File ContentFile = new File(args[0]);
         File QueryFile = new File(args[1]);
         Tokenizer tokenizer = parseTokenizerType(args[2]);
+        String queryMethod = args[3];
 
         Index index = new Index();
-        QueryProcessor br = new BooleanQueryProcessor(tokenizer);
         IndexReader idr = new SimpleIndexReader(index);
 
         idr.open(ContentFile);
         idr.parseAndIndex();
 
+        QueryProcessor br = new BooleanQueryProcessor(tokenizer, queryMethod, index);
         br.open(QueryFile);
         br.processQueries();
     }

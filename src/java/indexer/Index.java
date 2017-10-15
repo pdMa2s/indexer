@@ -48,6 +48,10 @@ public class Index {
          }
      }
 
+     public List<Posting> getTokenList(String token){
+         return index.get(token);
+     }
+
      public void addTokenAndPostings(String token, List<Posting> postings){
          index.put(token, postings);
      }
