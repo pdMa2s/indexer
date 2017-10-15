@@ -1,7 +1,7 @@
-package indexer;
+package src.java.indexer;
 
-import corpus.CorpusReader;
-import tokenizer.Tokenizer;
+import src.java.corpus.CorpusReader;
+import src.java.tokenizer.Tokenizer;
 
 import java.util.List;
 

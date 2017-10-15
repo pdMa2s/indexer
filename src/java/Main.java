@@ -1,4 +1,4 @@
-import indexer.*;
+import src.java.indexer.*;
 
 /**
  * @author Pedro Matos - 73941

@@ -1,4 +1,4 @@
-package indexer;
+package src.java.indexer;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

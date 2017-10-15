@@ -1,4 +1,4 @@
-package indexer;
+package src.java.indexer;
 
 /**
  * This class represents an entry on the index, it has representative purposes. This class stores the

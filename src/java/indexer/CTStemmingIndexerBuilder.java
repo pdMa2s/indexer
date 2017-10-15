@@ -1,11 +1,11 @@
-package indexer;
+package src.java.indexer;
 
-import corpus.CorpusReader;
-import corpus.DirIteratorCorpusReader;
-import documentReader.XMLDocumentHandler;
-import documentReader.XMLReader;
-import tokenizer.ComplexTokenizer;
-import tokenizer.Tokenizer;
+import src.java.corpus.CorpusReader;
+import src.java.corpus.DirIteratorCorpusReader;
+import src.java.documentReader.XMLDocumentHandler;
+import src.java.documentReader.XMLReader;
+import src.java.tokenizer.ComplexTokenizer;
+import src.java.tokenizer.Tokenizer;
 import org.tartarus.snowball.ext.englishStemmer;
 import org.xml.sax.SAXException;
 

@@ -1,4 +1,4 @@
-package tokenizer;
+package src.java.tokenizer;
 
 import org.tartarus.snowball.SnowballStemmer;
 

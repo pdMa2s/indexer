@@ -1,7 +1,7 @@
-package indexer;
+package src.java.indexer;
 
-import corpus.CorpusReader;
-import tokenizer.Tokenizer;
+import src.java.corpus.CorpusReader;
+import src.java.tokenizer.Tokenizer;
 
 /**
  * This abstract class serves as a starting point for the an implementation of the builder pattern with the
