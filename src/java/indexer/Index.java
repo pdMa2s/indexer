@@ -48,6 +48,10 @@ public class Index {
          }
      }
 
+     public void addTokenAndPostings(String token, List<Posting> postings){
+         index.put(token, postings);
+     }
+
     /**
      * Returns a List which contains the 10 terms of a index, alphabetically ordered, with
      * the most occurrences in a certain document.
