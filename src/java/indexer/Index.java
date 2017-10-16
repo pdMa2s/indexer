@@ -17,7 +17,7 @@ import java.util.*;
  * */
 public class Index {
      private Map<String, List<Posting>> index;
-
+     private int count = 0;
     /**
      * Constructs an empty index.
      */
@@ -53,7 +53,8 @@ public class Index {
      }
 
      public void addTokenAndPostings(String token, List<Posting> postings){
-         index.put(token, postings);
+         if(!index.containsKey(token))
+            index.put(token, postings);
      }
 
     /**

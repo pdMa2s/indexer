@@ -5,7 +5,6 @@ import src.java.IndexReader.IndexReader;
 import src.java.IndexReader.SimpleIndexReader;
 import src.java.indexer.*;
 import src.java.queryProcessingUnits.BooleanQueryProcessor;
-import src.java.queryProcessingUnits.QueryProcessor;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.SimpleTokenizer;
 import src.java.tokenizer.Tokenizer;
@@ -18,6 +17,7 @@ public class Searcher {
         File QueryFile = new File(args[1]);
         Tokenizer tokenizer = parseTokenizerType(args[2]);
         String queryMethod = args[3];
+        File queryResultFileName = new File(args[4]);
 
         Index index = new Index();
         IndexReader idr = new SimpleIndexReader(index);
@@ -25,7 +25,7 @@ public class Searcher {
         idr.open(ContentFile);
         idr.parseAndIndex();
 
-        QueryProcessor br = new BooleanQueryProcessor(tokenizer, queryMethod, index);
+        BooleanQueryProcessor br = new BooleanQueryProcessor(tokenizer, queryMethod, index, queryResultFileName);
         br.open(QueryFile);
         br.processQueries();
     }
