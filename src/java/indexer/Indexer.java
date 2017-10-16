@@ -1,5 +1,6 @@
 package src.java.indexer;
 
+import src.java.index.Index;
 import src.java.corpus.CorpusReader;
 import src.java.tokenizer.Tokenizer;
 
@@ -42,7 +43,7 @@ public class Indexer {
 
     /**
      * Gives access to the {@link Index} that was created.
-     * @return The Index that was created.
+     * @return The index that was created.
      */
     public Index getIndex(){
         return index;
