@@ -4,12 +4,16 @@ import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
 import src.java.documentReader.XMLDocumentHandler;
 import src.java.documentReader.XMLReader;
+import src.java.index.IndexWriter;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.Tokenizer;
 import org.tartarus.snowball.ext.englishStemmer;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import static src.java.constants.Contants.COMPLEXTOKENIZER;
+import static src.java.constants.Contants.COMPLEXTOKENIZERSTEMMING;
 
 /**
  * A builder that constructs {@link Indexer} with a {@link ComplexTokenizer} that uses an English Stemmer,
@@ -45,6 +49,12 @@ public class CTStemmingIndexerBuilder extends IndexerBuilder {
     public void buildTokenizer() {
         indexer.setTokenizer(new ComplexTokenizer(new englishStemmer()));
     }
+
+    @Override
+    public String getTokenizerType() {
+        return COMPLEXTOKENIZERSTEMMING;
+    }
+
 
     private XMLReader initializeReader(){
         try {

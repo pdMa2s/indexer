@@ -1,7 +1,10 @@
 package src.java.index;
 
+import src.java.tokenizer.Tokenizer;
+
 import java.io.File;
 
 public interface IndexReader {
-        Index parseToIndex(File indexFile);
+    Tokenizer getTokenizer();
+    Index parseToIndex(File indexFile);
 }

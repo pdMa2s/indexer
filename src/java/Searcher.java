@@ -1,6 +1,5 @@
 package src.java;
 
-import org.tartarus.snowball.ext.englishStemmer;
 import src.java.index.CSVIndexReader;
 import src.java.index.Index;
 import src.java.index.IndexReader;
@@ -8,43 +7,59 @@ import src.java.query.DisjuntiveQueryProcessor;
 import src.java.query.Query;
 import src.java.query.QueryLoader;
 import src.java.query.QueryProcessor;
-import src.java.tokenizer.ComplexTokenizer;
-import src.java.tokenizer.SimpleTokenizer;
-import src.java.tokenizer.Tokenizer;
-
 import java.io.File;
 import java.util.List;
 
+
 public class Searcher {
     public static void main(String[] args){
-        File contentFile = new File(args[0]);
+        checkParameterLength(args);
+        File indexFile = new File(args[0]);
         File queryFile = new File(args[1]);
-        Tokenizer tokenizer = parseTokenizerType(args[2]);
-
-
+        String resultFileName = chooseFileToSaveIndex(args);
         Index index;
         IndexReader idr = new CSVIndexReader();
 
 
-        index = idr.parseToIndex(contentFile);
-        QueryLoader br = new QueryLoader(tokenizer);
+        index = idr.parseToIndex(indexFile);
+        QueryLoader br = new QueryLoader(idr.getTokenizer());
         List<Query> queries = br.loadQueries(queryFile);
-        //System.out.println(queries);
         QueryProcessor qp = new DisjuntiveQueryProcessor(index);
-        qp.frequencyOfQueryWordsInDocument(queries);
-        qp.saveQueryResultsToFile("results", queries);    }
-
-    private static Tokenizer parseTokenizerType(String arg){
-        switch (arg){
-            case "st":
-                return new SimpleTokenizer();
-            case "ct":
-                return new ComplexTokenizer();
-            case "cts":
-                return new ComplexTokenizer(new englishStemmer());
-            default:
-                System.err.println("ERROR: Unknown Tokenizer type");
-        }
-        return null;
+        parseOperation(args[2], qp, queries);
+        qp.saveQueryResultsToFile(resultFileName, queries);
     }
+
+    private static void parseOperation(String arg, QueryProcessor processor, List<Query> queries) {
+        int argNumber = Integer.parseInt(arg);
+        switch (argNumber) {
+            case 1:
+                processor.queryWordsInDocument(queries);
+                break;
+            case 2:
+                processor.frequencyOfQueryWordsInDocument(queries);
+                break;
+            default:
+                System.err.println("ERROR Unknown operation");
+                printUSAGE();
+        }
+    }
+    private static String chooseFileToSaveIndex(String[] args){
+        if(args.length == 4)
+            return args[3];
+        return "results";
+    }
+    private static void printUSAGE(){
+        System.err.println("USAGE: java Searcher <indexFile> <queryFile> <operation>)\n"+
+                            "<indexFile");
+
+        System.exit(1);
+    }
+    private static void checkParameterLength(String[] args){
+        if(args.length < 3 || args.length > 4){
+            printUSAGE();
+        }
+
+    }
+
+
 }

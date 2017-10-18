@@ -4,11 +4,15 @@ import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
 import src.java.documentReader.XMLDocumentHandler;
 import src.java.documentReader.XMLReader;
+import src.java.index.CSVIndexWriter;
+import src.java.index.IndexWriter;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.Tokenizer;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import static src.java.constants.Contants.COMPLEXTOKENIZER;
 
 /**
  *An implementation of IndexerBuilder. Constructs an Indexer with a {@link ComplexTokenizer} and with
@@ -26,6 +30,7 @@ public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
         super(dirName);
     }
 
+
     /**
      * Configures a {@link CorpusReader} of a type {@link DirIteratorCorpusReader} with a {@link XMLReader}.
      */
@@ -40,6 +45,11 @@ public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
     @Override
     public void buildTokenizer() {
         indexer.setTokenizer(new ComplexTokenizer());
+    }
+
+    @Override
+    public String getTokenizerType() {
+        return COMPLEXTOKENIZER;
     }
 
     private XMLReader initializeReader(){

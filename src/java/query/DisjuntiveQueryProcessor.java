@@ -22,7 +22,7 @@ public class DisjuntiveQueryProcessor implements QueryProcessor {
     public void queryWordsInDocument(List<Query> queries) {
         for(Query query: queries) {
             for (String term : query.getTerms()) {
-                List<Posting> postings = index.getTokenList(term);
+                List<Posting> postings = index.getPostingList(term);
                 if (postings != null) {
                     for (Posting pst : postings) {
                         if (query.getScore(pst.getDocID()) == null)
@@ -39,7 +39,7 @@ public class DisjuntiveQueryProcessor implements QueryProcessor {
     public void frequencyOfQueryWordsInDocument(List<Query> queries) {
         for(Query query: queries) {
             for (String term : query.getTerms()) {
-                List<Posting> postings = index.getTokenList(term);
+                List<Posting> postings = index.getPostingList(term);
                 if (postings != null) {
                     for (Posting pst : postings) {
                         if (query.getScore(pst.getDocID()) == null)
@@ -68,5 +68,6 @@ public class DisjuntiveQueryProcessor implements QueryProcessor {
                 writer.printf("%8d%8d%10d\n",query.getId(),resultDocId,query.getScore(resultDocId));
             }
         }
+        writer.close();
     }
 }

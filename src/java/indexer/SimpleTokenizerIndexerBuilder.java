@@ -4,11 +4,15 @@ import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
 import src.java.documentReader.XMLDocumentHandler;
 import src.java.documentReader.XMLReader;
+import src.java.index.IndexWriter;
 import src.java.tokenizer.SimpleTokenizer;
 import src.java.tokenizer.Tokenizer;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import static src.java.constants.Contants.COMPLEXTOKENIZER;
+import static src.java.constants.Contants.SIMPLETOKENIZER;
 
 /**
  * An implementation of IndexerBuilder. Constructs an Indexer with a {@link SimpleTokenizer} and with
@@ -22,7 +26,7 @@ public class SimpleTokenizerIndexerBuilder extends IndexerBuilder {
      *
      *{@inheritDoc}
      */
-    public SimpleTokenizerIndexerBuilder(String dirName) {
+    public SimpleTokenizerIndexerBuilder(String dirName){
         super(dirName);
     }
     /**
@@ -40,6 +44,12 @@ public class SimpleTokenizerIndexerBuilder extends IndexerBuilder {
     public void buildTokenizer() {
         indexer.setTokenizer(new SimpleTokenizer());
     }
+
+    @Override
+    public String getTokenizerType() {
+        return SIMPLETOKENIZER;
+    }
+
 
     private XMLReader initializeReader(){
         try {

@@ -1,8 +1,5 @@
 package src.java.index;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -25,6 +22,9 @@ public class Index {
          this.index = new HashMap<>();
      }
 
+    public Set<String> getTerms(){
+        return index.keySet();
+    }
      /**
       * Adds an occurrence of a token in a document with a certain ID to the index.
       * @param token A word/token, its occurrence will be stored in the index.
@@ -48,14 +48,14 @@ public class Index {
          }
      }
 
-     public List<Posting> getTokenList(String token){
-         return index.get(token);
+    public List<Posting> getPostingList(String term){
+         return index.get(term);
      }
 
-     public void addTokenAndPostings(String token, List<Posting> postings){
+    public void addTermAndPostings(String token, List<Posting> postings){
          if(!index.containsKey(token))
             index.put(token, postings);
-     }
+    }
 
     /**
      * Returns a List which contains the 10 terms of a index, alphabetically ordered, with
@@ -114,27 +114,6 @@ public class Index {
         return Arrays.asList(topTen);
     }
 
-    /**
-     * Saves a representation of the index in a CSV(Comma Separated Value) file.
-     * @param fileName The of the file where the index Will the saved to.
-     * @see <a href="https://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a>
-     */
-    public void saveIndexToFile(String fileName)  {
-        PrintWriter writer = null;
-        try {
-             writer = new PrintWriter(fileName, "UTF-8");
-        } catch (UnsupportedEncodingException | FileNotFoundException e) {
-            System.err.println("ERROR: Writing index to file");
-            System.exit(3);
-        }
-        for(String term: index.keySet()){
-            writer.print(term);
-            for(Posting post : index.get(term)){
-                writer.print(","+post.getDocID() + ":" + post.getTermFreq());
-            }
-            writer.print("\n");
-        }
-    }
     /**
      * Returns the size of the index vocabulary which corresponds to the number of terms in the index.
      * @return The size of the vocabulary that is indexed.

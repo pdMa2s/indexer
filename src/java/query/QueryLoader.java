@@ -7,10 +7,8 @@ import java.util.*;
 
 public class QueryLoader implements QueryReader {
 
-    private Scanner scannerReader = null;
-    private Tokenizer tokenizer = null;
+    private Tokenizer tokenizer;
     private List<Query> queries;
-    private Map<Integer, Integer> results = new HashMap<>();
 
 
     public QueryLoader(Tokenizer tokenizer){
@@ -22,20 +20,21 @@ public class QueryLoader implements QueryReader {
    @Override
     public List<Query> loadQueries(File queryFile){
         try {
-            scannerReader = new Scanner(queryFile);
-            scannerReader.useDelimiter("\\.");
+            InputStream inputStream = new FileInputStream(queryFile);
+            BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));
             String query;
             int queryCounter = 0;
-            while(scannerReader.hasNext()){
-                query = scannerReader.next();
+            while((query = bf.readLine()) != null){
                 queryCounter++;
                 queries.add(new Query(queryCounter,tokenizer.tokenize(query)));
             }
         }catch(FileNotFoundException e){
             System.err.println("Query file not found!");
             System.exit(3);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return queries;
+       return queries;
     }
 
 }
