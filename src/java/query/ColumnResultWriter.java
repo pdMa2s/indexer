@@ -21,6 +21,7 @@ public class ColumnResultWriter implements QueryResultWriter{
                 //System.out.println(query.getId()+"\t"+resultDocId+"\t"+query.getScore(resultDocId));
                 writer.printf("%8d%8d%10d\n",query.getId(),resultDocId,query.getScore(resultDocId));
             }
+            query.clearResults();
         }
         writer.close();
     }

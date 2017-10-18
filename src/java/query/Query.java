@@ -17,6 +17,8 @@ public class Query {
         this.results = new HashMap<>();
     }
 
+    public void clearResults() { results.clear(); }
+
     public int getId() {
         return id;
     }
