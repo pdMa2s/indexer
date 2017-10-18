@@ -49,8 +49,15 @@ public class Searcher {
         return "results";
     }
     private static void printUSAGE(){
-        System.err.println("USAGE: java Searcher <indexFile> <queryFile> <operation>)\n"+
-                            "<indexFile");
+        System.err.println("USAGE: java Searcher <indexFile> <queryFile> <operation> <resultFile> (Optional)\n"+
+                            "<indexFile> - The path to the file of the index on disk\n"+
+                            "<queryFile> - The path to the file of the queries\n"+
+                            "<operation> - The id of the operation you want to execute\n"+
+                            "Operation Types:\n"+
+                            "1 - Number of words in the query that appear in the document\n"+
+                            "2 - Total frequency of query words in the document\n"+
+                            "<resultFile> - This argument is optional, the name of the file where you to save the results\n"+
+                            "By default the results will be saved to the file \"results\".");
 
         System.exit(1);
     }
