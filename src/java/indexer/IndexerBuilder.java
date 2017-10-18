@@ -20,8 +20,6 @@ import src.java.tokenizer.Tokenizer;
 public abstract class IndexerBuilder {
     protected Indexer indexer;
     protected String directoryName;
-    protected IndexWriter indexWriter;
-    protected String indexFileName;
     /**
      * A super constructor for all the class that will derive this class.
      * @param dirName The directory name where the document corpus is located
