@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-import static src.java.constants.Contants.COMPLEXTOKENIZER;
-import static src.java.constants.Contants.COMPLEXTOKENIZERSTEMMING;
-import static src.java.constants.Contants.SIMPLETOKENIZER;
+import static src.java.constants.Constants.COMPLEXTOKENIZER;
+import static src.java.constants.Constants.COMPLEXTOKENIZERSTEMMING;
+import static src.java.constants.Constants.SIMPLETOKENIZER;
 
 public class CSVIndexReader implements IndexReader {
 

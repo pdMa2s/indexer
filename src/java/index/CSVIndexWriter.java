@@ -4,8 +4,20 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * This implementation of {@link IndexWriter} writes an {@link Index} object on disk, with a format similar
+ * to CSV.<br>
+ * Example: term, documentId:DocumentFrequency,documentId:DocumentFrequency, ...
+ * @author Pedro Matos
+ * @author David Ferreira
+ * @since 10-16-2017
+ * @see <a href="https://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a>
+ */
 public class CSVIndexWriter implements IndexWriter{
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void saveIndexToFile(String fileName, Index index, String tokenizerType) {
         PrintWriter writer = null;
@@ -19,6 +31,7 @@ public class CSVIndexWriter implements IndexWriter{
         writeTerms(writer, index);
 
     }
+
     private void writeHeader(PrintWriter writer, String tokenizerType){
         writer.println(tokenizerType);
     }

@@ -4,15 +4,13 @@ import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
 import src.java.documentReader.XMLDocumentHandler;
 import src.java.documentReader.XMLReader;
-import src.java.index.CSVIndexWriter;
-import src.java.index.IndexWriter;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.Tokenizer;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import static src.java.constants.Contants.COMPLEXTOKENIZER;
+import static src.java.constants.Constants.COMPLEXTOKENIZER;
 
 /**
  *An implementation of IndexerBuilder. Constructs an Indexer with a {@link ComplexTokenizer} and with
