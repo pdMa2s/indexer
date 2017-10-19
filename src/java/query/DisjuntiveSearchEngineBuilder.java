@@ -16,7 +16,7 @@ public class DisjuntiveSearchEngineBuilder extends SearchEngineBuilder{
 
     @Override
     public void buildQueryReader() {
-        searchEngine.setQueryReader(new QueryLoader(tokenizer));
+        searchEngine.setQueryReader(new QueryLoader());
     }
 
     @Override
@@ -28,5 +28,10 @@ public class DisjuntiveSearchEngineBuilder extends SearchEngineBuilder{
     @Override
     public void buildQueryResultWriter() {
         searchEngine.setQueryResultWriter(new ColumnResultWriter());
+    }
+
+    @Override
+    public void buildQueryTokenizer() {
+        searchEngine.setTokenizer(tokenizer);
     }
 }

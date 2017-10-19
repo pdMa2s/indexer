@@ -5,20 +5,28 @@ import src.java.tokenizer.Tokenizer;
 import java.io.*;
 import java.util.*;
 
+/**
+ * An implementation of {@link QueryReader}. Reads a query for each line of the file.
+ * @author Pedro Matos
+ * @author David Ferreira
+ * @since 10-16-2017
+ */
 public class QueryLoader implements QueryReader {
 
-    private Tokenizer tokenizer;
     private List<Query> queries;
 
-
-    public QueryLoader(Tokenizer tokenizer){
-        this.tokenizer = tokenizer;
+    /**
+     * Constructs a {@link QueryLoader} object.
+     */
+    public QueryLoader(){
         this.queries = new ArrayList<>();
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
    @Override
-    public List<Query> loadQueries(File queryFile){
+    public List<Query> loadQueries(File queryFile, Tokenizer tokenizer){
         try {
             InputStream inputStream = new FileInputStream(queryFile);
             BufferedReader bf = new BufferedReader(new InputStreamReader(inputStream));

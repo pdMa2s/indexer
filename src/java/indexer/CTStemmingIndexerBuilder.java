@@ -48,6 +48,9 @@ public class CTStemmingIndexerBuilder extends IndexerBuilder {
         indexer.setTokenizer(new ComplexTokenizer(new englishStemmer()));
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public String getTokenizerType() {
         return COMPLEXTOKENIZERSTEMMING;

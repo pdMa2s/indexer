@@ -43,6 +43,9 @@ public class SimpleTokenizerIndexerBuilder extends IndexerBuilder {
         indexer.setTokenizer(new SimpleTokenizer());
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public String getTokenizerType() {
         return SIMPLETOKENIZER;

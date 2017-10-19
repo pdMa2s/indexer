@@ -14,22 +14,38 @@ import static src.java.constants.Constants.COMPLEXTOKENIZER;
 import static src.java.constants.Constants.COMPLEXTOKENIZERSTEMMING;
 import static src.java.constants.Constants.SIMPLETOKENIZER;
 
+/**
+ * This implementation of {@link IndexReader} reads an {@link Index} object from the disk, with a format similar
+ * to CSV.<br>
+ * Example: term, documentId:DocumentFrequency,documentId:DocumentFrequency, ...
+ * @author Pedro Matos
+ * @author David Ferreira
+ * @since 10-16-2017
+ * @see <a href="https://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a>
+ */
 public class CSVIndexReader implements IndexReader {
 
     private Index index;
     private Tokenizer tokenizer;
-    private BufferedReader reader;
+
     public CSVIndexReader(){
         index = new Index();
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public Tokenizer getTokenizer() {
         return tokenizer;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public Index parseToIndex(File indexFile){
+        BufferedReader reader;
         try{
             reader = new BufferedReader(new FileReader(indexFile));
             String text;

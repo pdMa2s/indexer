@@ -1,10 +1,16 @@
 package src.java.query;
 
 import src.java.index.Index;
-
+import src.java.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
 
+/**
+ *
+ * @author Pedro Matos - 73941
+ * @author David Ferreira
+ * @since 10-16-2017
+ */
 public class SearchEngine {
 
     private Index index;
@@ -12,15 +18,16 @@ public class SearchEngine {
     private QueryProcessor queryProcessor;
     private QueryResultWriter queryResultWriter;
     private List<Query> queries;
+    private Tokenizer tokenizer;
 
     public List<Query> searchQueryWordsInDocument(File queryFile){
-        queries = queryReader.loadQueries(queryFile);
+        queries = queryReader.loadQueries(queryFile, tokenizer);
         queryProcessor.queryWordsInDocument(index, queries);
         return queries;
     }
 
     public List<Query> searchFrequencyOfQueryWordsInDocument(File queryFile){
-        queries = queryReader.loadQueries(queryFile);
+        queries = queryReader.loadQueries(queryFile, tokenizer);
         queryProcessor.frequencyOfQueryWordsInDocument(index, queries);
         return queries;
     }
@@ -44,5 +51,9 @@ public class SearchEngine {
 
     public void setQueryResultWriter(QueryResultWriter queryResultWriter) {
         this.queryResultWriter = queryResultWriter;
+    }
+
+    public void setTokenizer(Tokenizer tokenizer) {
+        this.tokenizer = tokenizer;
     }
 }

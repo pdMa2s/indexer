@@ -45,6 +45,9 @@ public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
         indexer.setTokenizer(new ComplexTokenizer());
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public String getTokenizerType() {
         return COMPLEXTOKENIZER;

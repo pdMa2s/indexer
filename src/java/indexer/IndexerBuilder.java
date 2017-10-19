@@ -63,6 +63,11 @@ public abstract class IndexerBuilder {
      */
     public abstract void buildTokenizer();
 
+    /**
+     *
+     * @return The tag locate on {@link src.java.constants.Constants} that represents the type of {@link Tokenizer}
+     * that is being used to create the {@link Indexer}.
+     */
     public abstract String getTokenizerType();
 
 }
