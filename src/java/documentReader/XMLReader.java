@@ -25,8 +25,6 @@ public class XMLReader implements DocumentReader {
     /**
      * Constructs a XMLReader object and initializes a {@link SAXParser} using a {@link DefaultCorpusXMLHandler}.
      * @param xmlHandler An handler for dealing with the relevant document tags
-     * @throws ParserConfigurationException
-     * @throws SAXException
      */
     public XMLReader(DefaultCorpusXMLHandler xmlHandler)
             throws ParserConfigurationException, SAXException {

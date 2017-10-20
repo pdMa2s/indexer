@@ -20,5 +20,6 @@
       <version>1.0</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/libstemmer_java/java/libstemmer.jar</systemPath>
-  </dependency>
+    </dependency>
+
 </project>

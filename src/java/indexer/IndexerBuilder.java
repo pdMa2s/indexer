@@ -41,8 +41,7 @@ public abstract class IndexerBuilder {
 
     /**
      * Creates a representation of an Indexer with certain configurations.
-     * @return A representation of an Indexer
-     * @see Indexer
+     * @return A representation of an {@link Indexer}
      */
     public Indexer constructIndexer(){
         createIndexer();

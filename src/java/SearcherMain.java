@@ -7,7 +7,18 @@ import src.java.query.*;
 
 import java.io.File;
 
+
+/**
+ * This class serves as an entry point for querying an index that was read on disk, and save the results for
+ * each query on disk.
+ */
 public class SearcherMain {
+    /**
+     *
+     "USAGE: java SearcherMain <indexFile> <queryFile> <operation>\n"+
+     "<indexFile> - The path to the file of the index on disk\n"+
+     "<queryFile> - The path to the file of the queries\n");
+     */
     public static void main(String[] args){
         long startTime = System.currentTimeMillis();
         checkParameterLength(args);
@@ -47,6 +58,7 @@ public class SearcherMain {
         if(args.length != 2){
             printUSAGE();
         }
+        
 
     }
 

@@ -9,9 +9,25 @@ import static src.java.constants.Constants.COMPLEXTOKENIZERSTEMMING;
 import static src.java.constants.Constants.SIMPLETOKENIZER;
 
 /**
+ * This serves as the main class to create an index based on a corpus of documents.
  * @author Pedro Matos - 73941
+ * @author David Ferreira
+ * @since 09-27-2017
  */
 public class IndexCreationMain {
+    /**
+     * This main method creates an index, saves it on disk, measures the time that took to do it and prints
+     * some results.
+     * <br>
+     *"USAGE: java IndexCreationMain <corpusDirectory> <tokenizerType> <indexFile>(Optional)\n"+
+     "<corpusDirectory> - The directory where the corpus is located\n"+
+     "<tokenizerType> - The of tokenizer you want to use\n"+
+     "tokenizer types:\n"+
+     SIMPLETOKENIZER +" - Simple tokenizer.tokenizer\n"+
+     COMPLEXTOKENIZER+" - Complex tokenizer.tokenizer\n"+
+     COMPLEXTOKENIZERSTEMMING+ " - Complex tokenizer.tokenizer with Stemming\n"+
+     "<indexFile> - The optional parameter lets you pick the name of the file where the index will be saved to\n"
+     */
     public static void main(String[] args){
         long startTime = System.currentTimeMillis();
         checkParameterLength(args);

@@ -1,7 +1,8 @@
-
-corpus
-documentReader
-indexer
-org.tartarus.snowball
-org.tartarus.snowball.ext
-tokenizer
+src.java
+src.java.constants
+src.java.corpus
+src.java.documentReader
+src.java.index
+src.java.indexer
+src.java.query
+src.java.tokenizer
