@@ -14,10 +14,8 @@ import java.io.File;
  */
 public class SearcherMain {
     /**
-     *
-     "USAGE: java SearcherMain <indexFile> <queryFile> <operation>\n"+
-     "<indexFile> - The path to the file of the index on disk\n"+
-     "<queryFile> - The path to the file of the queries\n");
+     * Execute the program with no arguments to see the usage which contains more information.
+     * @param args [indexFile] [queryFile]
      */
     public static void main(String[] args){
         long startTime = System.currentTimeMillis();
@@ -58,7 +56,7 @@ public class SearcherMain {
         if(args.length != 2){
             printUSAGE();
         }
-        
+
 
     }
 
