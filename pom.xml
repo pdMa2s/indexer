@@ -10,16 +10,16 @@
     <build>
         <sourceDirectory>${project.basedir}</sourceDirectory>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>stemmer</groupId>
+            <artifactId>snownballStemmer</artifactId>
+            <version>1</version>
+        </dependency>
+    </dependencies>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <dependency>
-      <groupId>sample</groupId>
-      <artifactId>com.sample</artifactId>
-      <version>1.0</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/libstemmer_java/java/libstemmer.jar</systemPath>
-    </dependency>
-
+    
 </project>

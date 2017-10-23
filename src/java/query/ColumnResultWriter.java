@@ -21,14 +21,13 @@ public class ColumnResultWriter implements QueryResultWriter{
     public void saveQueryResultsToFile(String fileName,List<Query> queries) {
         BufferedWriter writer;
         FileWriter fw;
+        String delimiter = " ";
         try {
             fw = new FileWriter(fileName);
             writer = new BufferedWriter(fw);
-            writer.write(String.format( "%8s%8s%10s\n", "query_id","doc_id","doc_score"));
-
             for(Query query: queries){
                 for(Integer resultDocId : query.getDocIds()){
-                    writer.write( String.format("%8d%8d%10d\n",query.getId(),resultDocId,query.getScore(resultDocId)));
+                    writer.write(query.getId() + delimiter + resultDocId + delimiter+ query.getScore(resultDocId) + "\n");
                 }
                 query.clearResults();
             }

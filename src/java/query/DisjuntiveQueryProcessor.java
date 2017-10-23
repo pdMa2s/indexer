@@ -47,10 +47,11 @@ public class DisjuntiveQueryProcessor implements QueryProcessor {
                 List<Posting> postings = index.getPostingList(term);
                 if (postings != null) {
                     for (Posting pst : postings) {
-                        if (query.getScore(pst.getDocID()) == null)
+                        Integer score = query.getScore(pst.getDocID());
+                        if (score == null)
                             query.addScore(pst.getDocID(), pst.getTermFreq());
                         else
-                            query.addScore(pst.getDocID(), query.getScore(pst.getDocID()) +pst.getTermFreq());
+                            query.addScore(pst.getDocID(), score +pst.getTermFreq());
                     }
                 }
             }

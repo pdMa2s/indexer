@@ -18,7 +18,6 @@ public class SearcherMain {
      * @param args [indexFile] [queryFile]
      */
     public static void main(String[] args){
-        long startTime = System.currentTimeMillis();
         checkParameterLength(args);
         File indexFile = new File(args[0]);
         File queryFile = new File(args[1]);
@@ -26,6 +25,7 @@ public class SearcherMain {
         String freqWordsFileName = "resultsFrequencyInDoc";
         String queryWordsInDocFileName = "resultsQueryWordsInDoc";
 
+        long startTime = System.currentTimeMillis();
         Index index;
         IndexReader idr = new CSVIndexReader();
         index = idr.parseToIndex(indexFile);
@@ -35,17 +35,19 @@ public class SearcherMain {
         searchEngine.searchFrequencyOfQueryWordsInDocument(queryFile);
         searchEngine.saveResults(freqWordsFileName);
 
+
         searchEngine.searchQueryWordsInDocument(queryFile);
         searchEngine.saveResults(queryWordsInDocFileName);
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
-        System.out.println("Query time: "+elapsedTime+"ms");
+        System.out.println("Querying time: "+elapsedTime+"ms");
+
     }
 
 
     private static void printUSAGE(){
-        System.err.println("USAGE: java SearcherMain <indexFile> <queryFile> <operation>\n"+
+        System.err.println("USAGE: java SearcherMain <indexFile> <queryFile>\n"+
                             "<indexFile> - The path to the file of the index on disk\n"+
                             "<queryFile> - The path to the file of the queries\n");
 
