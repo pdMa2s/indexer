@@ -76,7 +76,8 @@ public class IndexCreationMain {
         return null;
     }
     private static void printUSAGE(){
-        System.err.println("USAGE: java IndexCreationMain <corpusDirectory> <tokenizerType> <indexFile>(Optional)\n"+
+        System.err.println("USAGE: \n"+
+                            "java -cp ../../libstemmer_java/java/libstemmer.jar: src.java.IndexCreationMain <corpusDirectory> <tokenizerType> <indexFile>(Optional)\n"+
                             "<corpusDirectory> - The directory where the corpus is located\n"+
                             "<tokenizerType> - The of tokenizer you want to use\n"+
                             "tokenizer types:\n"+

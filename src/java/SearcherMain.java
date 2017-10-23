@@ -47,7 +47,7 @@ public class SearcherMain {
 
 
     private static void printUSAGE(){
-        System.err.println("USAGE: java SearcherMain <indexFile> <queryFile>\n"+
+        System.err.println("USAGE: \njava -cp ../../libstemmer_java/java/libstemmer.jar: src.java.SearcherMain <indexFile> <queryFile>\n"+
                             "<indexFile> - The path to the file of the index on disk\n"+
                             "<queryFile> - The path to the file of the queries\n");
 
