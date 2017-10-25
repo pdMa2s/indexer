@@ -2,6 +2,7 @@ package src.java.query;
 
 import java.io.*;
 import java.util.List;
+import java.util.Map;
 
 /**
  * An implementation of {@link QueryResultWriter}, writes the query results on disk with the following format: <br>
@@ -21,13 +22,15 @@ public class ColumnResultWriter implements QueryResultWriter{
     public void saveQueryResultsToFile(String fileName,List<Query> queries) {
         BufferedWriter writer;
         FileWriter fw;
-        String delimiter = " ";
+        String delimiter = "\t";
         try {
             fw = new FileWriter(fileName);
             writer = new BufferedWriter(fw);
+            writer.write("query_id" + delimiter+ "doc_id"+delimiter+"doc_score" +"\n");
             for(Query query: queries){
-                for(Integer resultDocId : query.getDocIds()){
-                    writer.write(query.getId() + delimiter + resultDocId + delimiter+ query.getScore(resultDocId) + "\n");
+                for(Map.Entry<Integer, Integer> entry: query.getSortedResults()){
+
+                    writer.write(query.getId() + delimiter + entry.getKey() + delimiter+ entry.getValue() + "\n");
                 }
                 query.clearResults();
             }

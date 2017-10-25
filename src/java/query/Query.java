@@ -1,9 +1,6 @@
 package src.java.query;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  *
@@ -77,6 +74,13 @@ public class Query {
         return terms;
     }
 
+    public Set<Map.Entry<Integer, Integer>> getSortedResults(){
+        SortedSet<Map.Entry<Integer, Integer>> sortedSet = new TreeSet<>(
+                (e1, e2) -> e2.getValue() - e1.getValue());
+
+        sortedSet.addAll(results.entrySet());
+        return sortedSet;
+    }
     /**
      *{@inheritDoc}
      */
