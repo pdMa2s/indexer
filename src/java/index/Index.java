@@ -139,4 +139,12 @@ public class Index {
         return null;
     }
 
+    public void applyTF(){
+        for(String st : index.keySet()){
+            List<Posting> entryList = index.get(st);
+            for(Posting ps : entryList){
+                ps.setTF(1+Math.log10(ps.getTermFreq()));
+            }
+        }
+    }
 }

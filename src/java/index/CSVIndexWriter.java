@@ -39,7 +39,10 @@ public class CSVIndexWriter implements IndexWriter{
         for(String term: index.getTerms()){
             writer.print(term);
             for(Posting post : index.getPostingList(term)){
-                writer.print(","+post.getDocID() + ":" + post.getTermFreq());
+                if(post.getTermTF() == 0)
+                    writer.print(","+post.getDocID() + ":" + post.getTermFreq());
+                else
+                    writer.print(","+post.getDocID() + ":" + post.getTermTF());
             }
             writer.print("\n");
         }

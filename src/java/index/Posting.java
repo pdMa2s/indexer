@@ -14,6 +14,7 @@ public class Posting implements Comparable<Posting>{
 
     int docID;
     int termFreq;
+    double termTF;
 
     /**
      * Constructs a Posting object.
@@ -23,6 +24,7 @@ public class Posting implements Comparable<Posting>{
     public Posting(int docID, int termFreq) {
         this.docID = docID;
         this.termFreq = termFreq;
+        this.termTF = 0;
     }
 
     /**
@@ -41,6 +43,7 @@ public class Posting implements Comparable<Posting>{
         return termFreq;
     }
 
+    public double getTermTF(){ return termTF; }
     /**
      *
      * @param docID The ID of a document.
@@ -55,6 +58,10 @@ public class Posting implements Comparable<Posting>{
      */
     public void setTermFreq(int termFreq) {
         this.termFreq = termFreq;
+    }
+
+    public void setTF(double tf) {
+        this.termTF = tf;
     }
 
 
