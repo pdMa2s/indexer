@@ -24,4 +24,5 @@ import java.io.File;
      * @return The {@link Index} that was represented of the @param indexFile
      */
     Index parseToIndex(File indexFile);
+    Index parseToIndexWithNormalization(File indexFile, Normalizer nm);
 }

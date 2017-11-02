@@ -64,6 +64,45 @@ public class CSVIndexReader implements IndexReader {
         return index;
     }
 
+    public Index parseToIndexWithNormalization(File indexFile, Normalizer nm){
+        BufferedReader reader;
+        try{
+            reader = new BufferedReader(new FileReader(indexFile));
+            String text;
+            text = reader.readLine();
+            parseTokenizerType(text.trim());
+            while ((text = reader.readLine()) != null) {
+                parsePostingsPerTermWithNormalization(text, nm);
+            }
+        }catch(FileNotFoundException e){
+            System.err.println("index file not found!");
+            System.exit(3);
+        } catch(IOException e){
+            System.err.println("ERROR: Reading index file");
+            System.exit(2);
+        }
+        return index;
+    }
+
+    private void parsePostingsPerTermWithNormalization(String text, Normalizer nm){
+        List<Posting> postings = new ArrayList<>();
+        String[] parsedPosting = text.split(",");
+        String term = parsedPosting[0];
+        nm.addTermDocFreq(term, parsedPosting.length-1);
+        for(int i=1; i<parsedPosting.length; i++){
+            String[] post = parsedPosting[i].split(":");
+            if(post.length == 2) {
+                nm.addDirVectorOccurencce(Integer.parseInt(post[0]), Double.parseDouble(post[1]), term);
+                Posting tempPosting = new Posting(Integer.parseInt(post[0]), Integer.parseInt(post[1]));
+                postings.add(tempPosting);
+            }
+            else{
+                printError();
+            }
+        }
+        index.addTermAndPostings(term, postings);
+    }
+
     private void parsePostingsPerTerm(String text){
         List<Posting> postings = new ArrayList<>();
         String[] parsedPosting = text.split(",");
