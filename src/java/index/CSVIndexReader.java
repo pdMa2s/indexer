@@ -93,7 +93,7 @@ public class CSVIndexReader implements IndexReader {
             String[] post = parsedPosting[i].split(":");
             if(post.length == 2) {
                 nm.addDirVectorOccurencce(Integer.parseInt(post[0]), Double.parseDouble(post[1]), term);
-                Posting tempPosting = new Posting(Integer.parseInt(post[0]), Integer.parseInt(post[1]));
+                Posting tempPosting = new Posting(Integer.parseInt(post[0]), Double.parseDouble(post[1]));
                 postings.add(tempPosting);
             }
             else{

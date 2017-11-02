@@ -27,6 +27,11 @@ public class Posting implements Comparable<Posting>{
         this.termTF = 0;
     }
 
+    public Posting(int docID, double termTF) {
+        this.docID = docID;
+        this.termTF = termTF;
+    }
+
     /**
      *
      * @return The ID of this posting document.
