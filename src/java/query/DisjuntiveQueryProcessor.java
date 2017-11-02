@@ -2,6 +2,7 @@ package src.java.query;
 
 
 import src.java.index.Index;
+import src.java.index.Normalizer;
 import src.java.index.Posting;
 
 
@@ -58,4 +59,13 @@ public class DisjuntiveQueryProcessor implements QueryProcessor {
         }
     }
 
+    public void tf_idf_QueryWordsInDocument(Index index, List<Query> queries, Normalizer nm){
+        for(Query query: queries) {
+            for (String term : query.getTerms()) {
+                nm.addQueryVectorOccurencce(query.getId(), term);
+            }
+        }
+        nm.applyTFandIDFtoQueryMatrix(index);
+        nm.normalizeQueryVector();
+    }
 }

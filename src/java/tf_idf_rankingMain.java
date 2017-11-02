@@ -4,6 +4,9 @@ import src.java.index.CSVIndexReader;
 import src.java.index.Index;
 import src.java.index.IndexReader;
 import src.java.index.Normalizer;
+import src.java.query.SearchEngine;
+import src.java.query.SearchEngineBuilder;
+import src.java.query.Tf_idf_SearchEngineBuilder;
 
 import java.io.File;
 
@@ -19,6 +22,10 @@ public class tf_idf_rankingMain {
         IndexReader idr = new CSVIndexReader();
         index = idr.parseToIndexWithNormalization(indexFile, nm);
         nm.normalize();
+        SearchEngineBuilder searchEngineBuilder = new Tf_idf_SearchEngineBuilder(index, idr.getTokenizer());
+        SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
+
+        searchEngine.searchNormalizedQueryWordsInDocument(queryFile, nm);
 
     }
 

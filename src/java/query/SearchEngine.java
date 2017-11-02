@@ -1,6 +1,7 @@
 package src.java.query;
 
 import src.java.index.Index;
+import src.java.index.Normalizer;
 import src.java.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
@@ -44,6 +45,11 @@ public class SearchEngine {
         return queries;
     }
 
+    public List<Query> searchNormalizedQueryWordsInDocument(File queryFile, Normalizer nm){
+        queries = queryReader.loadQueries(queryFile, tokenizer);
+        queryProcessor.tf_idf_QueryWordsInDocument(index, queries, nm);
+        return queries;
+    }
 
     /**
      * This method has the same objective as {@link QueryResultWriter#saveQueryResultsToFile(String, List)}.

@@ -2,6 +2,7 @@ package src.java.query;
 
 
 import src.java.index.Index;
+import src.java.index.Normalizer;
 
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface QueryProcessor {
      *                as been processed it's results are going to be store in it's respective object.
      */
     void frequencyOfQueryWordsInDocument(Index index, List<Query> queries);
+
+    void tf_idf_QueryWordsInDocument(Index index, List<Query> queries, Normalizer nm);
 }
