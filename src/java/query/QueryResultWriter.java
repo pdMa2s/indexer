@@ -1,5 +1,7 @@
 package src.java.query;
 
+import src.java.index.Normalizer;
+
 import java.util.List;
 
 /**
@@ -16,4 +18,5 @@ public interface QueryResultWriter {
      * @param queries A {@link List} of {@link Query} that contain the results for each query.
      */
     void saveQueryResultsToFile(String fileName, List<Query> queries);
+    void saveNormalizedResultsToFile(String fileName, List<Query> queries, Normalizer nm);
 }

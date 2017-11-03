@@ -59,6 +59,10 @@ public class SearchEngine {
         queryResultWriter.saveQueryResultsToFile(resultFileName, queries);
     }
 
+    public void saveNormalizedResults(String resultFileName, Normalizer nm){
+        queryResultWriter.saveNormalizedResultsToFile(resultFileName, queries, nm);
+    }
+
     /**
      *
      * @param index The where the search will take place.

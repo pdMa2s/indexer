@@ -16,6 +16,8 @@ public class tf_idf_rankingMain {
         File indexFile = new File(args[0]);
         File queryFile = new File(args[1]);
 
+        String rankingResults = "TF_IDF_RESULTS";
+
         long startTime = System.currentTimeMillis();
         Index index;
         Normalizer nm = new Normalizer();
@@ -26,7 +28,12 @@ public class tf_idf_rankingMain {
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
 
         searchEngine.searchNormalizedQueryWordsInDocument(queryFile, nm);
+        nm.normalizeResults();
+        searchEngine.saveNormalizedResults(rankingResults, nm);
 
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("Querying time: "+elapsedTime+"ms");
     }
 
     private static void checkParameterLength(String[] args) {

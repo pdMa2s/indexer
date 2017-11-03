@@ -1,6 +1,10 @@
 package src.java.query;
 
+import src.java.index.Normalizer;
+
 import java.io.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -41,6 +45,30 @@ public class ColumnResultWriter implements QueryResultWriter{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public void saveNormalizedResultsToFile(String fileName, List<Query> queries, Normalizer nm){
+        BufferedWriter writer;
+        FileWriter fw;
+        String delimiter = "\t";
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        try {
+            fw = new FileWriter(fileName);
+            writer = new BufferedWriter(fw);
+            writer.write("query_id" + delimiter+ "doc_id"+delimiter+"doc_score" +"\n");
+            Map<Integer, Map<Integer, Double>> results = nm.getNormalizedResults();
+            for(int QueryID : results.keySet()){
+                Map<Integer, Double> docIDs = results.get(QueryID);
+                for(int docID : docIDs.keySet()){
+                    writer.write(QueryID + delimiter + docID + delimiter+ formatter.format(docIDs.get(docID)) + "\n");
+                }
+            }
+            writer.close();
+        } catch (UnsupportedEncodingException | FileNotFoundException e) {
+            System.err.println("ERROR: Writing index to file");
+            System.exit(3);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

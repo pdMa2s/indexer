@@ -7,6 +7,7 @@ public class Normalizer {
 
     Map<Integer, Map<String, Double>> DirVector;
     Map<Integer, Map<String, Double>> QueryVector;
+    Map<Integer, Map<Integer, Double>> NormalizedResults;
     Map<String, Integer> TermDocFreq;
     int CorpusSize;
 
@@ -14,7 +15,12 @@ public class Normalizer {
         TermDocFreq = new HashMap<>();
         DirVector = new HashMap<>();
         QueryVector = new HashMap<>();
+        NormalizedResults = new HashMap<>();
         this.CorpusSize = 0;
+    }
+
+    public Map<Integer, Map<Integer, Double>> getNormalizedResults(){
+        return NormalizedResults;
     }
 
     public void addTermDocFreq(String term, Integer freq) {
@@ -69,7 +75,8 @@ public class Normalizer {
         for(Integer QueryID : QueryVector.keySet()){
             Map<String, Double> temp = QueryVector.get(QueryID);
             for(String s : temp.keySet()){
-                temp.put(s,(1+Math.log10(temp.get(s)))*Math.log10(CorpusSize/index.getPostingList(s).size()));
+                if(index.getPostingList(s)!= null)
+                    temp.put(s,(1+Math.log10(temp.get(s)))*Math.log10(CorpusSize/index.getPostingList(s).size()));
             }
         }
     }
@@ -85,6 +92,32 @@ public class Normalizer {
             normal = Math.sqrt(normal);
             for(String st : Terms.keySet()){
                 Terms.put(st, Terms.get(st)/normal);
+            }
+        }
+    }
+
+    public void normalizeResults(){
+        for(int queryID : QueryVector.keySet()){
+            Map<String, Double> termsInQuery = QueryVector.get(queryID);
+            for(String ter : termsInQuery.keySet()){
+                for(int DocID : DirVector.keySet()){
+                    Map<String, Double> DocTermList = DirVector.get(DocID);
+                    if(DocTermList.containsKey(ter)){
+                        Map<Integer, Double> results = NormalizedResults.get(queryID);
+                        if(results != null) {
+                            if(results.containsKey(DocID)){
+                                results.put(DocID, results.get(DocID) + (DocTermList.get(ter)*termsInQuery.get(ter)));
+                            }else{
+                                results.put(DocID, DocTermList.get(ter)*termsInQuery.get(ter));
+                            }
+                        }
+                        else{
+                            Map<Integer, Double> res = new HashMap<>();
+                            res.put(DocID, DocTermList.get(ter)*termsInQuery.get(ter));
+                            NormalizedResults.put(queryID, res);
+                        }
+                    }
+                }
             }
         }
     }
