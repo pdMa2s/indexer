@@ -50,7 +50,7 @@ public class Indexer {
     }
     private void fillIndexWithTokens(Index index , List<String> tokens, int docId){
         for (String token: tokens) {
-            index.addTokenOcurrence(token, docId);
+            index.addTokenOccurrence(token, docId);
         }
     }
 

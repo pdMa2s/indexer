@@ -21,7 +21,7 @@ public class Normalizer {
         TermDocFreq.put(term, freq);
     }
 
-    public void addDirVectorOccurencce(int DocId, double TermScore, String term) {
+    public void addDirVectorOccurrencce(int DocId, double TermScore, String term) {
         Map<String, Double> temp = DirVector.get(DocId);
         if (temp != null) {
             temp.put(term, TermScore);
@@ -33,7 +33,7 @@ public class Normalizer {
         }
     }
 
-    public void addQueryVectorOccurencce(int QueryId, String term){
+    public void addQueryVectorOccurrencce(int QueryId, String term){
         Map<String, Double> temp = QueryVector.get(QueryId);
         if(temp != null){
             Double termFreq = temp.get(term);

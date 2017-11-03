@@ -14,7 +14,7 @@ import java.util.*;
  * */
 public class Index {
      private Map<String, List<Posting>> index;
-     private int count = 0;
+
     /**
      * Constructs an empty index.
      */
@@ -31,13 +31,13 @@ public class Index {
       * @param docID The ID of the document where the token appeared.
       *
       * */
-     public void addTokenOcurrence(String token, int docID){
+     public void addTokenOccurrence(String token, int docID){
          List<Posting> entryList = index.get(token);
 
          if(entryList != null){
              Posting entry = findEntry(entryList, docID);
              if(entry != null)
-                entry.termFreq++;
+                entry.termOccurrences++;
              else
                  entryList.add(new Posting(docID,1));
          }
@@ -65,7 +65,7 @@ public class Index {
      * @see List
      */
     public List<String> getTop10TermsOccurrences(int docID){
-         List<String> termsInDoc = new ArrayList();
+         List<String> termsInDoc = new ArrayList<>();
          for(String key: index.keySet()){
              List<Posting> entry = index.get(key);
              for(int j=0; j<entry.size(); j++){
@@ -143,7 +143,7 @@ public class Index {
         for(String st : index.keySet()){
             List<Posting> entryList = index.get(st);
             for(Posting ps : entryList){
-                ps.setTF(1+Math.log10(ps.getTermFreq()));
+                ps.setTF(1+Math.log10(ps.getTermOccurrences()));
             }
         }
     }

@@ -13,17 +13,17 @@ package src.java.index;
 public class Posting implements Comparable<Posting>{
 
     int docID;
-    int termFreq;
+    int termOccurrences;
     double termTF;
 
     /**
      * Constructs a Posting object.
      * @param docID The ID of a document.
-     * @param termFreq The frequency of a term/word.
+     * @param termOccurrences The frequency of a term/word.
      */
-    public Posting(int docID, int termFreq) {
+    public Posting(int docID, int termOccurrences) {
         this.docID = docID;
-        this.termFreq = termFreq;
+        this.termOccurrences = termOccurrences;
         this.termTF = 0;
     }
 
@@ -44,8 +44,8 @@ public class Posting implements Comparable<Posting>{
      *
      * @return The frequency of the term/word.
      */
-    public int getTermFreq() {
-        return termFreq;
+    public int getTermOccurrences() {
+        return termOccurrences;
     }
 
     public double getTermTF(){ return termTF; }
@@ -59,10 +59,10 @@ public class Posting implements Comparable<Posting>{
 
     /**
      *
-     * @param termFreq The frequency of a term in a certain document.
+     * @param occurrences The frequency of a term in a certain document.
      */
-    public void setTermFreq(int termFreq) {
-        this.termFreq = termFreq;
+    public void setTermFreq(int occurrences) {
+        this.termOccurrences = occurrences;
     }
 
     public void setTF(double tf) {
@@ -73,18 +73,23 @@ public class Posting implements Comparable<Posting>{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Posting)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        Posting that = (Posting) o;
+        Posting posting = (Posting) o;
 
-        if (getDocID() != that.getDocID()) return false;
-        return getTermFreq() == that.getTermFreq();
+        if (docID != posting.docID) return false;
+        if (termOccurrences != posting.termOccurrences) return false;
+        return Double.compare(posting.termTF, termTF) == 0;
     }
 
     @Override
     public int hashCode() {
-        int result = getDocID();
-        result = 31 * result + getTermFreq();
+        int result;
+        long temp;
+        result = docID;
+        result = 31 * result + termOccurrences;
+        temp = Double.doubleToLongBits(termTF);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
@@ -92,7 +97,7 @@ public class Posting implements Comparable<Posting>{
     public String toString() {
         return "{"+
                 "docID=" + docID +
-                ", termFreq=" + termFreq +
+                ", termFreq=" + termOccurrences +
                 '}';
     }
 
