@@ -1,6 +1,8 @@
 package src.java.query;
 
+import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
+import src.java.normalizer.Normalizer;
 import src.java.tokenizer.Tokenizer;
 
 /**
@@ -15,17 +17,25 @@ import src.java.tokenizer.Tokenizer;
  */
 public abstract class SearchEngineBuilder {
     protected SearchEngine searchEngine;
-    protected InvertedIndex index;
+    protected InvertedIndex invertedIndex;
     protected Tokenizer tokenizer;
+    protected QueryIndex queryIndex;
+    protected DocumentIndex documentIndex;
+    protected Normalizer normalizer;
 
     /**
      * A super constructor for all the class that will derive this class.
-     * @param index An {@link InvertedIndex} object to be provided to the searchEngine.
+     * @param invertedIndex An {@link InvertedIndex} object to be provided to the searchEngine.
      * @param tokenizer A {@link Tokenizer} to be provided to the {@link QueryReader} object.
      */
-    public SearchEngineBuilder(InvertedIndex index, Tokenizer tokenizer) {
-        this.index = index;
+    public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
+                               QueryIndex queryIndex, DocumentIndex documentIndex,
+                               Normalizer normalizer) {
+        this.invertedIndex = invertedIndex;
         this.tokenizer = tokenizer;
+        this.queryIndex = queryIndex;
+        this.documentIndex = documentIndex;
+        this.normalizer = normalizer;
     }
 
     /**
@@ -49,7 +59,10 @@ public abstract class SearchEngineBuilder {
      */
     public SearchEngine constructSearEngine(){
         createSearchEngine();
-        buildIndex();
+        buildInvertedIndex();
+        buildQueryIndex();
+        buildDocumentIndex();
+        buildNormalizer();
         buildQueryProcessor();
         buildQueryReader();
         buildQueryResultWriter();
@@ -61,7 +74,7 @@ public abstract class SearchEngineBuilder {
      * The purpose of this function is to configure a {@link InvertedIndex} for the {@link SearchEngine} instance
      * that is being built.
      */
-    public abstract void buildIndex();
+    public abstract void buildInvertedIndex();
 
     /**
      * The purpose of this function is to configure a {@link QueryReader} for the {@link SearchEngine} instance
@@ -86,4 +99,10 @@ public abstract class SearchEngineBuilder {
      * that is being built.
      */
     public abstract void buildQueryTokenizer();
+
+    public abstract void buildQueryIndex();
+
+    public abstract void buildDocumentIndex();
+
+    public abstract void buildNormalizer();
 }

@@ -27,6 +27,7 @@ import static src.java.constants.Constants.SIMPLETOKENIZER;
 public class CSVIndexReader implements IndexReader {
 
     private Tokenizer tokenizer;
+    private int corpusSize;
 
     /**
      *{@inheritDoc}
@@ -34,6 +35,11 @@ public class CSVIndexReader implements IndexReader {
     @Override
     public Tokenizer getTokenizer() {
         return tokenizer;
+    }
+
+    @Override
+    public int getCorpusSize() {
+        return corpusSize;
     }
 
     /**
@@ -46,15 +52,15 @@ public class CSVIndexReader implements IndexReader {
             reader = new BufferedReader(new FileReader(indexFile));
             String text;
             text = reader.readLine();
-            parseTokenizerType(text.trim());
+            parseHeader(text.trim());
             while ((text = reader.readLine()) != null) {
                 parsePostingsPerTerm(text, index);
             }
         }catch(FileNotFoundException e){
-            System.err.println("index file not found!");
+            System.err.println("invertedIndex file not found!");
             System.exit(3);
         } catch(IOException e){
-            System.err.println("ERROR: Reading index file");
+            System.err.println("ERROR: Reading invertedIndex file");
             System.exit(2);
         }
     }
@@ -65,32 +71,32 @@ public class CSVIndexReader implements IndexReader {
             reader = new BufferedReader(new FileReader(indexFile));
             String text;
             text = reader.readLine();
-            parseTokenizerType(text.trim());
+            parseHeader(text.trim());
             while ((text = reader.readLine()) != null) {
                 parsePostingsPerTermWithNormalization(text,invertedIndex ,documentIndex);
             }
         }catch(FileNotFoundException e){
-            System.err.println("index file not found!");
+            System.err.println("invertedIndex file not found!");
             System.exit(3);
         } catch(IOException e){
-            System.err.println("ERROR: Reading index file");
+            System.err.println("ERROR: Reading invertedIndex file");
             System.exit(2);
         }
     }
 
-    private void parsePostingsPerTermWithNormalization(String text,InvertedIndex invertedIndex , DocumentIndex index){
+    private void parsePostingsPerTermWithNormalization(String text,InvertedIndex invertedIndex , DocumentIndex documentIndex){
         List<Posting> postings = new ArrayList<>();
         String[] parsedPosting = text.split(",");
         String term = parsedPosting[0];
         for(int i=1; i<parsedPosting.length; i++){
             String[] post = parsedPosting[i].split(":");
             if(post.length == 2) {
-                index.addTermScore(Integer.parseInt(post[0]), term, Double.parseDouble(post[1]));
+                documentIndex.addTermScore(Integer.parseInt(post[0]), term, Double.parseDouble(post[1]));
                 Posting tempPosting = new Posting(Integer.parseInt(post[0]), Double.parseDouble(post[1]));
                 postings.add(tempPosting);
             }
             else{
-                printError();
+                printError("ERROR while parsing invertedIndex file");
             }
         }
         invertedIndex.addTermAndPostings(term, postings);
@@ -107,14 +113,22 @@ public class CSVIndexReader implements IndexReader {
                 postings.add(tempPosting);
             }
             else{
-                printError();
+                printError("ERROR while parsing invertedIndex file");
             }
         }
         index.addTermAndPostings(term, postings);
     }
-    private void printError(){
-        System.err.println("ERROR while parsing index file");
+    private void printError(String message){
+        System.err.println(message);
         System.exit(3);
+    }
+
+    private void parseHeader(String headerText){
+        String[] header = headerText.split(":");
+        if(header.length != 2)
+            printError("ERROR while parsing invertedIndex file\nInvalid header");
+        parseTokenizerType(header[0]);
+        corpusSize = Integer.parseInt(header[1]);
     }
     private void parseTokenizerType(String header){
         switch (header){

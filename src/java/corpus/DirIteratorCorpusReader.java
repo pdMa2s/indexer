@@ -58,6 +58,11 @@ public class DirIteratorCorpusReader implements CorpusReader {
         return reader.getDocumentID();
     }
 
+    @Override
+    public int corpusSize() {
+        return dirFiles.size();
+    }
+
     /**
      * {@inheritDoc}
      * */

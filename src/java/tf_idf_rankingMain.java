@@ -5,9 +5,10 @@ import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
 import src.java.normalizer.Normalizer;
+import src.java.query.QueryIndex;
 import src.java.query.SearchEngine;
 import src.java.query.SearchEngineBuilder;
-import src.java.query.Tf_idf_SearchEngineBuilder;
+import src.java.query.NormalizedSearchEngineBuilder;
 
 import java.io.File;
 
@@ -22,15 +23,19 @@ public class tf_idf_rankingMain {
         long startTime = System.currentTimeMillis();
         InvertedIndex invertedIndex = new InvertedIndex();
         DocumentIndex documentIndex = new DocumentIndex();
-        Normalizer nm = new Normalizer(documentIndex);
+        QueryIndex queryIndex;
+        Normalizer nm = new Normalizer();
         IndexReader idr = new CSVIndexReader();
+
         idr.parseDocumentAndInvertedIndexes(indexFile,invertedIndex,  documentIndex);
-        nm.normalize();
-        SearchEngineBuilder searchEngineBuilder = new Tf_idf_SearchEngineBuilder(invertedIndex, idr.getTokenizer());
+        int corpusSize = idr.getCorpusSize();
+        queryIndex = new QueryIndex(corpusSize);
+
+        SearchEngineBuilder searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex, idr.getTokenizer(),
+                queryIndex, documentIndex, nm);
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
 
         searchEngine.processQueries(queryFile);
-        nm.normalizeResults();
         searchEngine.saveResults(rankingResultsFile);
 
         long stopTime = System.currentTimeMillis();
@@ -48,7 +53,7 @@ public class tf_idf_rankingMain {
         System.err.println("USAGE: \n"+
                 "java -cp ../../libstemmer_java/java/libstemmer.jar: src.java.rankingMain <corpusDirectory> <indexFile>(Optional)\n"+
                 "<corpusDirectory> - The directory where the corpus is located\n"+
-                "<indexFile> - The optional parameter lets you pick the name of the file where the index will be saved to\n");
+                "<indexFile> - The optional parameter lets you pick the name of the file where the invertedIndex will be saved to\n");
         System.exit(1);
     }
 }

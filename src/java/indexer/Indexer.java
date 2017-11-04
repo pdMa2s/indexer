@@ -43,7 +43,7 @@ public class Indexer {
 
     /**
      * Gives access to the {@link InvertedIndex} that was created.
-     * @return The index that was created.
+     * @return The invertedIndex that was created.
      */
     public InvertedIndex getIndex(){
         return index;
@@ -68,5 +68,9 @@ public class Indexer {
      */
     public void setTokenizer(Tokenizer tokenizer) {
         this.tokenizer = tokenizer;
+    }
+
+    public int getCorpusSize(){
+        return corpusReader.corpusSize();
     }
 }

@@ -1,7 +1,7 @@
 package src.java.index;
 
 /**
- * This class represents an entry on the index, it has representative purposes. This class stores the
+ * This class represents an entry on the invertedIndex, it has representative purposes. This class stores the
  * the ID of a document where a certain term appears as well as the number of occurrences of the term
  * in that document.
  *

@@ -19,21 +19,21 @@ public class CSVIndexWriter implements IndexWriter{
      * {@inheritDoc}
      */
     @Override
-    public void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType) {
+    public void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType, int corpusSize) {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(fileName, "UTF-8");
         } catch (UnsupportedEncodingException | FileNotFoundException e) {
-            System.err.println("ERROR: Writing index to file");
+            System.err.println("ERROR: Writing invertedIndex to file");
             System.exit(3);
         }
-        writeHeader(writer, tokenizerType);
+        writeHeader(writer, tokenizerType, corpusSize);
         writeTerms(writer, index);
 
     }
 
-    private void writeHeader(PrintWriter writer, String tokenizerType){
-        writer.println(tokenizerType);
+    private void writeHeader(PrintWriter writer, String tokenizerType, int corpusSize){
+        writer.println(tokenizerType + ":" + corpusSize);
     }
     private void writeTerms(PrintWriter writer, InvertedIndex index){
         for(String term: index.getTerms()){

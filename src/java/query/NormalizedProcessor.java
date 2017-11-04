@@ -1,24 +1,41 @@
 package src.java.query;
 
-import src.java.index.InvertedIndex;
+import src.java.index.DocumentIndex;
 import src.java.normalizer.Normalizer;
+import src.java.normalizer.Vector;
 
 import java.util.List;
 
 public class NormalizedProcessor implements QueryProcessor{
-    private Normalizer normalizer;
+    private DocumentIndex documentIndex;
+    private QueryIndex queryIndex;
 
-    public NormalizedProcessor(Normalizer normalizer) {
-        this.normalizer = normalizer;
+    public NormalizedProcessor(DocumentIndex documentIndex, QueryIndex queryIndex) {
+        this.documentIndex = documentIndex;
+        this.queryIndex = queryIndex;
     }
 
     @Override
-    public void processQueries(InvertedIndex index, List<Query> queries) {
-        normalizedQueryWordsInDocument(index, queries, normalizer);
+    public void processQueries( List<Query> queries) {
+        calculateNormalizedRanking(queries);
     }
-    public void normalizedQueryWordsInDocument(InvertedIndex index, List<Query> queries, Normalizer nm){
+    public void calculateNormalizedRanking(List<Query> queries){
+        for(Query query : queries){
+            Vector queryVector = queryIndex.getVector(query.getId());
+            for(String ter : queryVector.getTerms()){
+                for(int docID : documentIndex.getIds()){
+                    Vector docVector = documentIndex.getVector(docID);
+                    if(docVector.containsTerm(ter)){
+                        Double results = query.getScore(docID);
+                        if(results != null)
+                            query.addScore(docID, results + (docVector.getScore(ter)*queryVector.getScore(ter)));
+                        else
+                            query.addScore(docID, docVector.getScore(ter)*queryVector.getScore(ter));
 
-        nm.normalizeQueryVector();
+                    }
+                }
+            }
+        }
     }
 
 }

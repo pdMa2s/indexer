@@ -9,12 +9,13 @@ import java.util.List;
 
 public class QueryIndex extends Index {
     private int corpusSize;
-
+    private List<Query> queries;
     public QueryIndex(int corpusSize) {
         this.corpusSize = corpusSize;
     }
 
     public void addQueries(List<Query> queries){
+        this.queries = queries;
         for(Query query: queries) {
             for (String term : query.getTerms()) {
                 addQueryTermOccurrence(query.getId(), term);
@@ -49,4 +50,7 @@ public class QueryIndex extends Index {
         }
     }
 
+    public List<Query> getQueries() {
+        return queries;
+    }
 }

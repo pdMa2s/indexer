@@ -1,6 +1,8 @@
 package src.java.query;
 
+import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
+import src.java.normalizer.Normalizer;
 import src.java.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
@@ -17,18 +19,22 @@ public class SearchEngine {
 
     private InvertedIndex invertedIndex;
     private QueryIndex queryIndex;
+    private DocumentIndex documentIndex;
     private QueryReader queryReader;
     private QueryProcessor queryProcessor;
     private QueryResultWriter queryResultWriter;
     private List<Query> queries;
     private Tokenizer tokenizer;
+    private Normalizer normalizer;
 
 
     public List<Query> processQueries(File queryFile){
         queries = queryReader.loadQueries(queryFile, tokenizer);
         queryIndex.addQueries(queries);
         queryIndex.applyTFAndIDFtoQueries(invertedIndex);
-        queryProcessor.processQueries(invertedIndex, queries);
+        normalizer.normalize(documentIndex);
+        normalizer.normalize(queryIndex);
+        queryProcessor.processQueries( queries);
         return queries;
     }
 
@@ -78,5 +84,17 @@ public class SearchEngine {
      */
     public void setTokenizer(Tokenizer tokenizer) {
         this.tokenizer = tokenizer;
+    }
+
+    public void setQueryIndex(QueryIndex queryIndex) {
+        this.queryIndex = queryIndex;
+    }
+
+    public void setDocumentIndex(DocumentIndex documentIndex) {
+        this.documentIndex = documentIndex;
+    }
+
+    public void setNormalizer(Normalizer normalizer) {
+        this.normalizer = normalizer;
     }
 }

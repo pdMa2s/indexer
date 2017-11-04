@@ -3,8 +3,8 @@ package src.java.index;
 import java.util.*;
 
 /**
- * A data structure that represents an index that stores how many times a
- * term appears in each file along with the document id. Each index entry points to a
+ * A data structure that represents an invertedIndex that stores how many times a
+ * term appears in each file along with the document id. Each invertedIndex entry points to a
  * list of Postings.
  *
  * @author Pedro Matos - 73941
@@ -16,7 +16,7 @@ public class InvertedIndex {
      private Map<String, List<Posting>> index;
 
     /**
-     * Constructs an empty index.
+     * Constructs an empty invertedIndex.
      */
     public InvertedIndex(){
          this.index = new HashMap<>();
@@ -26,8 +26,8 @@ public class InvertedIndex {
         return index.keySet();
     }
      /**
-      * Adds an occurrence of a token in a document with a certain ID to the index.
-      * @param token A word/token, its occurrence will be stored in the index.
+      * Adds an occurrence of a token in a document with a certain ID to the invertedIndex.
+      * @param token A word/token, its occurrence will be stored in the invertedIndex.
       * @param docID The ID of the document where the token appeared.
       *
       * */
@@ -58,7 +58,7 @@ public class InvertedIndex {
     }
 
     /**
-     * Returns a List which contains the 10 terms of a index, alphabetically ordered, with
+     * Returns a List which contains the 10 terms of a invertedIndex, alphabetically ordered, with
      * the most occurrences in a certain document.
      * @param   docID The ID of the document
      * @return  A List with the top 10 terms that have the most occurrences in a document
@@ -115,7 +115,7 @@ public class InvertedIndex {
     }
 
     /**
-     * Returns the size of the index vocabulary which corresponds to the number of terms in the index.
+     * Returns the size of the invertedIndex vocabulary which corresponds to the number of terms in the invertedIndex.
      * @return The size of the vocabulary that is indexed.
      */
     public int vocabularySize(){

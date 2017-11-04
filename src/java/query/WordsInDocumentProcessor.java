@@ -18,14 +18,19 @@ import java.util.List;
  */
 public class WordsInDocumentProcessor implements QueryProcessor {
 
+    private InvertedIndex index;
+
+    public WordsInDocumentProcessor(InvertedIndex index) {
+        this.index = index;
+    }
+
     /**
      * Counts the number of words in a query that appear in a document.
      * The results are stores in their respective {@link Query} object.
-     * @param index An {@link InvertedIndex} object where information is going to be extracted to answer the queries.
      * @param queries A {@link List} of {@link Query} objects with the content of which query. After the query
      *                as been processed it's results are going to be store in it's respective object.
      */
-    public void queryWordsInDocument(InvertedIndex index, List<Query> queries) {
+    public void queryWordsInDocument( List<Query> queries) {
         for(Query query: queries) {
             for (String term : query.getTerms()) {
                 List<Posting> postings = index.getPostingList(term);
@@ -41,7 +46,7 @@ public class WordsInDocumentProcessor implements QueryProcessor {
         }
     }
     @Override
-    public void processQueries(InvertedIndex index, List<Query> queries) {
-        queryWordsInDocument(index, queries);
+    public void processQueries( List<Query> queries) {
+        queryWordsInDocument(queries);
     }
 }

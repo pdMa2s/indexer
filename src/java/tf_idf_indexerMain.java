@@ -21,13 +21,13 @@ public class tf_idf_indexerMain {
         indexer = builder.constructIndexer();
         index = indexer.createIndex();
         index.applyTF();
-        writer.saveIndexToFile(FILETOSAVEINDEX, index, builder.getTokenizerType());
+        writer.saveIndexToFile(FILETOSAVEINDEX, index, builder.getTokenizerType(), indexer.getCorpusSize());
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
 
         System.out.println("Indexing time: "+elapsedTime+"ms");
-        //System.out.println(index);
+        //System.out.println(invertedIndex);
         System.out.println("Vocabulary size: " +index.vocabularySize());
         System.out.println("Ten First terms in document 1 with alphabetical order: " + index.getTop10TermsOccurrences(1));
         System.out.println("Ten terms with the higher doc frequency: " + index.getTopFreqTerms());
@@ -51,7 +51,7 @@ public class tf_idf_indexerMain {
         System.err.println("USAGE: \n"+
                 "java -cp ../../libstemmer_java/java/libstemmer.jar: src.java.tf_idf_indexerMain <corpusDirectory> <indexFile>(Optional)\n"+
                 "<corpusDirectory> - The directory where the corpus is located\n"+
-                "<indexFile> - The optional parameter lets you pick the name of the file where the index will be saved to\n");
+                "<indexFile> - The optional parameter lets you pick the name of the file where the invertedIndex will be saved to\n");
         System.exit(1);
     }
 }

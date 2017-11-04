@@ -14,7 +14,7 @@ public class Query {
 
     private int id;
     private List<String> terms;
-    private Map<Integer, Integer> results;
+    private Map<Integer, Double> results;
 
     /**
      * Constructs a {@link Query} object.
@@ -45,7 +45,7 @@ public class Query {
      * @param docId The id of the document.
      * @param score The score of a document for this query.
      */
-    public void addScore(int docId, int score){
+    public void addScore(int docId, double score){
         results.put(docId, score);
     }
 
@@ -54,7 +54,7 @@ public class Query {
      * @param docId The id of the document of which you want to know the score.
      * @return The score associated with that document id.
      */
-    public Integer getScore(int docId){
+    public Double getScore(int docId){
         return results.get(docId);
     }
 
@@ -74,10 +74,10 @@ public class Query {
         return terms;
     }
 
-    public Set<Map.Entry<Integer, Integer>> getSortedResults(){
-        SortedSet<Map.Entry<Integer, Integer>> sortedSet = new TreeSet<>(
-                (e1, e2) -> e2.getValue() - e1.getValue());
 
+    public Set<Map.Entry<Integer, Double>> getSortedResults(){
+        SortedSet<Map.Entry<Integer, Double>> sortedSet = new TreeSet<>(
+                (e1, e2) -> (int) (e2.getValue() - e1.getValue()));
         sortedSet.addAll(results.entrySet());
         return sortedSet;
     }

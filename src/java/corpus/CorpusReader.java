@@ -27,4 +27,6 @@ public interface CorpusReader {
      * @return The ID of the document that was processed.
      */
     int getDocumentID();
+
+    int corpusSize();
 }

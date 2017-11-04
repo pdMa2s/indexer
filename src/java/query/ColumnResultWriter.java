@@ -32,7 +32,7 @@ public class ColumnResultWriter implements QueryResultWriter{
             writer = new BufferedWriter(fw);
             writer.write("query_id" + delimiter+ "doc_id"+delimiter+"doc_score" +"\n");
             for(Query query: queries){
-                for(Map.Entry<Integer, Integer> entry: query.getSortedResults()){
+                for(Map.Entry<Integer, Double> entry: query.getSortedResults()){
 
                     writer.write(query.getId() + delimiter + entry.getKey() + delimiter+ entry.getValue() + "\n");
                 }
@@ -40,7 +40,7 @@ public class ColumnResultWriter implements QueryResultWriter{
             }
             writer.close();
         } catch (UnsupportedEncodingException | FileNotFoundException e) {
-            System.err.println("ERROR: Writing index to file");
+            System.err.println("ERROR: Writing invertedIndex to file");
             System.exit(3);
         } catch (IOException e) {
             e.printStackTrace();
