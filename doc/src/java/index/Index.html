@@ -42,17 +42,17 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../src/java/index/CSVIndexWriter.html" title="class in src.java.index"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../src/java/index/IndexReader.html" title="interface in src.java.index"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../src/java/invertedIndex/CSVIndexWriter.html" title="class in src.java.invertedIndex"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../src/java/invertedIndex/IndexReader.html" title="interface in src.java.invertedIndex"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/index/Index.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/invertedIndex/Index.html" target="_top">Frames</a></li>
 <li><a href="Index.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">src.java.index</div>
+<div class="subTitle">src.java.invertedIndex</div>
 <h2 title="Class Index" class="title">Class Index</h2>
 </div>
 <div class="contentContainer">
@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>src.java.index.InvertedIndex</li>
+<li>src.java.invertedIndex.InvertedIndex</li>
 </ul>
 </li>
 </ul>
@@ -110,14 +110,14 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public class <span class="typeNameLabel">Index</span>
 extends java.lang.Object</pre>
-<div class="block">A data structure that represents an index that stores how many times a
- term appears in each file along with the document id. Each index entry points to a
+<div class="block">A data structure that represents an invertedIndex that stores how many times a
+ term appears in each file along with the document id. Each invertedIndex entry points to a
  list of Postings.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>09-27-2017</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../src/java/index/Posting.html" title="class in src.java.index"><code>Posting</code></a></dd>
+<dd><a href="../../../src/java/invertedIndex/Posting.html" title="class in src.java.invertedIndex"><code>Posting</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -137,8 +137,8 @@ extends java.lang.Object</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#Index--">Index</a></span>()</code>
-<div class="block">Constructs an empty index.</div>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#Index--">Index</a></span>()</code>
+<div class="block">Constructs an empty invertedIndex.</div>
 </td>
 </tr>
 </table>
@@ -158,45 +158,45 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#addTermAndPostings-java.lang.String-java.util.List-">addTermAndPostings</a></span>(java.lang.String&nbsp;token,
-                  java.util.List&lt;<a href="../../../src/java/index/Posting.html" title="class in src.java.index">Posting</a>&gt;&nbsp;postings)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#addTermAndPostings-java.lang.String-java.util.List-">addTermAndPostings</a></span>(java.lang.String&nbsp;token,
+                  java.util.List&lt;<a href="../../../src/java/invertedIndex/Posting.html" title="class in src.java.invertedIndex">Posting</a>&gt;&nbsp;postings)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#addTokenOcurrence-java.lang.String-int-">addTokenOcurrence</a></span>(java.lang.String&nbsp;token,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#addTokenOcurrence-java.lang.String-int-">addTokenOcurrence</a></span>(java.lang.String&nbsp;token,
                  int&nbsp;docID)</code>
-<div class="block">Adds an occurrence of a token in a document with a certain ID to the index.</div>
+<div class="block">Adds an occurrence of a token in a document with a certain ID to the invertedIndex.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="../../../src/java/index/Posting.html" title="class in src.java.index">Posting</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#getPostingList-java.lang.String-">getPostingList</a></span>(java.lang.String&nbsp;term)</code>&nbsp;</td>
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../src/java/invertedIndex/Posting.html" title="class in src.java.invertedIndex">Posting</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#getPostingList-java.lang.String-">getPostingList</a></span>(java.lang.String&nbsp;term)</code>&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.util.Set&lt;java.lang.String&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#getTerms--">getTerms</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#getTerms--">getTerms</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#getTop10TermsOccurrences-int-">getTop10TermsOccurrences</a></span>(int&nbsp;docID)</code>
-<div class="block">Returns a List which contains the 10 terms of a index, alphabetically ordered, with
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#getTop10TermsOccurrences-int-">getTop10TermsOccurrences</a></span>(int&nbsp;docID)</code>
+<div class="block">Returns a List which contains the 10 terms of a invertedIndex, alphabetically ordered, with
  the most occurrences in a certain document.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#getTopFreqTerms--">getTopFreqTerms</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#getTopFreqTerms--">getTopFreqTerms</a></span>()</code>
 <div class="block">Returns a List with the 10 terms with the highest document frequency.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#toString--">toString</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#toString--">toString</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/Index.html#vocabularySize--">vocabularySize</a></span>()</code>
-<div class="block">Returns the size of the index vocabulary which corresponds to the number of terms in the index.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/Index.html#vocabularySize--">vocabularySize</a></span>()</code>
+<div class="block">Returns the size of the invertedIndex vocabulary which corresponds to the number of terms in the invertedIndex.</div>
 </td>
 </tr>
 </table>
@@ -228,7 +228,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Index</h4>
 <pre>public&nbsp;Index()</pre>
-<div class="block">Constructs an empty index.</div>
+<div class="block">Constructs an empty invertedIndex.</div>
 </li>
 </ul>
 </li>
@@ -256,10 +256,10 @@ extends java.lang.Object</pre>
 <h4>addTokenOcurrence</h4>
 <pre>public&nbsp;void&nbsp;addTokenOcurrence(java.lang.String&nbsp;token,
                               int&nbsp;docID)</pre>
-<div class="block">Adds an occurrence of a token in a document with a certain ID to the index.</div>
+<div class="block">Adds an occurrence of a token in a document with a certain ID to the invertedIndex.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>token</code> - A word/token, its occurrence will be stored in the index.</dd>
+<dd><code>token</code> - A word/token, its occurrence will be stored in the invertedIndex.</dd>
 <dd><code>docID</code> - The ID of the document where the token appeared.</dd>
 </dl>
 </li>
@@ -270,7 +270,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getPostingList</h4>
-<pre>public&nbsp;java.util.List&lt;<a href="../../../src/java/index/Posting.html" title="class in src.java.index">Posting</a>&gt;&nbsp;getPostingList(java.lang.String&nbsp;term)</pre>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../src/java/invertedIndex/Posting.html" title="class in src.java.invertedIndex">Posting</a>&gt;&nbsp;getPostingList(java.lang.String&nbsp;term)</pre>
 </li>
 </ul>
 <a name="addTermAndPostings-java.lang.String-java.util.List-">
@@ -280,7 +280,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>addTermAndPostings</h4>
 <pre>public&nbsp;void&nbsp;addTermAndPostings(java.lang.String&nbsp;token,
-                               java.util.List&lt;<a href="../../../src/java/index/Posting.html" title="class in src.java.index">Posting</a>&gt;&nbsp;postings)</pre>
+                               java.util.List&lt;<a href="../../../src/java/invertedIndex/Posting.html" title="class in src.java.invertedIndex">Posting</a>&gt;&nbsp;postings)</pre>
 </li>
 </ul>
 <a name="getTop10TermsOccurrences-int-">
@@ -290,7 +290,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getTop10TermsOccurrences</h4>
 <pre>public&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getTop10TermsOccurrences(int&nbsp;docID)</pre>
-<div class="block">Returns a List which contains the 10 terms of a index, alphabetically ordered, with
+<div class="block">Returns a List which contains the 10 terms of a invertedIndex, alphabetically ordered, with
  the most occurrences in a certain document.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -325,7 +325,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>vocabularySize</h4>
 <pre>public&nbsp;int&nbsp;vocabularySize()</pre>
-<div class="block">Returns the size of the index vocabulary which corresponds to the number of terms in the index.</div>
+<div class="block">Returns the size of the invertedIndex vocabulary which corresponds to the number of terms in the invertedIndex.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The size of the vocabulary that is indexed.</dd>
@@ -366,17 +366,17 @@ extends java.lang.Object</pre>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../src/java/index/CSVIndexWriter.html" title="class in src.java.index"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../src/java/index/IndexReader.html" title="interface in src.java.index"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../src/java/invertedIndex/CSVIndexWriter.html" title="class in src.java.invertedIndex"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../src/java/invertedIndex/IndexReader.html" title="interface in src.java.invertedIndex"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/index/Index.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/invertedIndex/Index.html" target="_top">Frames</a></li>
 <li><a href="Index.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

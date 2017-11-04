@@ -42,7 +42,7 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../deprecated-list.html">Deprecated</a></li>
-<li><a href="../index-files/index-1.html">Index</a></li>
+<li><a href="../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -52,7 +52,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="../indexer/Indexer.html" title="class in indexer"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../index.html?indexer/Index.html" target="_top">Frames</a></li>
+<li><a href="../invertedIndex.html?indexer/Index.html" target="_top">Frames</a></li>
 <li><a href="Index.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -110,8 +110,8 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public class <span class="typeNameLabel">Index</span>
 extends java.lang.Object</pre>
-<div class="block">A data structure that represents an index that stores how many times a
- term appears in each file along with the document id. Each index entry points to a
+<div class="block">A data structure that represents an invertedIndex that stores how many times a
+ term appears in each file along with the document id. Each invertedIndex entry points to a
  list of Postings.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -140,7 +140,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../indexer/Index.html#Index--">Index</a></span>()</code>
-<div class="block">Constructs an empty index.</div>
+<div class="block">Constructs an empty invertedIndex.</div>
 </td>
 </tr>
 </table>
@@ -162,13 +162,13 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../indexer/Index.html#addTokenOcurrence-java.lang.String-int-">addTokenOcurrence</a></span>(java.lang.String&nbsp;token,
                  int&nbsp;docID)</code>
-<div class="block">Adds an occurrence of a token in a document with a certain ID to the index.</div>
+<div class="block">Adds an occurrence of a token in a document with a certain ID to the invertedIndex.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;java.lang.String&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../indexer/Index.html#getTop10TermsOccurrences-int-">getTop10TermsOccurrences</a></span>(int&nbsp;docID)</code>
-<div class="block">Returns a List which contains the 10 terms of a index, alphabetically ordered, with
+<div class="block">Returns a List which contains the 10 terms of a invertedIndex, alphabetically ordered, with
  the most occurrences in a certain document.</div>
 </td>
 </tr>
@@ -181,7 +181,7 @@ extends java.lang.Object</pre>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../indexer/Index.html#saveIndexToFile-java.lang.String-">saveIndexToFile</a></span>(java.lang.String&nbsp;fileName)</code>
-<div class="block">Saves a representation of the index in a CSV(Comma Separated Value) file.</div>
+<div class="block">Saves a representation of the invertedIndex in a CSV(Comma Separated Value) file.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -191,7 +191,7 @@ extends java.lang.Object</pre>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../indexer/Index.html#vocabularySize--">vocabularySize</a></span>()</code>
-<div class="block">Returns the size of the index vocabulary which corresponds to the number of terms in the index.</div>
+<div class="block">Returns the size of the invertedIndex vocabulary which corresponds to the number of terms in the invertedIndex.</div>
 </td>
 </tr>
 </table>
@@ -223,7 +223,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>Index</h4>
 <pre>public&nbsp;Index()</pre>
-<div class="block">Constructs an empty index.</div>
+<div class="block">Constructs an empty invertedIndex.</div>
 </li>
 </ul>
 </li>
@@ -242,10 +242,10 @@ extends java.lang.Object</pre>
 <h4>addTokenOcurrence</h4>
 <pre>public&nbsp;void&nbsp;addTokenOcurrence(java.lang.String&nbsp;token,
                               int&nbsp;docID)</pre>
-<div class="block">Adds an occurrence of a token in a document with a certain ID to the index.</div>
+<div class="block">Adds an occurrence of a token in a document with a certain ID to the invertedIndex.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>token</code> - A word/token, its occurrence will be stored in the index.</dd>
+<dd><code>token</code> - A word/token, its occurrence will be stored in the invertedIndex.</dd>
 <dd><code>docID</code> - The ID of the document where the token appeared.</dd>
 </dl>
 </li>
@@ -257,7 +257,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getTop10TermsOccurrences</h4>
 <pre>public&nbsp;java.util.List&lt;java.lang.String&gt;&nbsp;getTop10TermsOccurrences(int&nbsp;docID)</pre>
-<div class="block">Returns a List which contains the 10 terms of a index, alphabetically ordered, with
+<div class="block">Returns a List which contains the 10 terms of a invertedIndex, alphabetically ordered, with
  the most occurrences in a certain document.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -292,10 +292,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>saveIndexToFile</h4>
 <pre>public&nbsp;void&nbsp;saveIndexToFile(java.lang.String&nbsp;fileName)</pre>
-<div class="block">Saves a representation of the index in a CSV(Comma Separated Value) file.</div>
+<div class="block">Saves a representation of the invertedIndex in a CSV(Comma Separated Value) file.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fileName</code> - The of the file where the index Will the saved to.</dd>
+<dd><code>fileName</code> - The of the file where the invertedIndex Will the saved to.</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="https://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a></dd>
 </dl>
@@ -308,7 +308,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>vocabularySize</h4>
 <pre>public&nbsp;int&nbsp;vocabularySize()</pre>
-<div class="block">Returns the size of the index vocabulary which corresponds to the number of terms in the index.</div>
+<div class="block">Returns the size of the invertedIndex vocabulary which corresponds to the number of terms in the invertedIndex.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The size of the vocabulary that is indexed.</dd>
@@ -349,7 +349,7 @@ extends java.lang.Object</pre>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../deprecated-list.html">Deprecated</a></li>
-<li><a href="../index-files/index-1.html">Index</a></li>
+<li><a href="../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -359,7 +359,7 @@ extends java.lang.Object</pre>
 <li><a href="../indexer/Indexer.html" title="class in indexer"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../index.html?indexer/Index.html" target="_top">Frames</a></li>
+<li><a href="../invertedIndex.html?indexer/Index.html" target="_top">Frames</a></li>
 <li><a href="Index.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

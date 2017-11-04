@@ -1,102 +1,50 @@
 package src.java.normalizer;
 
 import src.java.index.DocumentIndex;
-import src.java.index.InvertedIndex;
+import src.java.index.Index;
+import src.java.query.QueryIndex;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Normalizer {
     private DocumentIndex documentIndex;
-    Map<Integer, Map<String, Double>> QueryVector;
+    private QueryIndex queryIndex;
     Map<Integer, Map<Integer, Double>> NormalizedResults;
-    Map<String, Integer> TermDocFreq;
-    int CorpusSize;
 
-    public Normalizer(DocumentIndex documentIndex) {
+    public Normalizer(DocumentIndex documentIndex, QueryIndex queryIndex) {
         this.documentIndex = documentIndex;
-        TermDocFreq = new HashMap<>();
-        QueryVector = new HashMap<>();
+        this.queryIndex = queryIndex;
         NormalizedResults = new HashMap<>();
-        this.CorpusSize = 0;
     }
 
     public Map<Integer, Map<Integer, Double>> getNormalizedResults(){
         return NormalizedResults;
     }
 
-    public void addTermDocFreq(String term, Integer freq) {
-        TermDocFreq.put(term, freq);
-    }
 
-    public void addDirVectorOccurrencce(int docId, String term,double termScore) {
-        documentIndex.addTermScore(docId, term, termScore);
-    }
-
-    public void addQueryVectorOccurrencce(int QueryId, String term){
-        Map<String, Double> temp = QueryVector.get(QueryId);
-        if(temp != null){
-            Double termFreq = temp.get(term);
-            if(termFreq != null){
-                temp.put(term, temp.get(term)+1);
-            }
-            else{
-                temp.put(term,(double) 1);
-            }
-        }else{
-            Map<String, Double> newEntry = new HashMap<>();
-            newEntry.put(term, (double) 1);
-            QueryVector.put(QueryId, newEntry);
-        }
-    }
-
-    public void normalize(){
+    public void normalize(Index index){
         double normal;
-        for(Integer doc : documentIndex.getDocIds()){
+        for(Integer doc : index.getIds()){
             normal = 0;
-            Vector<String> docTerms = documentIndex.getVector(doc);
-            for(String term : docTerms.keySet()){
+            Vector docTerms = index.getVector(doc);
+            for(String term : docTerms.getTerms()){
                 normal += Math.pow(docTerms.getScore(term), 2);
             }
             normal = Math.sqrt(normal);
-            for(String term : docTerms.keySet()){
+            for(String term : docTerms.getTerms()){
                 docTerms.put(term, docTerms.getScore(term)/normal);
             }
         }
     }
 
-    public void applyTFandIDFtoQueryMatrix(InvertedIndex index){
-        for(Integer QueryID : QueryVector.keySet()){
-            Map<String, Double> temp = QueryVector.get(QueryID);
-            for(String s : temp.keySet()){
-                if(index.getPostingList(s)!= null)
-                    temp.put(s,(1+Math.log10(temp.get(s)))*Math.log10(CorpusSize/index.getPostingList(s).size()));
-            }
-        }
-    }
-
-    public void normalizeQueryVector(){
-        double normal;
-        for(Integer QueryID : QueryVector.keySet()){
-            normal = 0;
-            Map<String, Double> Terms = QueryVector.get(QueryID);
-            for(String st : Terms.keySet()){
-                normal += Math.pow(Terms.get(st), 2);
-            }
-            normal = Math.sqrt(normal);
-            for(String st : Terms.keySet()){
-                Terms.put(st, Terms.get(st)/normal);
-            }
-        }
-    }
-
     public void normalizeResults(){
-        for(int queryID : QueryVector.keySet()){
-            Map<String, Double> termsInQuery = QueryVector.get(queryID);
+        for(int queryID : queryIndex.getIds()){
+            Vector termsInQuery = queryIndex.getVector(queryID);
             for(String ter : termsInQuery.keySet()){
                 for(int DocID : documentIndex.getDocIds()){
                     Vector<String> docVector = documentIndex.getVector(DocID);
-                    if(docVector.contanisTerm(ter)){
+                    if(docVector.containsTerm(ter)){
                         Map<Integer, Double> results = NormalizedResults.get(queryID);
                         if(results != null) {
                             if(results.containsKey(DocID)){

@@ -1,6 +1,7 @@
 package src.java;
 
 import src.java.index.CSVIndexReader;
+import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
 import src.java.normalizer.Normalizer;
@@ -16,20 +17,21 @@ public class tf_idf_rankingMain {
         File indexFile = new File(args[0]);
         File queryFile = new File(args[1]);
 
-        String rankingResults = "TF_IDF_RESULTS";
+        String rankingResultsFile = "NORMALIZED_RANKING";
 
         long startTime = System.currentTimeMillis();
-        InvertedIndex index;
-        Normalizer nm = new Normalizer();
+        InvertedIndex invertedIndex = new InvertedIndex();
+        DocumentIndex documentIndex = new DocumentIndex();
+        Normalizer nm = new Normalizer(documentIndex);
         IndexReader idr = new CSVIndexReader();
-        index = idr.parseDocumentAndInvertedIndexes(indexFile, nm);
+        idr.parseDocumentAndInvertedIndexes(indexFile,invertedIndex,  documentIndex);
         nm.normalize();
-        SearchEngineBuilder searchEngineBuilder = new Tf_idf_SearchEngineBuilder(index, idr.getTokenizer());
+        SearchEngineBuilder searchEngineBuilder = new Tf_idf_SearchEngineBuilder(invertedIndex, idr.getTokenizer());
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
 
-        searchEngine.searchNormalizedQueryWordsInDocument(queryFile, nm);
+        searchEngine.processQueries(queryFile);
         nm.normalizeResults();
-        searchEngine.saveNormalizedResults(rankingResults, nm);
+        searchEngine.saveResults(rankingResultsFile);
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;

@@ -12,7 +12,7 @@ public class Tf_idf_SearchEngineBuilder extends SearchEngineBuilder {
 
     @Override
     public void buildIndex() {
-        searchEngine.setIndex(index);
+        searchEngine.setInvertedIndex(index);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Tf_idf_SearchEngineBuilder extends SearchEngineBuilder {
 
     @Override
     public void buildQueryProcessor() {
-        searchEngine.setQueryProcessor(new DisjuntiveQueryProcessor());
+        searchEngine.setQueryProcessor(new NormalizedProcessor());
     }
 
     @Override

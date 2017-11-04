@@ -2,7 +2,7 @@ src.java
 src.java.constants
 src.java.corpus
 src.java.documentReader
-src.java.index
+src.java.invertedIndex
 src.java.indexer
 src.java.query
 src.java.tokenizer

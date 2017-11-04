@@ -1,7 +1,6 @@
 package src.java.query;
 
 import src.java.index.InvertedIndex;
-import src.java.normalizer.Normalizer;
 import src.java.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
@@ -16,38 +15,20 @@ import java.util.List;
  */
 public class SearchEngine {
 
-    private InvertedIndex index;
+    private InvertedIndex invertedIndex;
+    private QueryIndex queryIndex;
     private QueryReader queryReader;
     private QueryProcessor queryProcessor;
     private QueryResultWriter queryResultWriter;
     private List<Query> queries;
     private Tokenizer tokenizer;
 
-    /**
-     * This method has the same objective as {@link QueryProcessor#queryWordsInDocument(InvertedIndex, List)}.
-     * @param queryFile The file where the queries are contained.
-     * @return A {@link List} of {@link Query} objects containing the results for their respective query.
-     */
-    public List<Query> searchQueryWordsInDocument(File queryFile){
-        queries = queryReader.loadQueries(queryFile, tokenizer);
-        queryProcessor.queryWordsInDocument(index, queries);
-        return queries;
-    }
 
-    /**
-     * This method has the same objective as {@link QueryProcessor#frequencyOfQueryWordsInDocument(InvertedIndex, List)}.
-     * @param queryFile The file where the queries are contained.
-     * @return A {@link List} of {@link Query} objects containing the results for their respective query.
-     */
-    public List<Query> searchFrequencyOfQueryWordsInDocument(File queryFile){
+    public List<Query> processQueries(File queryFile){
         queries = queryReader.loadQueries(queryFile, tokenizer);
-        queryProcessor.frequencyOfQueryWordsInDocument(index, queries);
-        return queries;
-    }
-
-    public List<Query> searchNormalizedQueryWordsInDocument(File queryFile, Normalizer nm){
-        queries = queryReader.loadQueries(queryFile, tokenizer);
-        queryProcessor.tf_idf_QueryWordsInDocument(index, queries, nm);
+        queryIndex.addQueries(queries);
+        queryIndex.applyTFAndIDFtoQueries(invertedIndex);
+        queryProcessor.processQueries(invertedIndex, queries);
         return queries;
     }
 
@@ -59,16 +40,12 @@ public class SearchEngine {
         queryResultWriter.saveQueryResultsToFile(resultFileName, queries);
     }
 
-    public void saveNormalizedResults(String resultFileName, Normalizer nm){
-        queryResultWriter.saveNormalizedResultsToFile(resultFileName, queries, nm);
-    }
-
     /**
      *
-     * @param index The where the search will take place.
+     * @param invertedIndex The where the search will take place.
      */
-    public void setIndex(InvertedIndex index) {
-        this.index = index;
+    public void setInvertedIndex(InvertedIndex invertedIndex) {
+        this.invertedIndex = invertedIndex;
     }
 
     /**
@@ -81,7 +58,7 @@ public class SearchEngine {
 
     /**
      *
-     * @param queryProcessor The {@link QueryProcessor} to be used to obtain results from the index.
+     * @param queryProcessor The {@link QueryProcessor} to be used to obtain results from the invertedIndex.
      */
     public void setQueryProcessor(QueryProcessor queryProcessor) {
         this.queryProcessor = queryProcessor;

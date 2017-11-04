@@ -40,19 +40,6 @@ public class WordsInDocumentProcessor implements QueryProcessor {
             }
         }
     }
-
-
-
-    public void tf_idf_QueryWordsInDocument(InvertedIndex index, List<Query> queries, Normalizer nm){
-        for(Query query: queries) {
-            for (String term : query.getTerms()) {
-                nm.addQueryVectorOccurrencce(query.getId(), term);
-            }
-        }
-        nm.applyTFandIDFtoQueryMatrix(index);
-        nm.normalizeQueryVector();
-    }
-
     @Override
     public void processQueries(InvertedIndex index, List<Query> queries) {
         queryWordsInDocument(index, queries);

@@ -42,7 +42,7 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -52,7 +52,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="../../../src/java/query/QueryReader.html" title="interface in src.java.query"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/query/QueryProcessor.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/query/QueryProcessor.html" target="_top">Frames</a></li>
 <li><a href="QueryProcessor.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -105,7 +105,7 @@ var activeTableTab = "activeTableTab";
 <hr>
 <br>
 <pre>public interface <span class="typeNameLabel">QueryProcessor</span></pre>
-<div class="block">Takes an <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> and process it to obtain certain results that then stores on a <code>List</code> of
+<div class="block">Takes an <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> and process it to obtain certain results that then stores on a <code>List</code> of
  <a href="../../../src/java/query/Query.html" title="class in src.java.query"><code>Query</code></a> objects.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -131,14 +131,14 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/QueryProcessor.html#frequencyOfQueryWordsInDocument-src.java.index.Index-java.util.List-">frequencyOfQueryWordsInDocument</a></span>(<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/QueryProcessor.html#frequencyOfQueryWordsInDocument-src.java.invertedIndex.Index-java.util.List-">frequencyOfQueryWordsInDocument</a></span>(<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex,
                                java.util.List&lt;<a href="../../../src/java/query/Query.html" title="class in src.java.query">Query</a>&gt;&nbsp;queries)</code>
 <div class="block">Sums the frequency of document words that appear in a query.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/QueryProcessor.html#queryWordsInDocument-src.java.index.Index-java.util.List-">queryWordsInDocument</a></span>(<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/QueryProcessor.html#queryWordsInDocument-src.java.invertedIndex.Index-java.util.List-">queryWordsInDocument</a></span>(<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex,
                     java.util.List&lt;<a href="../../../src/java/query/Query.html" title="class in src.java.query">Query</a>&gt;&nbsp;queries)</code>
 <div class="block">Counts the number of words in a query that appear in a document.</div>
 </td>
@@ -158,37 +158,37 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="queryWordsInDocument-src.java.index.Index-java.util.List-">
+<a name="queryWordsInDocument-src.java.invertedIndex.Index-java.util.List-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>queryWordsInDocument</h4>
-<pre>void&nbsp;queryWordsInDocument(<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index,
+<pre>void&nbsp;queryWordsInDocument(<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex,
                           java.util.List&lt;<a href="../../../src/java/query/Query.html" title="class in src.java.query">Query</a>&gt;&nbsp;queries)</pre>
 <div class="block">Counts the number of words in a query that appear in a document.
  The results are stores in their respective <a href="../../../src/java/query/Query.html" title="class in src.java.query"><code>Query</code></a> object.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>index</code> - An <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> object where information is going to be extracted to answer the queries.</dd>
+<dd><code>invertedIndex</code> - An <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> object where information is going to be extracted to answer the queries.</dd>
 <dd><code>queries</code> - A <code>List</code> of <a href="../../../src/java/query/Query.html" title="class in src.java.query"><code>Query</code></a> objects with the content of which query. After the query
                 as been processed it's results are going to be store in it's respective object.</dd>
 </dl>
 </li>
 </ul>
-<a name="frequencyOfQueryWordsInDocument-src.java.index.Index-java.util.List-">
+<a name="frequencyOfQueryWordsInDocument-src.java.invertedIndex.Index-java.util.List-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>frequencyOfQueryWordsInDocument</h4>
-<pre>void&nbsp;frequencyOfQueryWordsInDocument(<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index,
+<pre>void&nbsp;frequencyOfQueryWordsInDocument(<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex,
                                      java.util.List&lt;<a href="../../../src/java/query/Query.html" title="class in src.java.query">Query</a>&gt;&nbsp;queries)</pre>
 <div class="block">Sums the frequency of document words that appear in a query.
  The results are stores in their respective <a href="../../../src/java/query/Query.html" title="class in src.java.query"><code>Query</code></a> object.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>index</code> - An <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> object where information is going to be extracted to answer the queries.</dd>
+<dd><code>invertedIndex</code> - An <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> object where information is going to be extracted to answer the queries.</dd>
 <dd><code>queries</code> - A <code>List</code> of <a href="../../../src/java/query/Query.html" title="class in src.java.query"><code>Query</code></a> objects with the content of which query. After the query
                 as been processed it's results are going to be store in it's respective object.</dd>
 </dl>
@@ -215,7 +215,7 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -225,7 +225,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="../../../src/java/query/QueryReader.html" title="interface in src.java.query"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/query/QueryProcessor.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/query/QueryProcessor.html" target="_top">Frames</a></li>
 <li><a href="QueryProcessor.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

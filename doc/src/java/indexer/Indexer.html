@@ -42,7 +42,7 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -52,7 +52,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="../../../src/java/indexer/IndexerBuilder.html" title="class in src.java.indexer"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/indexer/Indexer.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/indexer/Indexer.html" target="_top">Frames</a></li>
 <li><a href="Indexer.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -110,17 +110,17 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public class <span class="typeNameLabel">Indexer</span>
 extends java.lang.Object</pre>
-<div class="block">The purpose of this class is to create an <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> that stores words occurrences in a document corpus
+<div class="block">The purpose of this class is to create an <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> that stores words occurrences in a document corpus
  located in a certain directory.
  This is done using a <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a> that will iterate over the files and return their content, after that
- a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> is used to provide the tokens/words from that document content. Finally an <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> is
+ a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> is used to provide the tokens/words from that document content. Finally an <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> is
  filled with the occurrences of those tokens/words.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>09-27-2017</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a>, 
-<a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a>, 
+<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a>,
 <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a></dd>
 </dl>
 </li>
@@ -159,15 +159,15 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code><a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a></code></td>
+<td class="colFirst"><code><a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/indexer/Indexer.html#createIndex--">createIndex</a></span>()</code>
-<div class="block">Creates an <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> of occurrences os words using a <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a>and a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a>.</div>
+<div class="block">Creates an <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> of occurrences os words using a <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a>and a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a>.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a></code></td>
+<td class="colFirst"><code><a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/indexer/Indexer.html#getIndex--">getIndex</a></span>()</code>
-<div class="block">Gives access to the <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> that was created.</div>
+<div class="block">Gives access to the <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> that was created.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -227,11 +227,11 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>createIndex</h4>
-<pre>public&nbsp;<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;createIndex()</pre>
-<div class="block">Creates an <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> of occurrences os words using a <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a>and a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a>.</div>
+<pre>public&nbsp;<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;createIndex()</pre>
+<div class="block">Creates an <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> of occurrences os words using a <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a>and a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a>.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>An <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> filled with the occurrences of words in certain documents.</dd>
+<dd>An <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> filled with the occurrences of words in certain documents.</dd>
 </dl>
 </li>
 </ul>
@@ -241,11 +241,11 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getIndex</h4>
-<pre>public&nbsp;<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;getIndex()</pre>
-<div class="block">Gives access to the <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> that was created.</div>
+<pre>public&nbsp;<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;getIndex()</pre>
+<div class="block">Gives access to the <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> that was created.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The index that was created.</dd>
+<dd>The invertedIndex that was created.</dd>
 </dl>
 </li>
 </ul>
@@ -298,7 +298,7 @@ extends java.lang.Object</pre>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -308,7 +308,7 @@ extends java.lang.Object</pre>
 <li><a href="../../../src/java/indexer/IndexerBuilder.html" title="class in src.java.indexer"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/indexer/Indexer.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/indexer/Indexer.html" target="_top">Frames</a></li>
 <li><a href="Indexer.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

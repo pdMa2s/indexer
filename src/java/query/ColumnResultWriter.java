@@ -46,29 +46,4 @@ public class ColumnResultWriter implements QueryResultWriter{
             e.printStackTrace();
         }
     }
-
-    public void saveNormalizedResultsToFile(String fileName, List<Query> queries, Normalizer nm){
-        BufferedWriter writer;
-        FileWriter fw;
-        String delimiter = "\t";
-        NumberFormat formatter = new DecimalFormat("#0.00");
-        try {
-            fw = new FileWriter(fileName);
-            writer = new BufferedWriter(fw);
-            writer.write("query_id" + delimiter+ "doc_id"+delimiter+"doc_score" +"\n");
-            Map<Integer, Map<Integer, Double>> results = nm.getNormalizedResults();
-            for(int QueryID : results.keySet()){
-                Map<Integer, Double> docIDs = results.get(QueryID);
-                for(int docID : docIDs.keySet()){
-                    writer.write(QueryID + delimiter + docID + delimiter+ formatter.format(docIDs.get(docID)) + "\n");
-                }
-            }
-            writer.close();
-        } catch (UnsupportedEncodingException | FileNotFoundException e) {
-            System.err.println("ERROR: Writing index to file");
-            System.exit(3);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }

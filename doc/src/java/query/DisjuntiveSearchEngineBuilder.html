@@ -42,7 +42,7 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -52,7 +52,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="../../../src/java/query/Query.html" title="class in src.java.query"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/query/DisjuntiveSearchEngineBuilder.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/query/DisjuntiveSearchEngineBuilder.html" target="_top">Frames</a></li>
 <li><a href="DisjuntiveSearchEngineBuilder.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -137,7 +137,7 @@ extends <a href="../../../src/java/query/SearchEngineBuilder.html" title="class 
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;src.java.query.<a href="../../../src/java/query/SearchEngineBuilder.html" title="class in src.java.query">SearchEngineBuilder</a></h3>
-<code><a href="../../../src/java/query/SearchEngineBuilder.html#index">index</a>, <a href="../../../src/java/query/SearchEngineBuilder.html#searchEngine">searchEngine</a>, <a href="../../../src/java/query/SearchEngineBuilder.html#tokenizer">tokenizer</a></code></li>
+<code><a href="../../../src/java/query/SearchEngineBuilder.html#invertedIndex">invertedIndex</a>, <a href="../../../src/java/query/SearchEngineBuilder.html#searchEngine">searchEngine</a>, <a href="../../../src/java/query/SearchEngineBuilder.html#tokenizer">tokenizer</a></code></li>
 </ul>
 </li>
 </ul>
@@ -153,7 +153,7 @@ extends <a href="../../../src/java/query/SearchEngineBuilder.html" title="class 
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../src/java/query/DisjuntiveSearchEngineBuilder.html#DisjuntiveSearchEngineBuilder-src.java.index.Index-src.java.tokenizer.Tokenizer-">DisjuntiveSearchEngineBuilder</a></span>(<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../src/java/query/DisjuntiveSearchEngineBuilder.html#DisjuntiveSearchEngineBuilder-src.java.invertedIndex.Index-src.java.tokenizer.Tokenizer-">DisjuntiveSearchEngineBuilder</a></span>(<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex,
                              <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer">Tokenizer</a>&nbsp;tokenizer)</code></td>
 </tr>
 </table>
@@ -174,7 +174,7 @@ extends <a href="../../../src/java/query/SearchEngineBuilder.html" title="class 
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/DisjuntiveSearchEngineBuilder.html#buildIndex--">buildIndex</a></span>()</code>
-<div class="block">The purpose of this function is to configure a <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> for the <a href="../../../src/java/query/SearchEngine.html" title="class in src.java.query"><code>SearchEngine</code></a> instance
+<div class="block">The purpose of this function is to configure a <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> for the <a href="../../../src/java/query/SearchEngine.html" title="class in src.java.query"><code>SearchEngine</code></a> instance
  that is being built.</div>
 </td>
 </tr>
@@ -232,13 +232,13 @@ extends <a href="../../../src/java/query/SearchEngineBuilder.html" title="class 
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="DisjuntiveSearchEngineBuilder-src.java.index.Index-src.java.tokenizer.Tokenizer-">
+<a name="DisjuntiveSearchEngineBuilder-src.java.invertedIndex.Index-src.java.tokenizer.Tokenizer-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DisjuntiveSearchEngineBuilder</h4>
-<pre>public&nbsp;DisjuntiveSearchEngineBuilder(<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index,
+<pre>public&nbsp;DisjuntiveSearchEngineBuilder(<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex,
                                      <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer">Tokenizer</a>&nbsp;tokenizer)</pre>
 </li>
 </ul>
@@ -257,7 +257,7 @@ extends <a href="../../../src/java/query/SearchEngineBuilder.html" title="class 
 <li class="blockList">
 <h4>buildIndex</h4>
 <pre>public&nbsp;void&nbsp;buildIndex()</pre>
-<div class="block">The purpose of this function is to configure a <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> for the <a href="../../../src/java/query/SearchEngine.html" title="class in src.java.query"><code>SearchEngine</code></a> instance
+<div class="block">The purpose of this function is to configure a <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> for the <a href="../../../src/java/query/SearchEngine.html" title="class in src.java.query"><code>SearchEngine</code></a> instance
  that is being built.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -343,7 +343,7 @@ extends <a href="../../../src/java/query/SearchEngineBuilder.html" title="class 
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -353,7 +353,7 @@ extends <a href="../../../src/java/query/SearchEngineBuilder.html" title="class 
 <li><a href="../../../src/java/query/Query.html" title="class in src.java.query"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/query/DisjuntiveSearchEngineBuilder.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/query/DisjuntiveSearchEngineBuilder.html" target="_top">Frames</a></li>
 <li><a href="DisjuntiveSearchEngineBuilder.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

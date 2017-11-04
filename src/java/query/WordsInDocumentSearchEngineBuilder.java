@@ -23,7 +23,7 @@ public class WordsInDocumentSearchEngineBuilder extends SearchEngineBuilder{
      */
     @Override
     public void buildIndex() {
-        searchEngine.setIndex(index);
+        searchEngine.setInvertedIndex(index);
     }
 
     /**

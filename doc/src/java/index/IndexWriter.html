@@ -42,17 +42,17 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../src/java/index/IndexReader.html" title="interface in src.java.index"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../src/java/index/Posting.html" title="class in src.java.index"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../src/java/invertedIndex/IndexReader.html" title="interface in src.java.invertedIndex"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../src/java/invertedIndex/Posting.html" title="class in src.java.invertedIndex"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/index/IndexWriter.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/invertedIndex/IndexWriter.html" target="_top">Frames</a></li>
 <li><a href="IndexWriter.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -91,7 +91,7 @@ var activeTableTab = "activeTableTab";
 <!-- ========= END OF TOP NAVBAR ========= -->
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
-<div class="subTitle">src.java.index</div>
+<div class="subTitle">src.java.invertedIndex</div>
 <h2 title="Interface IndexWriter" class="title">Interface IndexWriter</h2>
 </div>
 <div class="contentContainer">
@@ -100,12 +100,12 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><a href="../../../src/java/index/CSVIndexWriter.html" title="class in src.java.index">CSVIndexWriter</a></dd>
+<dd><a href="../../../src/java/invertedIndex/CSVIndexWriter.html" title="class in src.java.invertedIndex">CSVIndexWriter</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public interface <span class="typeNameLabel">IndexWriter</span></pre>
-<div class="block">An entity that writes an <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> on disk with a format depending on the implementation.</div>
+<div class="block">An entity that writes an <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> on disk with a format depending on the implementation.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>10-16-2017</dd>
@@ -130,12 +130,12 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/IndexWriter.html#saveIndexToFile-java.lang.String-src.java.index.Index-java.lang.String-">saveIndexToFile</a></span>(java.lang.String&nbsp;fileName,
-               <a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/invertedIndex/IndexWriter.html#saveIndexToFile-java.lang.String-src.java.invertedIndex.Index-java.lang.String-">saveIndexToFile</a></span>(java.lang.String&nbsp;fileName,
+               <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex,
                java.lang.String&nbsp;tokenizerType)</code>
 <div class="block">The implementation of this function should write in the first line of the file an header
  that only contains a tag that identifies the <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> that was used
- to create the @param index.</div>
+ to create the @param invertedIndex.</div>
 </td>
 </tr>
 </table>
@@ -153,23 +153,23 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="saveIndexToFile-java.lang.String-src.java.index.Index-java.lang.String-">
+<a name="saveIndexToFile-java.lang.String-src.java.invertedIndex.Index-java.lang.String-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>saveIndexToFile</h4>
 <pre>void&nbsp;saveIndexToFile(java.lang.String&nbsp;fileName,
-                     <a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index,
+                     <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex,
                      java.lang.String&nbsp;tokenizerType)</pre>
 <div class="block">The implementation of this function should write in the first line of the file an header
  that only contains a tag that identifies the <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> that was used
- to create the @param index.
- After that, the @param index itself should be written.</div>
+ to create the @param invertedIndex.
+ After that, the @param invertedIndex itself should be written.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fileName</code> - The of the file where the index will be written.</dd>
-<dd><code>index</code> - The <a href="../../../src/java/index/Index.html" title="class in src.java.index"><code>Index</code></a> object to be written on disk.</dd>
+<dd><code>fileName</code> - The of the file where the invertedIndex will be written.</dd>
+<dd><code>invertedIndex</code> - The <a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex"><code>Index</code></a> object to be written on disk.</dd>
 <dd><code>tokenizerType</code> - A tag that represents the type of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> that was used
                       in the indexation process. This tags are located in <a href="../../../src/java/constants/Constants.html" title="class in src.java.constants"><code>Constants</code></a>.</dd>
 </dl>
@@ -196,17 +196,17 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../src/java/index/IndexReader.html" title="interface in src.java.index"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../src/java/index/Posting.html" title="class in src.java.index"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../src/java/invertedIndex/IndexReader.html" title="interface in src.java.invertedIndex"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../src/java/invertedIndex/Posting.html" title="class in src.java.invertedIndex"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/index/IndexWriter.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/invertedIndex/IndexWriter.html" target="_top">Frames</a></li>
 <li><a href="IndexWriter.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">

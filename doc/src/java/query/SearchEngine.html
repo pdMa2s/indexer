@@ -42,7 +42,7 @@ var activeTableTab = "activeTableTab";
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -52,7 +52,7 @@ var activeTableTab = "activeTableTab";
 <li><a href="../../../src/java/query/SearchEngineBuilder.html" title="class in src.java.query"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/query/SearchEngine.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/query/SearchEngine.html" target="_top">Frames</a></li>
 <li><a href="SearchEngine.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_top">
@@ -161,18 +161,18 @@ extends java.lang.Object</pre>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../src/java/query/Query.html" title="class in src.java.query">Query</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/SearchEngine.html#searchFrequencyOfQueryWordsInDocument-java.io.File-">searchFrequencyOfQueryWordsInDocument</a></span>(java.io.File&nbsp;queryFile)</code>
-<div class="block">This method has the same objective as <a href="../../../src/java/query/QueryProcessor.html#frequencyOfQueryWordsInDocument-src.java.index.Index-java.util.List-"><code>QueryProcessor.frequencyOfQueryWordsInDocument(Index, List)</code></a>.</div>
+<div class="block">This method has the same objective as <a href="../../../src/java/query/QueryProcessor.html#frequencyOfQueryWordsInDocument-src.java.invertedIndex.Index-java.util.List-"><code>QueryProcessor.frequencyOfQueryWordsInDocument(Index, List)</code></a>.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../src/java/query/Query.html" title="class in src.java.query">Query</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/SearchEngine.html#searchQueryWordsInDocument-java.io.File-">searchQueryWordsInDocument</a></span>(java.io.File&nbsp;queryFile)</code>
-<div class="block">This method has the same objective as <a href="../../../src/java/query/QueryProcessor.html#queryWordsInDocument-src.java.index.Index-java.util.List-"><code>QueryProcessor.queryWordsInDocument(Index, List)</code></a>.</div>
+<div class="block">This method has the same objective as <a href="../../../src/java/query/QueryProcessor.html#queryWordsInDocument-src.java.invertedIndex.Index-java.util.List-"><code>QueryProcessor.queryWordsInDocument(Index, List)</code></a>.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/SearchEngine.html#setIndex-src.java.index.Index-">setIndex</a></span>(<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/query/SearchEngine.html#setIndex-src.java.invertedIndex.Index-">setIndex</a></span>(<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex)</code>&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -236,7 +236,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>searchQueryWordsInDocument</h4>
 <pre>public&nbsp;java.util.List&lt;<a href="../../../src/java/query/Query.html" title="class in src.java.query">Query</a>&gt;&nbsp;searchQueryWordsInDocument(java.io.File&nbsp;queryFile)</pre>
-<div class="block">This method has the same objective as <a href="../../../src/java/query/QueryProcessor.html#queryWordsInDocument-src.java.index.Index-java.util.List-"><code>QueryProcessor.queryWordsInDocument(Index, List)</code></a>.</div>
+<div class="block">This method has the same objective as <a href="../../../src/java/query/QueryProcessor.html#queryWordsInDocument-src.java.invertedIndex.Index-java.util.List-"><code>QueryProcessor.queryWordsInDocument(Index, List)</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>queryFile</code> - The file where the queries are contained.</dd>
@@ -252,7 +252,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>searchFrequencyOfQueryWordsInDocument</h4>
 <pre>public&nbsp;java.util.List&lt;<a href="../../../src/java/query/Query.html" title="class in src.java.query">Query</a>&gt;&nbsp;searchFrequencyOfQueryWordsInDocument(java.io.File&nbsp;queryFile)</pre>
-<div class="block">This method has the same objective as <a href="../../../src/java/query/QueryProcessor.html#frequencyOfQueryWordsInDocument-src.java.index.Index-java.util.List-"><code>QueryProcessor.frequencyOfQueryWordsInDocument(Index, List)</code></a>.</div>
+<div class="block">This method has the same objective as <a href="../../../src/java/query/QueryProcessor.html#frequencyOfQueryWordsInDocument-src.java.invertedIndex.Index-java.util.List-"><code>QueryProcessor.frequencyOfQueryWordsInDocument(Index, List)</code></a>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>queryFile</code> - The file where the queries are contained.</dd>
@@ -275,16 +275,16 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="setIndex-src.java.index.Index-">
+<a name="setIndex-src.java.invertedIndex.Index-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setIndex</h4>
-<pre>public&nbsp;void&nbsp;setIndex(<a href="../../../src/java/index/Index.html" title="class in src.java.index">Index</a>&nbsp;index)</pre>
+<pre>public&nbsp;void&nbsp;setIndex(<a href="../../../src/java/invertedIndex/Index.html" title="class in src.java.invertedIndex">Index</a>&nbsp;invertedIndex)</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>index</code> - The where the search will take place.</dd>
+<dd><code>invertedIndex</code> - The where the search will take place.</dd>
 </dl>
 </li>
 </ul>
@@ -310,7 +310,7 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;void&nbsp;setQueryProcessor(<a href="../../../src/java/query/QueryProcessor.html" title="interface in src.java.query">QueryProcessor</a>&nbsp;queryProcessor)</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryProcessor</code> - The <a href="../../../src/java/query/QueryProcessor.html" title="interface in src.java.query"><code>QueryProcessor</code></a> to be used to obtain results from the index.</dd>
+<dd><code>queryProcessor</code> - The <a href="../../../src/java/query/QueryProcessor.html" title="interface in src.java.query"><code>QueryProcessor</code></a> to be used to obtain results from the invertedIndex.</dd>
 </dl>
 </li>
 </ul>
@@ -361,7 +361,7 @@ extends java.lang.Object</pre>
 <li class="navBarCell1Rev">Class</li>
 <li><a href="package-tree.html">Tree</a></li>
 <li><a href="../../../deprecated-list.html">Deprecated</a></li>
-<li><a href="../../../index-files/index-1.html">Index</a></li>
+<li><a href="../../../invertedIndex-files/invertedIndex-1.html">Index</a></li>
 <li><a href="../../../help-doc.html">Help</a></li>
 </ul>
 </div>
@@ -371,7 +371,7 @@ extends java.lang.Object</pre>
 <li><a href="../../../src/java/query/SearchEngineBuilder.html" title="class in src.java.query"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
-<li><a href="../../../index.html?src/java/query/SearchEngine.html" target="_top">Frames</a></li>
+<li><a href="../../../invertedIndex.html?src/java/query/SearchEngine.html" target="_top">Frames</a></li>
 <li><a href="SearchEngine.html" target="_top">No&nbsp;Frames</a></li>
 </ul>
 <ul class="navList" id="allclasses_navbar_bottom">
