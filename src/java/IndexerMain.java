@@ -7,7 +7,7 @@ import src.java.indexer.CTStemmingIndexerBuilder;
 import src.java.indexer.Indexer;
 import src.java.indexer.IndexerBuilder;
 
-public class tf_idf_indexerMain {
+public class IndexerMain {
 
     public static void main(String[] args){
         long startTime = System.currentTimeMillis();
@@ -49,7 +49,7 @@ public class tf_idf_indexerMain {
 
     private static void printUSAGE(){
         System.err.println("USAGE: \n"+
-                "java -cp ../../libstemmer_java/java/libstemmer.jar: src.java.tf_idf_indexerMain <corpusDirectory> <indexFile>(Optional)\n"+
+                "java -cp ../../libstemmer_java/java/libstemmer.jar: src.java.IndexerMain <corpusDirectory> <indexFile>(Optional)\n"+
                 "<corpusDirectory> - The directory where the corpus is located\n"+
                 "<indexFile> - The optional parameter lets you pick the name of the file where the invertedIndex will be saved to\n");
         System.exit(1);

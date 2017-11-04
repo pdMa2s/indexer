@@ -12,7 +12,7 @@ import src.java.query.NormalizedSearchEngineBuilder;
 
 import java.io.File;
 
-public class tf_idf_rankingMain {
+public class RankingMain {
     public static void main(String[] args){
         checkParameterLength(args);
         File indexFile = new File(args[0]);
