@@ -1,9 +1,9 @@
 package src.java;
 
 import src.java.index.CSVIndexReader;
-import src.java.index.Index;
+import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
-import src.java.index.Normalizer;
+import src.java.normalizer.Normalizer;
 import src.java.query.SearchEngine;
 import src.java.query.SearchEngineBuilder;
 import src.java.query.Tf_idf_SearchEngineBuilder;
@@ -19,10 +19,10 @@ public class tf_idf_rankingMain {
         String rankingResults = "TF_IDF_RESULTS";
 
         long startTime = System.currentTimeMillis();
-        Index index;
+        InvertedIndex index;
         Normalizer nm = new Normalizer();
         IndexReader idr = new CSVIndexReader();
-        index = idr.parseToIndexWithNormalization(indexFile, nm);
+        index = idr.parseDocumentAndInvertedIndexes(indexFile, nm);
         nm.normalize();
         SearchEngineBuilder searchEngineBuilder = new Tf_idf_SearchEngineBuilder(index, idr.getTokenizer());
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();

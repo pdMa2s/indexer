@@ -1,6 +1,6 @@
 package src.java.query;
 
-import src.java.index.Index;
+import src.java.index.InvertedIndex;
 import src.java.tokenizer.Tokenizer;
 
 /**
@@ -15,15 +15,15 @@ import src.java.tokenizer.Tokenizer;
  */
 public abstract class SearchEngineBuilder {
     protected SearchEngine searchEngine;
-    protected Index index;
+    protected InvertedIndex index;
     protected Tokenizer tokenizer;
 
     /**
      * A super constructor for all the class that will derive this class.
-     * @param index An {@link Index} object to be provided to the searchEngine.
+     * @param index An {@link InvertedIndex} object to be provided to the searchEngine.
      * @param tokenizer A {@link Tokenizer} to be provided to the {@link QueryReader} object.
      */
-    public SearchEngineBuilder(Index index, Tokenizer tokenizer) {
+    public SearchEngineBuilder(InvertedIndex index, Tokenizer tokenizer) {
         this.index = index;
         this.tokenizer = tokenizer;
     }
@@ -58,7 +58,7 @@ public abstract class SearchEngineBuilder {
     }
 
     /**
-     * The purpose of this function is to configure a {@link Index} for the {@link SearchEngine} instance
+     * The purpose of this function is to configure a {@link InvertedIndex} for the {@link SearchEngine} instance
      * that is being built.
      */
     public abstract void buildIndex();

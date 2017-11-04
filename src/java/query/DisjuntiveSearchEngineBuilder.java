@@ -1,20 +1,20 @@
 package src.java.query;
 
-import src.java.index.Index;
+import src.java.index.InvertedIndex;
 import src.java.tokenizer.Tokenizer;
 
 /**
- * A derived class from {@link SearchEngineBuilder}, builds a {@link SearchEngine} with a {@link DisjuntiveQueryProcessor}.
+ * A derived class from {@link SearchEngineBuilder}, builds a {@link SearchEngine} with a {@link WordsInDocumentProcessor}.
  * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 10-16-2017
  */
-public class DisjuntiveSearchEngineBuilder extends SearchEngineBuilder{
+public class WordsInDocumentSearchEngineBuilder extends SearchEngineBuilder{
 
     /**
      * {@inheritDoc}
      */
-    public DisjuntiveSearchEngineBuilder(Index index, Tokenizer tokenizer) {
+    public WordsInDocumentSearchEngineBuilder(InvertedIndex index, Tokenizer tokenizer) {
         super(index, tokenizer);
     }
 
@@ -36,11 +36,11 @@ public class DisjuntiveSearchEngineBuilder extends SearchEngineBuilder{
 
 
     /**
-     * Configures the searchEngine's {@link QueryProcessor} with a {@link DisjuntiveQueryProcessor}
+     * Configures the searchEngine's {@link QueryProcessor} with a {@link WordsInDocumentProcessor}
      */
     @Override
     public void buildQueryProcessor() {
-        searchEngine.setQueryProcessor(new DisjuntiveQueryProcessor());
+        searchEngine.setQueryProcessor(new WordsInDocumentProcessor());
     }
 
     /**

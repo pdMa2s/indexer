@@ -1,7 +1,7 @@
 package src.java;
 
 import src.java.index.CSVIndexReader;
-import src.java.index.Index;
+import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
 import src.java.query.*;
 
@@ -26,9 +26,9 @@ public class SearcherMain {
         String queryWordsInDocFileName = "resultsQueryWordsInDoc";
 
         long startTime = System.currentTimeMillis();
-        Index index;
+        InvertedIndex index;
         IndexReader idr = new CSVIndexReader();
-        index = idr.parseToIndex(indexFile);
+        index = idr.parseInvertedIndex(indexFile);
         SearchEngineBuilder searchEngineBuilder = new DisjuntiveSearchEngineBuilder(index,idr.getTokenizer());
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
 

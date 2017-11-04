@@ -1,7 +1,7 @@
 package src.java.index;
 
 /**
- * An entity that writes an {@link Index} on disk with a format depending on the implementation.
+ * An entity that writes an {@link InvertedIndex} on disk with a format depending on the implementation.
  * @author Pedro Matos
  * @author David Ferreira
  * @since 10-16-2017
@@ -13,9 +13,9 @@ public interface IndexWriter {
      * to create the @param index.
      * After that, the @param index itself should be written.
      * @param fileName The of the file where the index will be written.
-     * @param index The {@link Index} object to be written on disk.
+     * @param index The {@link InvertedIndex} object to be written on disk.
      * @param tokenizerType A tag that represents the type of {@link src.java.tokenizer.Tokenizer} that was used
      *                      in the indexation process. This tags are located in {@link src.java.constants.Constants}.
      */
-    void saveIndexToFile(String fileName, Index index, String tokenizerType);
+    void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType);
 }

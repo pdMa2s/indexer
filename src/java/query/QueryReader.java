@@ -1,12 +1,13 @@
 package src.java.query;
 
+import src.java.index.InvertedIndex;
 import src.java.tokenizer.Tokenizer;
 
 import java.io.File;
 import java.util.List;
 
 /**
- * A reader of a file that contains queries for the {@link src.java.index.Index}. Which query is represented
+ * A reader of a file that contains queries for the {@link InvertedIndex}. Which query is represented
  * as an object of type {@link Query}, while reading queries, the reader must provide an id for the query
  * an it's content.
  * @author Pedro Matos

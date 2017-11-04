@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 /**
- * This implementation of {@link IndexWriter} writes an {@link Index} object on disk, with a format similar
+ * This implementation of {@link IndexWriter} writes an {@link InvertedIndex} object on disk, with a format similar
  * to CSV.<br>
  * Example: term, documentId:DocumentFrequency,documentId:DocumentFrequency, ...
  * @author Pedro Matos
@@ -19,7 +19,7 @@ public class CSVIndexWriter implements IndexWriter{
      * {@inheritDoc}
      */
     @Override
-    public void saveIndexToFile(String fileName, Index index, String tokenizerType) {
+    public void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType) {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(fileName, "UTF-8");
@@ -35,7 +35,7 @@ public class CSVIndexWriter implements IndexWriter{
     private void writeHeader(PrintWriter writer, String tokenizerType){
         writer.println(tokenizerType);
     }
-    private void writeTerms(PrintWriter writer, Index index){
+    private void writeTerms(PrintWriter writer, InvertedIndex index){
         for(String term: index.getTerms()){
             writer.print(term);
             for(Posting post : index.getPostingList(term)){

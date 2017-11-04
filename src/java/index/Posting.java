@@ -8,7 +8,7 @@ package src.java.index;
  * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
- * @see Index
+ * @see InvertedIndex
  */
 public class Posting implements Comparable<Posting>{
 

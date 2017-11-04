@@ -1,7 +1,7 @@
 package src.java;
 
 import src.java.index.CSVIndexWriter;
-import src.java.index.Index;
+import src.java.index.InvertedIndex;
 import src.java.index.IndexWriter;
 import src.java.indexer.CTStemmingIndexerBuilder;
 import src.java.indexer.Indexer;
@@ -15,7 +15,7 @@ public class tf_idf_indexerMain {
         String FILETOSAVEINDEX = chooseFileToSaveIndex(args);
         String dirName = args[0];
         Indexer indexer;
-        Index index;
+        InvertedIndex index;
         IndexWriter writer = new CSVIndexWriter();
         IndexerBuilder builder = new CTStemmingIndexerBuilder(dirName);
         indexer = builder.constructIndexer();

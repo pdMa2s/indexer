@@ -1,7 +1,7 @@
 package src.java.query;
 
-import src.java.index.Index;
-import src.java.index.Normalizer;
+import src.java.index.InvertedIndex;
+import src.java.normalizer.Normalizer;
 import src.java.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class SearchEngine {
 
-    private Index index;
+    private InvertedIndex index;
     private QueryReader queryReader;
     private QueryProcessor queryProcessor;
     private QueryResultWriter queryResultWriter;
@@ -24,7 +24,7 @@ public class SearchEngine {
     private Tokenizer tokenizer;
 
     /**
-     * This method has the same objective as {@link QueryProcessor#queryWordsInDocument(Index, List)}.
+     * This method has the same objective as {@link QueryProcessor#queryWordsInDocument(InvertedIndex, List)}.
      * @param queryFile The file where the queries are contained.
      * @return A {@link List} of {@link Query} objects containing the results for their respective query.
      */
@@ -35,7 +35,7 @@ public class SearchEngine {
     }
 
     /**
-     * This method has the same objective as {@link QueryProcessor#frequencyOfQueryWordsInDocument(Index, List)}.
+     * This method has the same objective as {@link QueryProcessor#frequencyOfQueryWordsInDocument(InvertedIndex, List)}.
      * @param queryFile The file where the queries are contained.
      * @return A {@link List} of {@link Query} objects containing the results for their respective query.
      */
@@ -67,7 +67,7 @@ public class SearchEngine {
      *
      * @param index The where the search will take place.
      */
-    public void setIndex(Index index) {
+    public void setIndex(InvertedIndex index) {
         this.index = index;
     }
 

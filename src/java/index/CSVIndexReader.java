@@ -1,6 +1,7 @@
 package src.java.index;
 
 import org.tartarus.snowball.ext.englishStemmer;
+import src.java.normalizer.Normalizer;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.SimpleTokenizer;
 import src.java.tokenizer.Tokenizer;
@@ -15,7 +16,7 @@ import static src.java.constants.Constants.COMPLEXTOKENIZERSTEMMING;
 import static src.java.constants.Constants.SIMPLETOKENIZER;
 
 /**
- * This implementation of {@link IndexReader} reads an {@link Index} object from the disk, with a format similar
+ * This implementation of {@link IndexReader} reads an {@link InvertedIndex} object from the disk, with a format similar
  * to CSV.<br>
  * Example: term, documentId:DocumentFrequency,documentId:DocumentFrequency, ...
  * @author Pedro Matos
@@ -25,12 +26,7 @@ import static src.java.constants.Constants.SIMPLETOKENIZER;
  */
 public class CSVIndexReader implements IndexReader {
 
-    private Index index;
     private Tokenizer tokenizer;
-
-    public CSVIndexReader(){
-        index = new Index();
-    }
 
     /**
      *{@inheritDoc}
@@ -44,7 +40,7 @@ public class CSVIndexReader implements IndexReader {
      *{@inheritDoc}
      */
     @Override
-    public Index parseToIndex(File indexFile){
+    public void parseInvertedIndex(File indexFile, InvertedIndex index){
         BufferedReader reader;
         try{
             reader = new BufferedReader(new FileReader(indexFile));
@@ -52,7 +48,7 @@ public class CSVIndexReader implements IndexReader {
             text = reader.readLine();
             parseTokenizerType(text.trim());
             while ((text = reader.readLine()) != null) {
-                parsePostingsPerTerm(text);
+                parsePostingsPerTerm(text, index);
             }
         }catch(FileNotFoundException e){
             System.err.println("index file not found!");
@@ -61,10 +57,9 @@ public class CSVIndexReader implements IndexReader {
             System.err.println("ERROR: Reading index file");
             System.exit(2);
         }
-        return index;
     }
 
-    public Index parseToIndexWithNormalization(File indexFile, Normalizer nm){
+    public void parseDocumentAndInvertedIndexes(File indexFile, InvertedIndex invertedIndex, DocumentIndex documentIndex){
         BufferedReader reader;
         try{
             reader = new BufferedReader(new FileReader(indexFile));
@@ -72,7 +67,7 @@ public class CSVIndexReader implements IndexReader {
             text = reader.readLine();
             parseTokenizerType(text.trim());
             while ((text = reader.readLine()) != null) {
-                parsePostingsPerTermWithNormalization(text, nm);
+                parsePostingsPerTermWithNormalization(text,invertedIndex ,documentIndex);
             }
         }catch(FileNotFoundException e){
             System.err.println("index file not found!");
@@ -81,18 +76,16 @@ public class CSVIndexReader implements IndexReader {
             System.err.println("ERROR: Reading index file");
             System.exit(2);
         }
-        return index;
     }
 
-    private void parsePostingsPerTermWithNormalization(String text, Normalizer nm){
+    private void parsePostingsPerTermWithNormalization(String text,InvertedIndex invertedIndex , DocumentIndex index){
         List<Posting> postings = new ArrayList<>();
         String[] parsedPosting = text.split(",");
         String term = parsedPosting[0];
-        nm.addTermDocFreq(term, parsedPosting.length-1);
         for(int i=1; i<parsedPosting.length; i++){
             String[] post = parsedPosting[i].split(":");
             if(post.length == 2) {
-                nm.addDirVectorOccurencce(Integer.parseInt(post[0]), Double.parseDouble(post[1]), term);
+                index.addTermScore(Integer.parseInt(post[0]), term, Double.parseDouble(post[1]));
                 Posting tempPosting = new Posting(Integer.parseInt(post[0]), Double.parseDouble(post[1]));
                 postings.add(tempPosting);
             }
@@ -100,10 +93,10 @@ public class CSVIndexReader implements IndexReader {
                 printError();
             }
         }
-        index.addTermAndPostings(term, postings);
+        invertedIndex.addTermAndPostings(term, postings);
     }
 
-    private void parsePostingsPerTerm(String text){
+    private void parsePostingsPerTerm(String text, InvertedIndex index){
         List<Posting> postings = new ArrayList<>();
         String[] parsedPosting = text.split(",");
         String term = parsedPosting[0];

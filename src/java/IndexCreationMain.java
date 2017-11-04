@@ -1,6 +1,6 @@
 package src.java;
 import src.java.index.CSVIndexWriter;
-import src.java.index.Index;
+import src.java.index.InvertedIndex;
 import src.java.index.IndexWriter;
 import src.java.indexer.*;
 
@@ -27,7 +27,7 @@ public class IndexCreationMain {
         String FILETOSAVEINDEX = chooseFileToSaveIndex(args);
         String dirName = args[0];
         Indexer indexer;
-        Index index;
+        InvertedIndex index;
         IndexWriter writer = new CSVIndexWriter();
         IndexerBuilder builder = parseTokenizerType( args[1],dirName);
         indexer = builder.constructIndexer();

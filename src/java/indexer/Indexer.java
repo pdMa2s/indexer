@@ -1,37 +1,37 @@
 package src.java.indexer;
 
-import src.java.index.Index;
+import src.java.index.InvertedIndex;
 import src.java.corpus.CorpusReader;
 import src.java.tokenizer.Tokenizer;
 
 import java.util.List;
 
 /**
- * The purpose of this class is to create an {@link Index} that stores words occurrences in a document corpus
+ * The purpose of this class is to create an {@link InvertedIndex} that stores words occurrences in a document corpus
  * located in a certain directory.
  * This is done using a {@link CorpusReader} that will iterate over the files and return their content, after that
- * a {@link Tokenizer} is used to provide the tokens/words from that document content. Finally an {@link Index} is
+ * a {@link Tokenizer} is used to provide the tokens/words from that document content. Finally an {@link InvertedIndex} is
  * filled with the occurrences of those tokens/words.
  *
  * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
  * @see Tokenizer
- * @see Index
+ * @see InvertedIndex
  * @see CorpusReader
  */
 public class Indexer {
     private CorpusReader corpusReader;
     private Tokenizer tokenizer;
-    private Index index;
+    private InvertedIndex index;
 
     /**
-     * Creates an {@link Index} of occurrences os words using a {@link CorpusReader}and a {@link Tokenizer}.
-     * @return An {@link Index} filled with the occurrences of words in certain documents.
+     * Creates an {@link InvertedIndex} of occurrences os words using a {@link CorpusReader}and a {@link Tokenizer}.
+     * @return An {@link InvertedIndex} filled with the occurrences of words in certain documents.
      */
-    public Index createIndex() {
+    public InvertedIndex createIndex() {
 
-        index = new Index();
+        index = new InvertedIndex();
 
         while (corpusReader.hasDocument()) {
             String docContent = corpusReader.processDocument();
@@ -42,13 +42,13 @@ public class Indexer {
     }
 
     /**
-     * Gives access to the {@link Index} that was created.
+     * Gives access to the {@link InvertedIndex} that was created.
      * @return The index that was created.
      */
-    public Index getIndex(){
+    public InvertedIndex getIndex(){
         return index;
     }
-    private void fillIndexWithTokens(Index index , List<String> tokens, int docId){
+    private void fillIndexWithTokens(InvertedIndex index , List<String> tokens, int docId){
         for (String token: tokens) {
             index.addTokenOccurrence(token, docId);
         }

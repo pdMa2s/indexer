@@ -1,11 +1,11 @@
 package src.java.query;
 
-import src.java.index.Index;
+import src.java.index.InvertedIndex;
 import src.java.tokenizer.Tokenizer;
 
 public class Tf_idf_SearchEngineBuilder extends SearchEngineBuilder {
 
-    public Tf_idf_SearchEngineBuilder(Index index, Tokenizer tokenizer) {
+    public Tf_idf_SearchEngineBuilder(InvertedIndex index, Tokenizer tokenizer) {
         super(index, tokenizer);
     }
 

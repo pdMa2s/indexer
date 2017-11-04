@@ -12,13 +12,13 @@ import java.util.*;
  * @since 09-27-2017
  * @see Posting
  * */
-public class Index {
+public class InvertedIndex {
      private Map<String, List<Posting>> index;
 
     /**
      * Constructs an empty index.
      */
-    public Index(){
+    public InvertedIndex(){
          this.index = new HashMap<>();
      }
 

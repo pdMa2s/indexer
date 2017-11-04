@@ -1,6 +1,6 @@
 package src.java.query;
 
-import src.java.index.Normalizer;
+import src.java.normalizer.Normalizer;
 
 import java.util.List;
 
