@@ -76,8 +76,14 @@ public class Query {
 
 
     public Set<Map.Entry<Integer, Double>> getSortedResults(){
-        SortedSet<Map.Entry<Integer, Double>> sortedSet = new TreeSet<>(
-                (e1, e2) -> (int) (e2.getValue() - e1.getValue()));
+        SortedSet<Map.Entry<Integer, Double>> sortedSet = new TreeSet<>((o1, o2) -> {
+            double difference = o2.getValue() - o1.getValue();
+            if(difference > 0)
+                return 1;
+            else if(difference < 0)
+                    return -1;
+            return 0;
+        });
         sortedSet.addAll(results.entrySet());
         return sortedSet;
     }
