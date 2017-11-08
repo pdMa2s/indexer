@@ -1,8 +1,9 @@
-package src.java.query;
+package src.java.searchengine;
 
 import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
+import src.java.query.*;
 import src.java.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;

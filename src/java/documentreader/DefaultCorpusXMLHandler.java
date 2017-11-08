@@ -1,4 +1,4 @@
-package src.java.documentReader;
+package src.java.documentreader;
 
 import org.xml.sax.helpers.DefaultHandler;
 

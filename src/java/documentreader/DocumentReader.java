@@ -1,4 +1,4 @@
-package src.java.documentReader;
+package src.java.documentreader;
 
 import java.io.File;
 

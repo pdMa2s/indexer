@@ -6,9 +6,9 @@ import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
 import src.java.normalizer.Normalizer;
 import src.java.query.QueryIndex;
-import src.java.query.SearchEngine;
-import src.java.query.SearchEngineBuilder;
-import src.java.query.NormalizedSearchEngineBuilder;
+import src.java.searchengine.SearchEngine;
+import src.java.searchengine.SearchEngineBuilder;
+import src.java.searchengine.NormalizedSearchEngineBuilder;
 
 import java.io.File;
 

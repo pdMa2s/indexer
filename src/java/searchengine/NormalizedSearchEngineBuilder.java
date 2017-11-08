@@ -1,8 +1,11 @@
-package src.java.query;
+package src.java.searchengine;
 
 import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
+import src.java.query.ColumnResultWriter;
+import src.java.query.QueryIndex;
+import src.java.query.QueryLoader;
 import src.java.tokenizer.Tokenizer;
 
 public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {

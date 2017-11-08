@@ -1,8 +1,9 @@
-package src.java.query;
+package src.java.searchengine;
 
 import src.java.index.DocumentIndex;
-import src.java.normalizer.Normalizer;
 import src.java.normalizer.Vector;
+import src.java.query.Query;
+import src.java.query.QueryIndex;
 
 import java.util.List;
 

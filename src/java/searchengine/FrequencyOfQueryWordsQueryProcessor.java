@@ -1,7 +1,8 @@
-package src.java.query;
+package src.java.searchengine;
 
 import src.java.index.InvertedIndex;
 import src.java.index.Posting;
+import src.java.query.Query;
 
 import java.util.List;
 
