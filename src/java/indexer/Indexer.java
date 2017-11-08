@@ -2,9 +2,12 @@ package src.java.indexer;
 
 import src.java.index.InvertedIndex;
 import src.java.corpus.CorpusReader;
+import src.java.normalizer.Normalizer;
 import src.java.tokenizer.Tokenizer;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The purpose of this class is to create an {@link InvertedIndex} that stores words occurrences in a document corpus
@@ -24,7 +27,7 @@ public class Indexer {
     private CorpusReader corpusReader;
     private Tokenizer tokenizer;
     private InvertedIndex index;
-
+    private Normalizer normalizer;
     /**
      * Creates an {@link InvertedIndex} of occurrences os words using a {@link CorpusReader}and a {@link Tokenizer}.
      * @return An {@link InvertedIndex} filled with the occurrences of words in certain documents.
@@ -48,10 +51,12 @@ public class Indexer {
     public InvertedIndex getIndex(){
         return index;
     }
-    private void fillIndexWithTokens(InvertedIndex index , List<String> tokens, int docId){
-        for (String token: tokens) {
-            index.addTokenOccurrence(token, docId);
+    private void fillIndexWithTokens(InvertedIndex index , List<String> terms, int docId){
+        Map<String, Double> normalizedScores = normalizer.normalize(terms);
+        for(String term : normalizedScores.keySet()){
+            index.addNormalizedScore(term, docId, normalizedScores.get(term));
         }
+
     }
 
     /**
@@ -68,6 +73,10 @@ public class Indexer {
      */
     public void setTokenizer(Tokenizer tokenizer) {
         this.tokenizer = tokenizer;
+    }
+
+    public void setNormalizer(Normalizer normalizer) {
+        this.normalizer = normalizer;
     }
 
     public int getCorpusSize(){

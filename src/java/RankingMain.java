@@ -27,7 +27,7 @@ public class RankingMain {
         Normalizer nm = new Normalizer();
         IndexReader idr = new CSVIndexReader();
 
-        idr.parseDocumentAndInvertedIndexes(indexFile,invertedIndex,  documentIndex);
+        idr.parseInvertedIndex(indexFile,invertedIndex);
         int corpusSize = idr.getCorpusSize();
         queryIndex = new QueryIndex(corpusSize);
 

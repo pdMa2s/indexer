@@ -4,6 +4,7 @@ import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
 import src.java.documentreader.XMLDocumentHandler;
 import src.java.documentreader.XMLReader;
+import src.java.normalizer.Normalizer;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.Tokenizer;
 import org.tartarus.snowball.ext.englishStemmer;
@@ -46,6 +47,11 @@ public class CTStemmingIndexerBuilder extends IndexerBuilder {
     @Override
     public void buildTokenizer() {
         indexer.setTokenizer(new ComplexTokenizer(new englishStemmer()));
+    }
+
+    @Override
+    public void buildNormalizer() {
+        indexer.setNormalizer(new Normalizer());
     }
 
     /**

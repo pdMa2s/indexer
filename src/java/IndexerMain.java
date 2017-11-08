@@ -6,6 +6,7 @@ import src.java.index.IndexWriter;
 import src.java.indexer.CTStemmingIndexerBuilder;
 import src.java.indexer.Indexer;
 import src.java.indexer.IndexerBuilder;
+import src.java.normalizer.Normalizer;
 
 public class IndexerMain {
 
@@ -20,7 +21,6 @@ public class IndexerMain {
         IndexerBuilder builder = new CTStemmingIndexerBuilder(dirName);
         indexer = builder.constructIndexer();
         index = indexer.createIndex();
-        index.applyTF();
         writer.saveIndexToFile(FILETOSAVEINDEX, index, builder.getTokenizerType(), indexer.getCorpusSize());
 
         long stopTime = System.currentTimeMillis();
@@ -29,8 +29,6 @@ public class IndexerMain {
         System.out.println("Indexing time: "+elapsedTime+"ms");
         //System.out.println(invertedIndex);
         System.out.println("Vocabulary size: " +index.vocabularySize());
-        System.out.println("Ten First terms in document 1 with alphabetical order: " + index.getTop10TermsOccurrences(1));
-        System.out.println("Ten terms with the higher doc frequency: " + index.getTopFreqTerms());
 
     }
 

@@ -2,6 +2,7 @@ package src.java.indexer;
 
 import src.java.corpus.CorpusReader;
 import src.java.index.IndexWriter;
+import src.java.normalizer.Normalizer;
 import src.java.tokenizer.Tokenizer;
 
 /**
@@ -47,6 +48,7 @@ public abstract class IndexerBuilder {
         createIndexer();
         buildCorpusReader();
         buildTokenizer();
+        buildNormalizer();
         return indexer;
     }
 
@@ -62,11 +64,14 @@ public abstract class IndexerBuilder {
      */
     public abstract void buildTokenizer();
 
+    public abstract void buildNormalizer();
     /**
      *
      * @return The tag locate on {@link src.java.constants.Constants} that represents the type of {@link Tokenizer}
      * that is being used to create the {@link Indexer}.
      */
     public abstract String getTokenizerType();
+
+
 
 }

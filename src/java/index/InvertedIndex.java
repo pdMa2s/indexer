@@ -13,7 +13,7 @@ import java.util.*;
  * @see Posting
  * */
 public class InvertedIndex {
-     private Map<String, List<Posting>> index;
+     private Map<String, Set<Posting>> index;
 
     /**
      * Constructs an empty invertedIndex.
@@ -25,93 +25,26 @@ public class InvertedIndex {
     public Set<String> getTerms(){
         return index.keySet();
     }
-     /**
-      * Adds an occurrence of a token in a document with a certain ID to the invertedIndex.
-      * @param token A word/token, its occurrence will be stored in the invertedIndex.
-      * @param docID The ID of the document where the token appeared.
-      *
-      * */
-     public void addTokenOccurrence(String token, int docID){
-         List<Posting> entryList = index.get(token);
 
-         if(entryList != null){
-             Posting entry = findEntry(entryList, docID);
-             if(entry != null)
-                entry.termOccurrences++;
-             else
-                 entryList.add(new Posting(docID,1));
-         }
-         else{
-             List<Posting> newEntryList = new ArrayList<>();
-             newEntryList.add(new Posting(docID,1));
-             index.put(token,newEntryList);
-         }
-     }
+    public void addNormalizedScore(String term, int docID, double score){
+        Set<Posting> entryList = index.get(term);
+        if(entryList != null){
+            entryList.add(new Posting(docID,score));
+        }
+        else{
+            Set<Posting> newEntryList = new TreeSet<>(Comparator.comparingInt(Posting::getDocID));
+            newEntryList.add(new Posting(docID,score));
+            index.put(term,newEntryList);
+        }
+    }
 
-    public List<Posting> getPostingList(String term){
+    public Set<Posting> getPostingList(String term){
          return index.get(term);
      }
 
-    public void addTermAndPostings(String token, List<Posting> postings){
+    public void addTermAndPostings(String token, Set<Posting> postings){
          if(!index.containsKey(token))
             index.put(token, postings);
-    }
-
-    /**
-     * Returns a List which contains the 10 terms of a invertedIndex, alphabetically ordered, with
-     * the most occurrences in a certain document.
-     * @param   docID The ID of the document
-     * @return  A List with the top 10 terms that have the most occurrences in a document
-     * @see List
-     */
-    public List<String> getTop10TermsOccurrences(int docID){
-         List<String> termsInDoc = new ArrayList<>();
-         for(String key: index.keySet()){
-             List<Posting> entry = index.get(key);
-             for(int j=0; j<entry.size(); j++){
-                if(entry.get(j).docID == docID) {
-                    termsInDoc.add(key);
-                    break;
-                }
-             }
-         }
-         Collections.sort(termsInDoc);
-         if(termsInDoc.size()>=10)
-            return termsInDoc.subList(0,10);
-         else
-             return termsInDoc.subList(0, termsInDoc.size());
-    }
-
-    /**
-     * Returns a List with the 10 terms with the highest document frequency.
-     * @return A List with the top 10 terms with higher document frequency.
-     * @see List
-     */
-    public List<String> getTopFreqTerms(){
-        String[] topTen = new String[10];
-        Integer[] tempMax = new Integer[10];
-        int min = Integer.MAX_VALUE;
-
-        for(int n=0;n<10;n++){
-            tempMax[n] = 0;
-            topTen[n] = "";
-        }
-
-        for(String x: index.keySet()){
-            for(int i=0; i<10; i++){
-                if(min > tempMax[i])
-                    min = tempMax[i];
-            }
-            for(int j=0; j<10; j++){
-                if(tempMax[j] == min && tempMax[j] < index.get(x).size()){
-                    tempMax[j] = index.get(x).size();
-                    topTen[j] = x;
-                    break;
-                }
-            }
-            min=Integer.MAX_VALUE;
-        }
-        return Arrays.asList(topTen);
     }
 
     /**
@@ -131,7 +64,7 @@ public class InvertedIndex {
         return sb.toString();
     }
 
-    private Posting findEntry(List<Posting> entryList, int docID){
+    private Posting findEntry(Set<Posting> entryList, int docID){
         for(Posting entry : entryList){
             if(entry.getDocID() == docID)
                 return entry;
@@ -139,11 +72,14 @@ public class InvertedIndex {
         return null;
     }
 
+    private double tf(int occurrences){
+        return 1+Math.log10(occurrences);
+    }
     public void applyTF(){
         for(String st : index.keySet()){
-            List<Posting> entryList = index.get(st);
+            Set<Posting> entryList = index.get(st);
             for(Posting ps : entryList){
-                ps.setTF(1+Math.log10(ps.getTermOccurrences()));
+                ps.setNormalizedWeight(tf(ps.getTermOccurrences()));
             }
         }
     }

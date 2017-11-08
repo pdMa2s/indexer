@@ -14,7 +14,7 @@ public class Posting implements Comparable<Posting>{
 
     int docID;
     int termOccurrences;
-    double termTF;
+    double normalizedWeight;
 
     /**
      * Constructs a Posting object.
@@ -24,12 +24,12 @@ public class Posting implements Comparable<Posting>{
     public Posting(int docID, int termOccurrences) {
         this.docID = docID;
         this.termOccurrences = termOccurrences;
-        this.termTF = 0;
+        this.normalizedWeight = 0;
     }
 
-    public Posting(int docID, double termTF) {
+    public Posting(int docID, double normalizedWeight) {
         this.docID = docID;
-        this.termTF = termTF;
+        this.normalizedWeight = normalizedWeight;
     }
 
     /**
@@ -48,7 +48,7 @@ public class Posting implements Comparable<Posting>{
         return termOccurrences;
     }
 
-    public double getTermTF(){ return termTF; }
+    public double getNormalizedWeight(){ return normalizedWeight; }
     /**
      *
      * @param docID The ID of a document.
@@ -65,8 +65,8 @@ public class Posting implements Comparable<Posting>{
         this.termOccurrences = occurrences;
     }
 
-    public void setTF(double tf) {
-        this.termTF = tf;
+    public void setNormalizedWeight(double normalizedWeight) {
+        this.normalizedWeight = normalizedWeight;
     }
 
 
@@ -79,7 +79,7 @@ public class Posting implements Comparable<Posting>{
 
         if (docID != posting.docID) return false;
         if (termOccurrences != posting.termOccurrences) return false;
-        return Double.compare(posting.termTF, termTF) == 0;
+        return Double.compare(posting.normalizedWeight, normalizedWeight) == 0;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Posting implements Comparable<Posting>{
         long temp;
         result = docID;
         result = 31 * result + termOccurrences;
-        temp = Double.doubleToLongBits(termTF);
+        temp = Double.doubleToLongBits(normalizedWeight);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }

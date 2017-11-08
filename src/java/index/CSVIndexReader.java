@@ -10,6 +10,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static src.java.constants.Constants.COMPLEXTOKENIZER;
 import static src.java.constants.Constants.COMPLEXTOKENIZERSTEMMING;
@@ -64,46 +66,8 @@ public class CSVIndexReader implements IndexReader {
             System.exit(2);
         }
     }
-
-    public void parseDocumentAndInvertedIndexes(File indexFile, InvertedIndex invertedIndex, DocumentIndex documentIndex){
-        BufferedReader reader;
-        try{
-            reader = new BufferedReader(new FileReader(indexFile));
-            String text;
-            text = reader.readLine();
-            parseHeader(text.trim());
-            while ((text = reader.readLine()) != null) {
-                parsePostingsPerTermWithNormalization(text,invertedIndex ,documentIndex);
-            }
-        }catch(FileNotFoundException e){
-            System.err.println("invertedIndex file not found!");
-            System.exit(3);
-        } catch(IOException e){
-            System.err.println("ERROR: Reading invertedIndex file");
-            System.exit(2);
-        }
-    }
-
-    private void parsePostingsPerTermWithNormalization(String text,InvertedIndex invertedIndex , DocumentIndex documentIndex){
-        List<Posting> postings = new ArrayList<>();
-        String[] parsedPosting = text.split(",");
-        String term = parsedPosting[0];
-        for(int i=1; i<parsedPosting.length; i++){
-            String[] post = parsedPosting[i].split(":");
-            if(post.length == 2) {
-                documentIndex.addTermScore(Integer.parseInt(post[0]), term, Double.parseDouble(post[1]));
-                Posting tempPosting = new Posting(Integer.parseInt(post[0]), Double.parseDouble(post[1]));
-                postings.add(tempPosting);
-            }
-            else{
-                printError("ERROR while parsing invertedIndex file");
-            }
-        }
-        invertedIndex.addTermAndPostings(term, postings);
-    }
-
     private void parsePostingsPerTerm(String text, InvertedIndex index){
-        List<Posting> postings = new ArrayList<>();
+        Set<Posting> postings = new TreeSet<>();
         String[] parsedPosting = text.split(",");
         String term = parsedPosting[0];
         for(int i=1; i<parsedPosting.length; i++){

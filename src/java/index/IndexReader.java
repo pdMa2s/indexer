@@ -25,5 +25,4 @@ import java.io.File;
      * @return The {@link InvertedIndex} that was represented of the @param indexFile
      */
     void parseInvertedIndex(File indexFile, InvertedIndex index);
-    void parseDocumentAndInvertedIndexes(File indexFile, InvertedIndex invertedIndex, DocumentIndex documentIndex);
 }
