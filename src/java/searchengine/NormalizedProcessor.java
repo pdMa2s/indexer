@@ -1,38 +1,39 @@
 package src.java.searchengine;
 
-import src.java.index.DocumentIndex;
+import src.java.index.InvertedIndex;
+import src.java.index.Posting;
 import src.java.normalizer.Vector;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
 
 import java.util.List;
+import java.util.Set;
 
 public class NormalizedProcessor implements QueryProcessor{
-    private DocumentIndex documentIndex;
     private QueryIndex queryIndex;
 
-    public NormalizedProcessor(DocumentIndex documentIndex, QueryIndex queryIndex) {
-        this.documentIndex = documentIndex;
+    public NormalizedProcessor(QueryIndex queryIndex) {
         this.queryIndex = queryIndex;
     }
 
     @Override
-    public void processQueries( List<Query> queries) {
-        calculateNormalizedRanking(queries);
+    public void processQueries(List<Query> queries, InvertedIndex idx) {
+        calculateNormalizedRanking(queries, idx);
     }
-    public void calculateNormalizedRanking(List<Query> queries){
+    public void calculateNormalizedRanking(List<Query> queries, InvertedIndex idx){
         for(Query query : queries){
             Vector queryVector = queryIndex.getVector(query.getId());
-            for(String ter : queryVector.getTerms()){
-                for(int docID : documentIndex.getIds()){
-                    Vector docVector = documentIndex.getVector(docID);
-                    if(docVector.containsTerm(ter)){
-                        Double results = query.getScore(docID);
-                        if(results != null)
-                            query.addScore(docID, results + (docVector.getScore(ter)*queryVector.getScore(ter)));
-                        else
-                            query.addScore(docID, docVector.getScore(ter)*queryVector.getScore(ter));
-
+            for(String term : queryVector.getTerms()){
+                Set<Posting> temp = idx.getPostingList(term);
+                if(temp != null){
+                    for(Posting pst : temp){
+                        Double result = query.getScore(pst.getDocID());
+                        if(result != null) {
+                            query.addScore(pst.getDocID(), result + (pst.getNormalizedWeight() * queryVector.getScore(term)));
+                        }
+                        else {
+                            query.addScore(pst.getDocID(), pst.getNormalizedWeight() * queryVector.getScore(term));
+                        }
                     }
                 }
             }

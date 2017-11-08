@@ -1,7 +1,6 @@
 package src.java;
 
 import src.java.index.CSVIndexReader;
-import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
 import src.java.normalizer.Normalizer;
@@ -22,20 +21,17 @@ public class RankingMain {
 
         long startTime = System.currentTimeMillis();
         InvertedIndex invertedIndex = new InvertedIndex();
-        DocumentIndex documentIndex = new DocumentIndex();
         QueryIndex queryIndex;
         Normalizer nm = new Normalizer();
         IndexReader idr = new CSVIndexReader();
-
         idr.parseInvertedIndex(indexFile,invertedIndex);
         int corpusSize = idr.getCorpusSize();
         queryIndex = new QueryIndex(corpusSize);
 
-        SearchEngineBuilder searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex, idr.getTokenizer(),
-                queryIndex, documentIndex, nm);
+        SearchEngineBuilder searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex, idr.getTokenizer(), queryIndex,nm);
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
 
-        searchEngine.processQueries(queryFile);
+        searchEngine.processQueries(queryFile, invertedIndex);
         searchEngine.saveResults(rankingResultsFile);
 
         long stopTime = System.currentTimeMillis();
