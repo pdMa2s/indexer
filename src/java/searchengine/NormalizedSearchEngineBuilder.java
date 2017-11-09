@@ -1,6 +1,5 @@
 package src.java.searchengine;
 
-import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
 import src.java.query.ColumnResultWriter;
@@ -11,9 +10,8 @@ import src.java.tokenizer.Tokenizer;
 public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
 
     public NormalizedSearchEngineBuilder(InvertedIndex index, Tokenizer tokenizer,
-                                         QueryIndex queryIndex, DocumentIndex documentIndex,
-                                         Normalizer normalizer) {
-        super(index, tokenizer, queryIndex, documentIndex, normalizer);
+                                         QueryIndex queryIndex, Normalizer normalizer) {
+        super(index, tokenizer, queryIndex, normalizer);
     }
 
 
@@ -29,7 +27,7 @@ public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
 
     @Override
     public void buildQueryProcessor() {
-        searchEngine.setQueryProcessor(new NormalizedProcessor(documentIndex, queryIndex));
+        searchEngine.setQueryProcessor(new NormalizedProcessor(queryIndex));
     }
 
     @Override
@@ -45,11 +43,6 @@ public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
     @Override
     public void buildQueryIndex() {
         searchEngine.setQueryIndex(queryIndex);
-    }
-
-    @Override
-    public void buildDocumentIndex() {
-        searchEngine.setDocumentIndex(documentIndex);
     }
 
     @Override

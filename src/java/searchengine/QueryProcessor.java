@@ -16,6 +16,6 @@ import java.util.List;
  */
 public interface QueryProcessor {
 
-    void processQueries( List<Query> queries);
+    void processQueries( List<Query> queries, InvertedIndex idx);
 }
 

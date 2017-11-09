@@ -73,7 +73,7 @@ public class CSVIndexReader implements IndexReader {
         for(int i=1; i<parsedPosting.length; i++){
             String[] post = parsedPosting[i].split(":");
             if(post.length == 2) {
-                Posting tempPosting = new Posting(Integer.parseInt(post[0]), Integer.parseInt(post[1]));
+                Posting tempPosting = new Posting(Integer.parseInt(post[0]), Double.parseDouble(post[1]));
                 postings.add(tempPosting);
             }
             else{

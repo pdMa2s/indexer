@@ -1,6 +1,5 @@
 package src.java.searchengine;
 
-import src.java.index.DocumentIndex;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
 import src.java.query.QueryIndex;
@@ -23,7 +22,6 @@ public abstract class SearchEngineBuilder {
     protected InvertedIndex invertedIndex;
     protected Tokenizer tokenizer;
     protected QueryIndex queryIndex;
-    protected DocumentIndex documentIndex;
     protected Normalizer normalizer;
 
     /**
@@ -32,12 +30,10 @@ public abstract class SearchEngineBuilder {
      * @param tokenizer A {@link Tokenizer} to be provided to the {@link QueryReader} object.
      */
     public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
-                               QueryIndex queryIndex, DocumentIndex documentIndex,
-                               Normalizer normalizer) {
+                               QueryIndex queryIndex, Normalizer normalizer) {
         this.invertedIndex = invertedIndex;
         this.tokenizer = tokenizer;
         this.queryIndex = queryIndex;
-        this.documentIndex = documentIndex;
         this.normalizer = normalizer;
     }
 
@@ -64,7 +60,6 @@ public abstract class SearchEngineBuilder {
         createSearchEngine();
         buildInvertedIndex();
         buildQueryIndex();
-        buildDocumentIndex();
         buildNormalizer();
         buildQueryProcessor();
         buildQueryReader();
@@ -104,8 +99,6 @@ public abstract class SearchEngineBuilder {
     public abstract void buildQueryTokenizer();
 
     public abstract void buildQueryIndex();
-
-    public abstract void buildDocumentIndex();
 
     public abstract void buildNormalizer();
 }
