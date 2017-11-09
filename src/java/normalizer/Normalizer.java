@@ -8,13 +8,21 @@ import java.util.Map;
 
 public class Normalizer {
 
-    public Map<String, Double> normalize(List<String> docTerms ){
+    public Map<String, Double> normalize(List<String> docTerms, int doc ){
         double norm = 0;
         Map<String, Double> scores = createOccurrenceMap(docTerms);
 
         for(String term : scores.keySet()){
-            norm += norm(tf(scores.get(term).intValue()));
+            int nrOccurrence = scores.get(term).intValue();
+            double tf = tf(nrOccurrence);
+            norm += norm(tf);
+            scores.put(term, tf);
         }
+        if(doc == 51)
+            System.out.println(norm);
+        norm = Math.sqrt(norm);
+        if(doc == 51)
+            System.out.println(norm);
 
         for(String term : scores.keySet()) {
             scores.put(term, scores.get(term)/norm);
