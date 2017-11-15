@@ -25,4 +25,11 @@ public class Vector {
     public boolean containsTerm(String term){
         return vector.containsKey(term);
     }
+
+    @Override
+    public String toString() {
+        return "Vector{" +
+                "vector=" + vector +
+                '}';
+    }
 }

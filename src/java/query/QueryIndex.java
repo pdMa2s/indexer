@@ -44,13 +44,23 @@ public class QueryIndex extends Index {
         for(Integer QueryID : getIds()){
             Vector temp = vectors.get(QueryID);
             for(String term : temp.getTerms()){
-                if(index.getPostingList(term)!= null)
-                    temp.put(term,(1+Math.log10(temp.getScore(term)))*Math.log10(corpusSize/index.getPostingList(term).size()));
+                if(index.getPostingList(term)!= null){
+                    double tfIdf = (1+Math.log10(temp.getScore(term)))*Math.log10(corpusSize/index.getPostingList(term).size());
+                    temp.put(term,tfIdf);
+                }
+
             }
         }
     }
 
     public List<Query> getQueries() {
         return queries;
+    }
+
+    @Override
+    public String toString() {
+        return "QueryIndex{" +
+                "vectors=" + vectors +
+                '}';
     }
 }

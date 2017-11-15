@@ -97,7 +97,7 @@ public class Posting implements Comparable<Posting>{
     public String toString() {
         return "{"+
                 "docID=" + docID +
-                ", termFreq=" + termOccurrences +
+                ", termWeight=" + normalizedWeight +
                 '}';
     }
 

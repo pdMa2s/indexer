@@ -27,7 +27,8 @@ public class RankingMain {
         int corpusSize = idr.getCorpusSize();
         queryIndex = new QueryIndex(corpusSize);
 
-        SearchEngineBuilder searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex, idr.getTokenizer(), queryIndex,nm);
+        SearchEngineBuilder searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex,
+                idr.getTokenizer(), queryIndex,nm);
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
 
         searchEngine.processQueries(queryFile, invertedIndex);
