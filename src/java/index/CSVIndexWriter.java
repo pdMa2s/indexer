@@ -38,7 +38,7 @@ public class CSVIndexWriter implements IndexWriter{
     private void writeTerms(PrintWriter writer, InvertedIndex index){
         for(String term: index.getTerms()){
             writer.print(term);
-            for(Posting post : index.getPostingList(term)){
+            for(Posting post : index.getPostings(term)){
                 if(post.getNormalizedWeight() == 0)
                     writer.print(","+post.getDocID() + ":" + post.getTermOccurrences());
                 else

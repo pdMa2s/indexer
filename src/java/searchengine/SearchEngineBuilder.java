@@ -22,7 +22,6 @@ public abstract class SearchEngineBuilder {
     protected InvertedIndex invertedIndex;
     protected Tokenizer tokenizer;
     protected QueryIndex queryIndex;
-    protected Normalizer normalizer;
 
     /**
      * A super constructor for all the class that will derive this class.
@@ -30,11 +29,10 @@ public abstract class SearchEngineBuilder {
      * @param tokenizer A {@link Tokenizer} to be provided to the {@link QueryReader} object.
      */
     public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
-                               QueryIndex queryIndex, Normalizer normalizer) {
+                               QueryIndex queryIndex) {
         this.invertedIndex = invertedIndex;
         this.tokenizer = tokenizer;
         this.queryIndex = queryIndex;
-        this.normalizer = normalizer;
     }
 
     /**

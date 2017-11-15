@@ -25,7 +25,7 @@ public class NormalizedProcessor implements QueryProcessor{
         for(Query query : queries){
             Vector queryVector = queryIndex.getVector(query.getId());
             for(String term : queryVector.getTerms()){
-                Set<Posting> temp = idx.getPostingList(term);
+                Set<Posting> temp = idx.getPostings(term);
                 if(temp != null){
                     for(Posting pst : temp){
                         Double result = query.getScore(pst.getDocID());

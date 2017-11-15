@@ -28,6 +28,18 @@ public class SearchEngine {
 
 
     public List<Query> processQueries(File queryFile, InvertedIndex idx){
+        if(normalizer == null)
+            return processFrequencyQueries(queryFile, idx);
+        else
+            return processNormalizedQueries(queryFile, idx);
+    }
+
+    public List<Query> processFrequencyQueries(File queryFile, InvertedIndex idx){
+        queries = queryReader.loadQueries(queryFile, tokenizer);
+        queryProcessor.processQueries(queries, idx);
+        return queries;
+    }
+    public List<Query> processNormalizedQueries(File queryFile, InvertedIndex idx){
         queries = queryReader.loadQueries(queryFile, tokenizer);
         queryIndex.addQueries(queries);
         queryIndex.applyTFAndIDFtoQueries(invertedIndex);

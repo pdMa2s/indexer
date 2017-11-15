@@ -38,7 +38,23 @@ public class InvertedIndex {
         }
     }
 
-    public Set<Posting> getPostingList(String term){
+    public void addTokenOccurrence(String token, int docID){
+        Set<Posting> entryList = index.get(token);
+
+        if(entryList != null){
+            Posting entry = findEntry(entryList, docID);
+            if(entry != null)
+                entry.termOccurrences++;
+            else
+                entryList.add(new Posting(docID,1));
+        }
+        else{
+            Set<Posting> newEntryList = new TreeSet<>();
+            newEntryList.add(new Posting(docID,1));
+            index.put(token,newEntryList);
+        }
+    }
+    public Set<Posting> getPostings(String term){
          return index.get(term);
      }
 

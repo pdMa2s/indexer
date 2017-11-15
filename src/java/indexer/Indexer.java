@@ -5,7 +5,6 @@ import src.java.corpus.CorpusReader;
 import src.java.normalizer.Normalizer;
 import src.java.tokenizer.Tokenizer;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -28,18 +27,38 @@ public class Indexer {
     private Tokenizer tokenizer;
     private InvertedIndex index;
     private Normalizer normalizer;
-    /**
-     * Creates an {@link InvertedIndex} of occurrences os words using a {@link CorpusReader}and a {@link Tokenizer}.
-     * @return An {@link InvertedIndex} filled with the occurrences of words in certain documents.
-     */
+
+
     public InvertedIndex createIndex() {
+        if(normalizer == null)
+            return createFrequencyIndex();
+        else
+            return createNormalizeIndex();
+    }
+        /**
+         * Creates an {@link InvertedIndex} of occurrences os words using a {@link CorpusReader}and a {@link Tokenizer}.
+         * @return An {@link InvertedIndex} filled with the occurrences of words in certain documents.
+         */
+    public InvertedIndex createFrequencyIndex() {
 
         index = new InvertedIndex();
 
         while (corpusReader.hasDocument()) {
             String docContent = corpusReader.processDocument();
             List<String> tokens = tokenizer.tokenize(docContent);
-            fillIndexWithTokens(index, tokens, corpusReader.getDocumentID());
+            fillIndexWithTermOccurrences(index, tokens, corpusReader.getDocumentID());
+        }
+        return index;
+    }
+
+    public InvertedIndex createNormalizeIndex() {
+
+        index = new InvertedIndex();
+
+        while (corpusReader.hasDocument()) {
+            String docContent = corpusReader.processDocument();
+            List<String> tokens = tokenizer.tokenize(docContent);
+            fillIndexWithNormalizedTerms(index, tokens, corpusReader.getDocumentID());
         }
         return index;
     }
@@ -51,13 +70,20 @@ public class Indexer {
     public InvertedIndex getIndex(){
         return index;
     }
-    private void fillIndexWithTokens(InvertedIndex index , List<String> terms, int docId){
+
+    private void fillIndexWithNormalizedTerms(InvertedIndex index , List<String> terms, int docId){
         Map<String, Double> normalizedScores = normalizer.normalize(terms);
         for(String term : normalizedScores.keySet()){
             index.addNormalizedScore(term, docId, normalizedScores.get(term));
         }
 
     }
+    private void fillIndexWithTermOccurrences(InvertedIndex index , List<String> tokens, int docId){
+        for (String token: tokens) {
+            index.addTokenOccurrence(token, docId);
+        }
+    }
+
 
     /**
      * Lets the user configure the {@link CorpusReader} that is going to be used in the indexation process.

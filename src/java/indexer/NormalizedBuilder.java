@@ -1,5 +1,7 @@
 package src.java.indexer;
 
+import org.tartarus.snowball.ext.englishStemmer;
+import org.xml.sax.SAXException;
 import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
 import src.java.documentreader.XMLDocumentHandler;
@@ -7,27 +9,18 @@ import src.java.documentreader.XMLReader;
 import src.java.normalizer.Normalizer;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.Tokenizer;
-import org.tartarus.snowball.ext.englishStemmer;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import static src.java.constants.Constants.COMPLEXTOKENIZERSTEMMING;
 
-/**
- * A builder that constructs {@link Indexer} with a {@link ComplexTokenizer} that uses an English Stemmer,
- * the {@link CorpusReader} used here is a {@link DirIteratorCorpusReader}.
- * @author Pedro Matos - 73941
- * @author David Ferreira
- * @since 09-27-2017
- *
- */
-public class CTStemmingIndexerBuilder extends IndexerBuilder {
-
+public class NormalizedBuilder extends IndexerBuilder {
     /**
-     * {@inheritDoc}
+     * A super constructor for all the class that will derive this class.
+     *
+     * @param dirName The directory name where the document corpus is located
      */
-    public CTStemmingIndexerBuilder(String dirName) {
+    public NormalizedBuilder(String dirName) {
         super(dirName);
     }
 
@@ -51,16 +44,13 @@ public class CTStemmingIndexerBuilder extends IndexerBuilder {
 
     @Override
     public void buildNormalizer() {
+        indexer.setNormalizer(new Normalizer());
     }
 
-    /**
-     *{@inheritDoc}
-     */
     @Override
     public String getTokenizerType() {
         return COMPLEXTOKENIZERSTEMMING;
     }
-
 
     private XMLReader initializeReader(){
         try {
