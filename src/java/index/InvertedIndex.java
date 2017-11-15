@@ -72,15 +72,5 @@ public class InvertedIndex {
         return null;
     }
 
-    private double tf(int occurrences){
-        return 1+Math.log10(occurrences);
-    }
-    public void applyTF(){
-        for(String st : index.keySet()){
-            Set<Posting> entryList = index.get(st);
-            for(Posting ps : entryList){
-                ps.setNormalizedWeight(tf(ps.getTermOccurrences()));
-            }
-        }
-    }
+
 }

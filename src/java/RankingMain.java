@@ -8,7 +8,6 @@ import src.java.query.QueryIndex;
 import src.java.searchengine.SearchEngine;
 import src.java.searchengine.SearchEngineBuilder;
 import src.java.searchengine.NormalizedSearchEngineBuilder;
-
 import java.io.File;
 
 public class RankingMain {

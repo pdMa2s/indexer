@@ -31,10 +31,12 @@ public class ColumnResultWriter implements QueryResultWriter{
             fw = new FileWriter(fileName);
             writer = new BufferedWriter(fw);
             writer.write("query_id" + delimiter+ "doc_id"+delimiter+"doc_score" +"\n");
+            NumberFormat formatter = new DecimalFormat("#0.00000");
             for(Query query: queries){
                 for(Map.Entry<Integer, Double> entry: query.getSortedResults()){
 
-                    writer.write(query.getId() + delimiter + entry.getKey() + delimiter+ entry.getValue() + "\n");
+                    writer.write(query.getId() + delimiter + entry.getKey()
+                            + delimiter+ formatter.format(entry.getValue()) + "\n");
                 }
                 query.clearResults();
             }

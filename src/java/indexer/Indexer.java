@@ -52,7 +52,7 @@ public class Indexer {
         return index;
     }
     private void fillIndexWithTokens(InvertedIndex index , List<String> terms, int docId){
-        Map<String, Double> normalizedScores = normalizer.normalize(terms, docId);
+        Map<String, Double> normalizedScores = normalizer.normalize(terms);
         for(String term : normalizedScores.keySet()){
             index.addNormalizedScore(term, docId, normalizedScores.get(term));
         }

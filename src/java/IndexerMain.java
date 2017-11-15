@@ -6,7 +6,6 @@ import src.java.index.IndexWriter;
 import src.java.indexer.CTStemmingIndexerBuilder;
 import src.java.indexer.Indexer;
 import src.java.indexer.IndexerBuilder;
-import src.java.normalizer.Normalizer;
 
 public class IndexerMain {
 
