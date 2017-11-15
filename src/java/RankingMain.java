@@ -5,6 +5,7 @@ import net.sourceforge.argparse4j.helper.HelpScreenException;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
+import src.java.evaluation.Evaluator;
 import src.java.index.CSVIndexReader;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
@@ -27,6 +28,8 @@ public class RankingMain {
         long startTime = System.currentTimeMillis();
         InvertedIndex invertedIndex = new InvertedIndex();
         QueryIndex queryIndex;
+        //Evaluator evaluator = new Evaluator(relevanceFile);
+        //evaluator.parseRelevanceFile();
         IndexReader idr = new CSVIndexReader();
         idr.parseInvertedIndex(indexFile,invertedIndex);
         int corpusSize = idr.getCorpusSize();
@@ -57,7 +60,8 @@ public class RankingMain {
                 .help("(Optional) The path to the file were the index is contained");
         parser.addArgument("resultFile").nargs("?").setDefault("queryResults")
                 .help("(Optional) The name of the file that will store the results");
-
+        parser.addArgument("relevanceFile").nargs("?")
+                .help("(Optional) The path to the file that contains the relevance scores");
         Namespace ns = null;
         try {
             ns = parser.parseArgs(args);
@@ -70,6 +74,16 @@ public class RankingMain {
             System.exit(1);
         }
         return ns;
+    }
+
+
+    private static void printUSAGE(){
+        System.err.println("USAGE: \n"+
+                "java -cp ../../libstemmer_java/java/libstemmer.jar: src.java.rankingMain <corpusDirectory> <indexFile>(Optional)\n"+
+                "<indexFile> - The file where the index is built \n"+
+                "<QueryFile> - The File with the queries to be evaluated \n"+
+                "<RelevanceFile> - The file with the relevance for each query and doc\n");
+        System.exit(1);
     }
 
 }

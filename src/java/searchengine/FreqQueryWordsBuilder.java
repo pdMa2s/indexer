@@ -7,7 +7,7 @@ import src.java.query.QueryLoader;
 import src.java.tokenizer.Tokenizer;
 
 public class FreqQueryWordsBuilder extends SearchEngineBuilder {
-    
+
     public FreqQueryWordsBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex) {
         super(invertedIndex, tokenizer, queryIndex);
     }
