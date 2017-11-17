@@ -17,5 +17,5 @@ public interface IndexWriter {
      * @param tokenizerType A tag that represents the type of {@link src.java.tokenizer.Tokenizer} that was used
      *                      in the indexation process. This tags are located in {@link src.java.constants.Constants}.
      */
-    void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType, int corpusSize);
+    void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType, int corpusSize, String scoringSystem);
 }

@@ -27,9 +27,10 @@ import static src.java.constants.Constants.SIMPLETOKENIZER;
  * @see <a href="https://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a>
  */
 public class CSVIndexReader implements IndexReader {
-
+    private String delimiter = ":";
     private Tokenizer tokenizer;
     private int corpusSize;
+    private String scoringSystem;
 
     /**
      *{@inheritDoc}
@@ -42,6 +43,11 @@ public class CSVIndexReader implements IndexReader {
     @Override
     public int getCorpusSize() {
         return corpusSize;
+    }
+
+    @Override
+    public String getScoringSystem() {
+        return scoringSystem;
     }
 
     /**
@@ -71,7 +77,7 @@ public class CSVIndexReader implements IndexReader {
         String[] parsedPosting = text.split(",");
         String term = parsedPosting[0];
         for(int i=1; i<parsedPosting.length; i++){
-            String[] post = parsedPosting[i].split(":");
+            String[] post = parsedPosting[i].split(delimiter);
             if(post.length == 2) {
                 Posting tempPosting = new Posting(Integer.parseInt(post[0]), Double.parseDouble(post[1]));
                 postings.add(tempPosting);
@@ -88,11 +94,13 @@ public class CSVIndexReader implements IndexReader {
     }
 
     private void parseHeader(String headerText){
-        String[] header = headerText.split(":");
-        if(header.length != 2)
+        String[] header = headerText.split(delimiter);
+        if(header.length != 3)
             printError("ERROR while parsing invertedIndex file\nInvalid header");
-        parseTokenizerType(header[0]);
-        corpusSize = Integer.parseInt(header[1]);
+        scoringSystem = header[0];
+        parseTokenizerType(header[1]);
+        corpusSize = Integer.parseInt(header[2]);
+
     }
     private void parseTokenizerType(String header){
         switch (header){

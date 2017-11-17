@@ -33,7 +33,7 @@ public class ColumnResultWriter implements QueryResultWriter{
             writer.write("query_id" + delimiter+ "doc_id"+delimiter+"doc_score" +"\n");
             NumberFormat formatter = new DecimalFormat("#0.00000");
             for(Query query: queries){
-                for(Map.Entry<Integer, Double> entry: query.getSortedResults()){
+                for(Map.Entry<Integer, Double> entry: query.getSortedResults().entrySet()){
 
                     writer.write(query.getId() + delimiter + entry.getKey()
                             + delimiter+ formatter.format(entry.getValue()) + "\n");

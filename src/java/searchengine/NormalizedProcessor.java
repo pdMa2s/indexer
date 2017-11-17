@@ -18,7 +18,6 @@ public class NormalizedProcessor implements QueryProcessor{
 
     @Override
     public void processQueries(List<Query> queries, InvertedIndex idx) {
-
         calculateNormalizedRanking(queries, idx);
     }
     public void calculateNormalizedRanking(List<Query> queries, InvertedIndex idx){
@@ -30,10 +29,10 @@ public class NormalizedProcessor implements QueryProcessor{
                     for(Posting pst : temp){
                         Double result = query.getScore(pst.getDocID());
                         if(result != null) {
-                            query.addScore(pst.getDocID(), result + (pst.getNormalizedWeight() * queryVector.getScore(term)));
+                            query.addScore(pst.getDocID(), result + (pst.getWeight() * queryVector.getScore(term)));
                         }
                         else {
-                            query.addScore(pst.getDocID(), pst.getNormalizedWeight() * queryVector.getScore(term));
+                            query.addScore(pst.getDocID(), pst.getWeight() * queryVector.getScore(term));
                         }
                     }
                 }

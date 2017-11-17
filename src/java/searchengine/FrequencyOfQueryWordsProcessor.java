@@ -16,10 +16,11 @@ public class FrequencyOfQueryWordsProcessor implements QueryProcessor {
                 if (postings != null) {
                     for (Posting pst : postings) {
                         Double score = query.getScore(pst.getDocID());
-                        if (score == null)
-                            query.addScore(pst.getDocID(), pst.getTermOccurrences());
+                        if (score == null) {
+                            query.addScore(pst.getDocID(), pst.getWeight());
+                        }
                         else
-                            query.addScore(pst.getDocID(), score +pst.getTermOccurrences());
+                            query.addScore(pst.getDocID(), score +pst.getWeight());
                     }
                 }
             }

@@ -23,8 +23,8 @@ public class IndexerMain {
         InvertedIndex index;
         IndexWriter writer = new CSVIndexWriter();
         IndexerBuilder builder;
-
-        if(!parsedArgs.getString("scoring").equals(NORMALIZED))
+        String scoringSystem = parsedArgs.getString("scoring");
+        if(!scoringSystem.equals(NORMALIZED))
              builder = parseTokenizerType(parsedArgs.getString("tokenizer"), dirName);
         else
             builder = new NormalizedBuilder(dirName);
@@ -32,7 +32,8 @@ public class IndexerMain {
         long startTime = System.currentTimeMillis();
         indexer = builder.constructIndexer();
         index = indexer.createIndex();
-        writer.saveIndexToFile(indexFile, index, builder.getTokenizerType(), indexer.getCorpusSize());
+        writer.saveIndexToFile(indexFile, index, builder.getTokenizerType(), indexer.getCorpusSize(),
+                scoringSystem);
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;

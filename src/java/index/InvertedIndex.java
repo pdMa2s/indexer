@@ -44,7 +44,7 @@ public class InvertedIndex {
         if(entryList != null){
             Posting entry = findEntry(entryList, docID);
             if(entry != null)
-                entry.termOccurrences++;
+                entry.weight++;
             else
                 entryList.add(new Posting(docID,1));
         }

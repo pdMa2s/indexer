@@ -2,14 +2,14 @@ package src.java.searchengine;
 
 import src.java.index.InvertedIndex;
 import src.java.query.ColumnResultWriter;
-import src.java.query.QueryIndex;
+
 import src.java.query.QueryLoader;
 import src.java.tokenizer.Tokenizer;
 
 public class FreqQueryWordsBuilder extends SearchEngineBuilder {
 
-    public FreqQueryWordsBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex) {
-        super(invertedIndex, tokenizer, queryIndex);
+    public FreqQueryWordsBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer) {
+        super(invertedIndex, tokenizer, null);
     }
 
     @Override

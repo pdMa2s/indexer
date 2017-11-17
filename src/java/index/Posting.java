@@ -13,23 +13,12 @@ package src.java.index;
 public class Posting implements Comparable<Posting>{
 
     int docID;
-    int termOccurrences;
-    double normalizedWeight;
+    double weight;
 
-    /**
-     * Constructs a Posting object.
-     * @param docID The ID of a document.
-     * @param termOccurrences The frequency of a term/word.
-     */
-    public Posting(int docID, int termOccurrences) {
-        this.docID = docID;
-        this.termOccurrences = termOccurrences;
-        this.normalizedWeight = 0;
-    }
 
-    public Posting(int docID, double normalizedWeight) {
+    public Posting(int docID, double weight) {
         this.docID = docID;
-        this.normalizedWeight = normalizedWeight;
+        this.weight = weight;
     }
 
     /**
@@ -40,15 +29,7 @@ public class Posting implements Comparable<Posting>{
         return docID;
     }
 
-    /**
-     *
-     * @return The frequency of the term/word.
-     */
-    public int getTermOccurrences() {
-        return termOccurrences;
-    }
-
-    public double getNormalizedWeight(){ return normalizedWeight; }
+    public double getWeight(){ return weight; }
     /**
      *
      * @param docID The ID of a document.
@@ -57,18 +38,10 @@ public class Posting implements Comparable<Posting>{
         this.docID = docID;
     }
 
-    /**
-     *
-     * @param occurrences The frequency of a term in a certain document.
-     */
-    public void setTermFreq(int occurrences) {
-        this.termOccurrences = occurrences;
-    }
 
-    public void setNormalizedWeight(double normalizedWeight) {
-        this.normalizedWeight = normalizedWeight;
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -78,8 +51,7 @@ public class Posting implements Comparable<Posting>{
         Posting posting = (Posting) o;
 
         if (docID != posting.docID) return false;
-        if (termOccurrences != posting.termOccurrences) return false;
-        return Double.compare(posting.normalizedWeight, normalizedWeight) == 0;
+        return Double.compare(posting.weight, weight) == 0;
     }
 
     @Override
@@ -87,8 +59,7 @@ public class Posting implements Comparable<Posting>{
         int result;
         long temp;
         result = docID;
-        result = 31 * result + termOccurrences;
-        temp = Double.doubleToLongBits(normalizedWeight);
+        temp = Double.doubleToLongBits(weight);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
@@ -97,7 +68,7 @@ public class Posting implements Comparable<Posting>{
     public String toString() {
         return "{"+
                 "docID=" + docID +
-                ", termWeight=" + normalizedWeight +
+                ", termWeight=" + weight +
                 '}';
     }
 

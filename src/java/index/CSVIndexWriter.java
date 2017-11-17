@@ -14,12 +14,13 @@ import java.io.UnsupportedEncodingException;
  * @see <a href="https://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a>
  */
 public class CSVIndexWriter implements IndexWriter{
-
+    private String delimiter = ":";
     /**
      * {@inheritDoc}
      */
     @Override
-    public void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType, int corpusSize) {
+    public void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType, int corpusSize,
+                                String scoringSystem) {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(fileName, "UTF-8");
@@ -27,22 +28,19 @@ public class CSVIndexWriter implements IndexWriter{
             System.err.println("ERROR: Writing invertedIndex to file");
             System.exit(3);
         }
-        writeHeader(writer, tokenizerType, corpusSize);
+        writeHeader(writer, tokenizerType, corpusSize, scoringSystem);
         writeTerms(writer, index);
 
     }
 
-    private void writeHeader(PrintWriter writer, String tokenizerType, int corpusSize){
-        writer.println(tokenizerType + ":" + corpusSize);
+    private void writeHeader(PrintWriter writer, String tokenizerType, int corpusSize, String scoringSystem){
+        writer.println(scoringSystem+ delimiter +tokenizerType + delimiter + corpusSize);
     }
     private void writeTerms(PrintWriter writer, InvertedIndex index){
         for(String term: index.getTerms()){
             writer.print(term);
             for(Posting post : index.getPostings(term)){
-                if(post.getNormalizedWeight() == 0)
-                    writer.print(","+post.getDocID() + ":" + post.getTermOccurrences());
-                else
-                    writer.print(","+post.getDocID() + ":" + post.getNormalizedWeight());
+                writer.print(","+post.getDocID() + delimiter + post.getWeight());
             }
             writer.print("\n");
         }

@@ -74,18 +74,32 @@ public class Query {
         return terms;
     }
 
+    public Map<Integer, Double> getResults(){
+        return results;
+    }
 
-    public Set<Map.Entry<Integer, Double>> getSortedResults(){
-        SortedSet<Map.Entry<Integer, Double>> sortedSet = new TreeSet<>((o1, o2) -> {
-            double difference = o2.getValue() - o1.getValue();
-            if(difference > 0)
+    public Map<Integer, Double> getSortedResults(){
+        ValueComparator bvc = new ValueComparator(results);
+        TreeMap<Integer, Double> sortedMap = new TreeMap<>(bvc);
+        sortedMap.putAll(results);
+        return sortedMap;
+    }
+    class ValueComparator implements Comparator<Integer> {
+        Map<Integer, Double> base;
+
+        public ValueComparator(Map<Integer, Double> base) {
+            this.base = base;
+        }
+
+        // Note: this comparator imposes orderings that are inconsistent with
+        // equals.
+        public int compare(Integer a, Integer b) {
+            if (base.get(a) < base.get(b)) {
                 return 1;
-            else if(difference < 0)
-                    return -1;
-            return 0;
-        });
-        sortedSet.addAll(results.entrySet());
-        return sortedSet;
+            } else {
+                return -1;
+            } // returning 0 would merge keys
+        }
     }
     /**
      *{@inheritDoc}
