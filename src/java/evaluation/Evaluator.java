@@ -19,9 +19,10 @@ public class Evaluator {
         parseRelevanceFile();
     }
 
-    /*public double precision(List<Query> queries){
-        //for()
-    }*/
+    public void calculateSystemMeasures(List<Query> queries){
+
+    }
+
     public void parseRelevanceFile(){
         BufferedReader reader;
         try{

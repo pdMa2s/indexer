@@ -15,6 +15,8 @@ public class Query {
     private int id;
     private List<String> terms;
     private Map<Integer, Double> results;
+    private double queryAccuracy;
+    private double queryPrecision;
 
     /**
      * Constructs a {@link Query} object.
@@ -32,6 +34,9 @@ public class Query {
      */
     public void clearResults() { results.clear(); }
 
+    public void setQueryAccuracy(double accuracy){ this.queryAccuracy = accuracy; }
+
+    public void setQueryPrecision(double precision){ this.queryPrecision = precision; }
     /**
      *
      * @return The query id.

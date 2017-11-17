@@ -56,6 +56,7 @@ public class RankingMain {
 
         List<Query> queries= searchEngine.processQueries(queryFile, invertedIndex);
         searchEngine.saveResults(rankingResultsFile);
+        evaluator.calculateSystemMeasures(queries);
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
