@@ -20,7 +20,8 @@ public class Evaluator {
     }
 
     /*public double precision(List<Query> queries){
-        //for()
+        int total = totalResults(queries);
+        int truePositives = 0;
     }*/
     public void parseRelevanceFile(){
         BufferedReader reader;
@@ -62,4 +63,18 @@ public class Evaluator {
             relevanceMatrix.put(Integer.parseInt(content[0]), newQueryMap);
         }
     }
+
+    private int totalResults(List<Query> queries){
+        int total = 0;
+        for(Query query : queries){
+            total += query.getResults().size();
+        }
+        return total;
+    }
+    /*private int truePositives(List<Query> queries){
+        int truePositives = 0;
+        for(Query q : queries){
+
+        }
+    }*/
 }

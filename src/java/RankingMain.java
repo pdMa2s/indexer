@@ -40,7 +40,6 @@ public class RankingMain {
         idr.parseInvertedIndex(indexFile,invertedIndex);
         SearchEngineBuilder searchEngineBuilder;
         String scoringSystem = idr.getScoringSystem();
-        checkOperationParameters(parsedArgs, scoringSystem);
 
         if(scoringSystem.equals(NORMALIZED)){
             int corpusSize = idr.getCorpusSize();
@@ -95,13 +94,6 @@ public class RankingMain {
         return ns;
     }
 
-    private static void checkOperationParameters(Namespace ns, String scoringSystem){
-        if(scoringSystem.equals(DOCFREQUENCY) && (!ns.getBoolean("frequencyOfQueryWords")
-                && !ns.getBoolean("wordsInDoc") )){
-            System.err.println("Missing Argument: -f or -w\n-h for more information");
-            System.exit(1);
-        }
-    }
 
     private static SearchEngineBuilder getBuilder(Namespace ns, InvertedIndex idx, Tokenizer tokenizer){
         if(ns.getBoolean("frequencyOfQueryWords"))
