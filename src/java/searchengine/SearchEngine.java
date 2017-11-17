@@ -105,6 +105,10 @@ public class SearchEngine {
     }
 
     public void setThreshold(double threshold) {
+        if(this.threshold < 0){
+            System.err.println("Threshold cant be less than zero");
+            System.exit(1);
+        }
         this.threshold = threshold;
     }
 }

@@ -29,6 +29,7 @@ public class RankingMain {
 
         String rankingResultsFile = parsedArgs.getString("resultFile");
 
+        double threshold = Double.parseDouble(parsedArgs.getString("threshold"));
         InvertedIndex invertedIndex = new InvertedIndex();
         QueryIndex queryIndex;
 
@@ -44,10 +45,10 @@ public class RankingMain {
             int corpusSize = idr.getCorpusSize();
             queryIndex = new QueryIndex(corpusSize);
              searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex,
-                    idr.getTokenizer(), queryIndex, 0.1);
+                    idr.getTokenizer(), queryIndex, threshold);
         }
         else{
-            searchEngineBuilder = getBuilder(parsedArgs, invertedIndex, idr.getTokenizer());
+            searchEngineBuilder = getBuilder(parsedArgs, invertedIndex, idr.getTokenizer(), threshold);
         }
 
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
@@ -56,6 +57,8 @@ public class RankingMain {
         searchEngine.saveResults(rankingResultsFile);
 
         Evaluator evaluator = checkEvaluatorParameter(parsedArgs, queries);
+        if(evaluator != null)
+            evaluator.calculateSystemMeasures(queries);
 
 
         long stopTime = System.currentTimeMillis();
@@ -78,8 +81,15 @@ public class RankingMain {
                 .help("(Optional) The path to the file were the index is contained");
         parser.addArgument("-r","--resultFile").setDefault("queryResults")
                 .help("(Optional) The name of the file that will store the results");
-        parser.addArgument("-rv","--relevanceFile")
+        parser.addArgument("-th","--threshold").setDefault(THRESHOLDDEFAULTVALUE)
+                .help("(Optional) The minimum value of the results");
+        parser.addArgument("-rvf","--relevanceFile")
                 .help("(Optional) The path to the file that contains the relevance scores");
+        parser.addArgument("-rvs","--relevanceScore")
+                .choices(1, 2,3,4).setDefault(4)
+                .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
+
+
         Namespace ns = null;
         try {
             ns = parser.parseArgs(args);
@@ -97,11 +107,11 @@ public class RankingMain {
     }
 
 
-    private static SearchEngineBuilder getBuilder(Namespace ns, InvertedIndex idx, Tokenizer tokenizer){
+    private static SearchEngineBuilder getBuilder(Namespace ns, InvertedIndex idx, Tokenizer tokenizer, double threshold){
         if(ns.getBoolean("frequencyOfQueryWords"))
-            return new FreqQueryWordsBuilder(idx, tokenizer, 10);
+            return new FreqQueryWordsBuilder(idx, tokenizer, threshold);
         else
-            return new WordsInDocBuilder(idx, tokenizer, 5);
+            return new WordsInDocBuilder(idx, tokenizer, threshold);
     }
 
     private static Evaluator checkEvaluatorParameter(Namespace ns, List<Query> queries){

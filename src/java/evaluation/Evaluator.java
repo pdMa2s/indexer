@@ -21,10 +21,11 @@ public class Evaluator {
         parseRelevanceFile();
     }
 
-    public double precision(){
-        int total = totalResults(queries);
-        int truePositives = 0;
+
+    public void calculateSystemMeasures(List<Query> queries){
+
     }
+
     public void parseRelevanceFile(){
         BufferedReader reader;
         try{
