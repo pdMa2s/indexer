@@ -19,10 +19,17 @@ public class Evaluator {
         parseRelevanceFile();
     }
 
+<<<<<<< HEAD
     public void calculateSystemMeasures(List<Query> queries){
 
     }
 
+=======
+    /*public double precision(List<Query> queries){
+        int total = totalResults(queries);
+        int truePositives = 0;
+    }*/
+>>>>>>> bc36a36aace30a65338347e59339448671d4caaa
     public void parseRelevanceFile(){
         BufferedReader reader;
         try{
@@ -63,4 +70,18 @@ public class Evaluator {
             relevanceMatrix.put(Integer.parseInt(content[0]), newQueryMap);
         }
     }
+
+    private int totalResults(List<Query> queries){
+        int total = 0;
+        for(Query query : queries){
+            total += query.getResults().size();
+        }
+        return total;
+    }
+    /*private int truePositives(List<Query> queries){
+        int truePositives = 0;
+        for(Query q : queries){
+
+        }
+    }*/
 }
