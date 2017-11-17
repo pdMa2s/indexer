@@ -11,18 +11,20 @@ import java.util.Map;
 public class Evaluator {
 
     private File relevanceFile;
+    private List<Query> queries;
     private Map<Integer, Map<Integer, ArrayList<Integer>>> relevanceMatrix;
 
-    public Evaluator(String relevanceFile){
+    public Evaluator(String relevanceFile, List<Query> queries){
         this.relevanceFile = new File(relevanceFile);
         this.relevanceMatrix = new HashMap<>();
+        this.queries = queries;
         parseRelevanceFile();
     }
 
-    /*public double precision(List<Query> queries){
+    public double precision(){
         int total = totalResults(queries);
         int truePositives = 0;
-    }*/
+    }
     public void parseRelevanceFile(){
         BufferedReader reader;
         try{

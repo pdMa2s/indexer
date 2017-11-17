@@ -32,7 +32,6 @@ public class RankingMain {
         InvertedIndex invertedIndex = new InvertedIndex();
         QueryIndex queryIndex;
 
-        Evaluator evaluator = checkEvaluatorParameter(parsedArgs);
 
         long startTime = System.currentTimeMillis();
 
@@ -55,6 +54,9 @@ public class RankingMain {
 
         List<Query> queries= searchEngine.processQueries(queryFile, invertedIndex);
         searchEngine.saveResults(rankingResultsFile);
+
+        Evaluator evaluator = checkEvaluatorParameter(parsedArgs, queries);
+
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
@@ -102,10 +104,10 @@ public class RankingMain {
             return new WordsInDocBuilder(idx, tokenizer, 5);
     }
 
-    private static Evaluator checkEvaluatorParameter(Namespace ns){
+    private static Evaluator checkEvaluatorParameter(Namespace ns, List<Query> queries){
         String relevanceFile  = ns.getString("relevanceFile");
         if(relevanceFile != null)
-            return new Evaluator(relevanceFile);
+            return new Evaluator(relevanceFile, queries);
         return null;
     }
 
