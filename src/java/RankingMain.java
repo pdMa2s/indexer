@@ -11,11 +11,13 @@ import src.java.evaluation.Evaluator;
 import src.java.index.CSVIndexReader;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
+import src.java.query.Query;
 import src.java.query.QueryIndex;
 import src.java.searchengine.*;
 import src.java.tokenizer.Tokenizer;
 
 import java.io.File;
+import java.util.List;
 
 import static src.java.constants.Constants.*;
 
@@ -29,8 +31,8 @@ public class RankingMain {
 
         InvertedIndex invertedIndex = new InvertedIndex();
         QueryIndex queryIndex;
-        //Evaluator evaluator = new Evaluator(relevanceFile);
-        //evaluator.parseRelevanceFile();
+
+        Evaluator evaluator = checkEvaluatorParameter(parsedArgs);
 
         long startTime = System.currentTimeMillis();
 
@@ -44,7 +46,7 @@ public class RankingMain {
             int corpusSize = idr.getCorpusSize();
             queryIndex = new QueryIndex(corpusSize);
              searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex,
-                    idr.getTokenizer(), queryIndex);
+                    idr.getTokenizer(), queryIndex, 0.1);
         }
         else{
             searchEngineBuilder = getBuilder(parsedArgs, invertedIndex, idr.getTokenizer());
@@ -52,7 +54,7 @@ public class RankingMain {
 
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
 
-        searchEngine.processQueries(queryFile, invertedIndex);
+        List<Query> queries= searchEngine.processQueries(queryFile, invertedIndex);
         searchEngine.saveResults(rankingResultsFile);
 
         long stopTime = System.currentTimeMillis();
@@ -75,11 +77,12 @@ public class RankingMain {
                 .help("(Optional) The path to the file were the index is contained");
         parser.addArgument("-r","--resultFile").setDefault("queryResults")
                 .help("(Optional) The name of the file that will store the results");
-        parser.addArgument("-v","--relevanceFile")
+        parser.addArgument("-rv","--relevanceFile")
                 .help("(Optional) The path to the file that contains the relevance scores");
         Namespace ns = null;
         try {
             ns = parser.parseArgs(args);
+            System.out.println(ns);
         }
         catch (HelpScreenException e){
             System.exit(1);
@@ -102,9 +105,16 @@ public class RankingMain {
 
     private static SearchEngineBuilder getBuilder(Namespace ns, InvertedIndex idx, Tokenizer tokenizer){
         if(ns.getBoolean("frequencyOfQueryWords"))
-            return new FreqQueryWordsBuilder(idx, tokenizer);
+            return new FreqQueryWordsBuilder(idx, tokenizer, 10);
         else
-            return new WordsInDocBuilder(idx, tokenizer);
+            return new WordsInDocBuilder(idx, tokenizer, 5);
+    }
+
+    private static Evaluator checkEvaluatorParameter(Namespace ns){
+        String relevanceFile  = ns.getString("relevanceFile");
+        if(relevanceFile != null)
+            return new Evaluator(relevanceFile);
+        return null;
     }
 
 }

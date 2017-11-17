@@ -1,8 +1,11 @@
 package src.java.evaluation;
 
+import src.java.query.Query;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Evaluator {
@@ -10,11 +13,15 @@ public class Evaluator {
     private File relevanceFile;
     private Map<Integer, Map<Integer, ArrayList<Integer>>> relevanceMatrix;
 
-    public Evaluator(File relevanceFile){
-        this.relevanceFile = relevanceFile;
+    public Evaluator(String relevanceFile){
+        this.relevanceFile = new File(relevanceFile);
         this.relevanceMatrix = new HashMap<>();
+        parseRelevanceFile();
     }
 
+    /*public double precision(List<Query> queries){
+        //for()
+    }*/
     public void parseRelevanceFile(){
         BufferedReader reader;
         try{
@@ -32,7 +39,7 @@ public class Evaluator {
         }
     }
 
-    public void fillRelevanceMatrix(String relevanceTuple){
+    private void fillRelevanceMatrix(String relevanceTuple){
         String[] content = relevanceTuple.split("\\s+");
         Map<Integer, ArrayList<Integer>> relevancePerQuery = relevanceMatrix.get(Integer.parseInt(content[0]));
         if(relevancePerQuery != null){

@@ -48,6 +48,9 @@ public class Query {
     public void addScore(int docId, double score){
         results.put(docId, score);
     }
+    public void setResults(Map<Integer, Double> results){
+        this.results = results;
+    }
 
     /**
      *

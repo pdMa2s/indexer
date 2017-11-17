@@ -17,7 +17,7 @@ public class NormalizedProcessor implements QueryProcessor{
     }
 
     @Override
-    public void processQueries(List<Query> queries, InvertedIndex idx) {
+    public void processQueries(List<Query> queries, InvertedIndex idx, double threshold) {
         calculateNormalizedRanking(queries, idx);
     }
     public void calculateNormalizedRanking(List<Query> queries, InvertedIndex idx){

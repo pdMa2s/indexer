@@ -22,6 +22,7 @@ public abstract class SearchEngineBuilder {
     protected InvertedIndex invertedIndex;
     protected Tokenizer tokenizer;
     protected QueryIndex queryIndex;
+    protected double threshold;
 
     /**
      * A super constructor for all the class that will derive this class.
@@ -29,10 +30,11 @@ public abstract class SearchEngineBuilder {
      * @param tokenizer A {@link Tokenizer} to be provided to the {@link QueryReader} object.
      */
     public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
-                               QueryIndex queryIndex) {
+                               QueryIndex queryIndex, double threshold) {
         this.invertedIndex = invertedIndex;
         this.tokenizer = tokenizer;
         this.queryIndex = queryIndex;
+        this.threshold = threshold;
     }
 
     /**
@@ -63,6 +65,7 @@ public abstract class SearchEngineBuilder {
         buildQueryReader();
         buildQueryResultWriter();
         buildQueryTokenizer();
+        buildThreshold();
         return searchEngine;
     }
 
@@ -99,4 +102,6 @@ public abstract class SearchEngineBuilder {
     public abstract void buildQueryIndex();
 
     public abstract void buildNormalizer();
+
+    public abstract void buildThreshold();
 }

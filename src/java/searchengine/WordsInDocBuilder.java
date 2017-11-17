@@ -2,13 +2,15 @@ package src.java.searchengine;
 
 import src.java.index.InvertedIndex;
 import src.java.query.ColumnResultWriter;
+import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
 import src.java.tokenizer.Tokenizer;
 
 public class WordsInDocBuilder extends SearchEngineBuilder {
 
-    public WordsInDocBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer) {
-        super(invertedIndex, tokenizer, null);
+
+    public WordsInDocBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, double threshold) {
+        super(invertedIndex, tokenizer, null, threshold);
     }
 
     @Override
@@ -42,5 +44,10 @@ public class WordsInDocBuilder extends SearchEngineBuilder {
 
     @Override
     public void buildNormalizer() {
+    }
+
+    @Override
+    public void buildThreshold() {
+        searchEngine.setThreshold(threshold);
     }
 }

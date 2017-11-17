@@ -2,14 +2,13 @@ package src.java.searchengine;
 
 import src.java.index.InvertedIndex;
 import src.java.query.ColumnResultWriter;
-
 import src.java.query.QueryLoader;
 import src.java.tokenizer.Tokenizer;
 
 public class FreqQueryWordsBuilder extends SearchEngineBuilder {
 
-    public FreqQueryWordsBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer) {
-        super(invertedIndex, tokenizer, null);
+    public FreqQueryWordsBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, double threshold) {
+        super(invertedIndex, tokenizer, null, threshold);
     }
 
     @Override
@@ -43,5 +42,10 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
 
     @Override
     public void buildNormalizer() {
+    }
+
+    @Override
+    public void buildThreshold() {
+        searchEngine.setThreshold(threshold);
     }
 }

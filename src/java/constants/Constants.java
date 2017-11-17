@@ -29,4 +29,5 @@ public class Constants {
     public static final String DOCFREQUENCY = "freq";
     public static final String NORMALIZED = "norm";
     public static final String INDEXDEAFAULTFILENAME = "index.csv";
+    public static final double THRESHOLDDEFAULTVALUE = -1;
 }

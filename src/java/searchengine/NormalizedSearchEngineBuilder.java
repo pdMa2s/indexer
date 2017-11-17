@@ -5,15 +5,16 @@ import src.java.normalizer.Normalizer;
 import src.java.query.ColumnResultWriter;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
+import src.java.query.QueryReader;
 import src.java.tokenizer.Tokenizer;
 
 public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
 
-    public NormalizedSearchEngineBuilder(InvertedIndex index, Tokenizer tokenizer,
-                                         QueryIndex queryIndex) {
-        super(index, tokenizer, queryIndex);
-    }
 
+
+    public NormalizedSearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex, double threshold) {
+        super(invertedIndex, tokenizer, queryIndex, threshold);
+    }
 
     @Override
     public void buildInvertedIndex() {
@@ -48,5 +49,10 @@ public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
     @Override
     public void buildNormalizer() {
         searchEngine.setNormalizer(new Normalizer());
+    }
+
+    @Override
+    public void buildThreshold() {
+        searchEngine.setThreshold(threshold);
     }
 }

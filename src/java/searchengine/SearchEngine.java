@@ -25,7 +25,7 @@ public class SearchEngine {
     private List<Query> queries;
     private Tokenizer tokenizer;
     private Normalizer normalizer;
-
+    private double threshold;
 
     public List<Query> processQueries(File queryFile, InvertedIndex idx){
         if(normalizer == null)
@@ -36,7 +36,7 @@ public class SearchEngine {
 
     public List<Query> processFrequencyQueries(File queryFile, InvertedIndex idx){
         queries = queryReader.loadQueries(queryFile, tokenizer);
-        queryProcessor.processQueries(queries, idx);
+        queryProcessor.processQueries(queries, idx, threshold);
         return queries;
     }
     public List<Query> processNormalizedQueries(File queryFile, InvertedIndex idx){
@@ -44,7 +44,7 @@ public class SearchEngine {
         queryIndex.addQueries(queries);
         queryIndex.applyTFAndIDFtoQueries(invertedIndex);
         normalizer.normalize(queryIndex);
-        queryProcessor.processQueries(queries, idx);
+        queryProcessor.processQueries(queries, idx, threshold);
         return queries;
     }
 
@@ -102,5 +102,9 @@ public class SearchEngine {
 
     public void setNormalizer(Normalizer normalizer) {
         this.normalizer = normalizer;
+    }
+
+    public void setThreshold(double threshold) {
+        this.threshold = threshold;
     }
 }
