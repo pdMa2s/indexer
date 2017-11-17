@@ -15,7 +15,7 @@ public class Query {
     private int id;
     private List<String> terms;
     private Map<Integer, Double> results;
-    private double queryAccuracy;
+    private double queryRecall;
     private double queryPrecision;
 
     /**
@@ -34,9 +34,13 @@ public class Query {
      */
     public void clearResults() { results.clear(); }
 
-    public void setQueryAccuracy(double accuracy){ this.queryAccuracy = accuracy; }
+    public void setQueryRecall(double accuracy){ this.queryRecall = accuracy; }
 
     public void setQueryPrecision(double precision){ this.queryPrecision = precision; }
+
+    public double getQueryRecall() { return queryRecall; }
+
+    public double getQueryPrecision() { return queryPrecision; }
     /**
      *
      * @return The query id.

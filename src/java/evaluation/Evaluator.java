@@ -19,17 +19,83 @@ public class Evaluator {
         parseRelevanceFile();
     }
 
-<<<<<<< HEAD
-    public void calculateSystemMeasures(List<Query> queries){
-
+    public void calculateSystemMeasures(List<Query> queries, int minimumRelevance, double threshold){
+        for(Query q : queries){
+            if(threshold != -1)
+                calculatePrecision(q, minimumRelevance);
+            else
+                calculateFixedPrecision(q, minimumRelevance);
+            calculateRecall(q, minimumRelevance);
+        }
+        double mediumPrecision = calculateMediumPrecision(queries);
+        double fMeasure = calculateFMeasure(queries);
     }
 
-=======
-    /*public double precision(List<Query> queries){
-        int total = totalResults(queries);
-        int truePositives = 0;
-    }*/
->>>>>>> bc36a36aace30a65338347e59339448671d4caaa
+    public void calculatePrecision(Query q, int minimumRelevance){
+        double returnedRelevance = 0;
+
+        for(int docID : q.getDocIds()){
+            for(int i=minimumRelevance; i>0; i--){
+                if(relevanceMatrix.get(q.getId()).get(i).contains(docID)){
+                    returnedRelevance++;
+                    break;
+                }
+            }
+        }
+        q.setQueryPrecision(returnedRelevance/q.getDocIds().size());
+    }
+
+    public void calculateFixedPrecision(Query q, int minimumRelevance){
+        double returnedRelevance = 0;
+        int count = 0;
+
+        for(int docID : q.getSortedResults().keySet()){
+            count++;
+            for(int i=minimumRelevance; i>0; i--){
+                if(relevanceMatrix.get(q.getId()).get(i).contains(docID)){
+                    returnedRelevance++;
+                    break;
+                }
+            }
+            if(count == 10)
+                break;
+        }
+        q.setQueryPrecision(returnedRelevance/10);
+    }
+
+    public void calculateRecall(Query q, int minimumRelevance){
+        double returnedRelevance = 0;
+        double totalRelevance = 0;
+        for(int docID : q.getDocIds()){
+            for(int i=minimumRelevance; i>0; i--){
+                if(relevanceMatrix.get(q.getId()).get(i).contains(docID)){
+                    returnedRelevance++;
+                    break;
+                }
+            }
+        }
+        for(int i=minimumRelevance; i>0; i--){
+            totalRelevance += relevanceMatrix.get(q.getId()).get(i).size();
+        }
+        q.setQueryRecall(returnedRelevance/totalRelevance);
+    }
+
+    public double calculateMediumPrecision(List<Query> queries){
+        double totalPrecisionSum = 0;
+        for(Query q : queries){
+            totalPrecisionSum += q.getQueryPrecision();
+        }
+        return totalPrecisionSum/queries.size();
+    }
+
+    public double calculateFMeasure(List<Query> queries){
+        double totalFMeasure = 0;
+        for(Query q : queries){
+            totalFMeasure += (2*q.getQueryPrecision()*q.getQueryRecall())/(q.getQueryPrecision()+q.getQueryRecall());
+        }
+        return totalFMeasure / queries.size();
+    }
+
     public void parseRelevanceFile(){
         BufferedReader reader;
         try{
@@ -78,10 +144,4 @@ public class Evaluator {
         }
         return total;
     }
-    /*private int truePositives(List<Query> queries){
-        int truePositives = 0;
-        for(Query q : queries){
-
-        }
-    }*/
 }
