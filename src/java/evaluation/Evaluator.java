@@ -11,14 +11,17 @@ import java.util.Map;
 public class Evaluator {
 
     private File relevanceFile;
+    private List<Query> queries;
     private Map<Integer, Map<Integer, ArrayList<Integer>>> relevanceMatrix;
 
-    public Evaluator(String relevanceFile){
+    public Evaluator(String relevanceFile, List<Query> queries){
         this.relevanceFile = new File(relevanceFile);
         this.relevanceMatrix = new HashMap<>();
+        this.queries = queries;
         parseRelevanceFile();
     }
 
+<<<<<<< HEAD
     public void calculateSystemMeasures(List<Query> queries, int minimumRelevance, double threshold){
         for(Query q : queries){
             if(threshold != -1)
@@ -48,6 +51,10 @@ public class Evaluator {
     public void calculateFixedPrecision(Query q, int minimumRelevance){
         double returnedRelevance = 0;
         int count = 0;
+=======
+
+    public void calculateSystemMeasures(List<Query> queries){
+>>>>>>> d54cea3aaa28254e28c4878e0abdfbf77411de64
 
         for(int docID : q.getSortedResults().keySet()){
             count++;
