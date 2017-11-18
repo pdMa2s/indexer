@@ -38,7 +38,6 @@ public class ColumnResultWriter implements QueryResultWriter{
                     writer.write(query.getId() + delimiter + entry.getKey()
                             + delimiter+ formatter.format(entry.getValue()) + "\n");
                 }
-                query.clearResults();
             }
             writer.close();
         } catch (UnsupportedEncodingException | FileNotFoundException e) {

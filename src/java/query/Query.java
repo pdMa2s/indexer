@@ -19,6 +19,7 @@ public class Query {
     private double queryPrecision;
     private double reciprocalRank;
     private double processingTime;
+    private double fMeasure;
 
     /**
      * Constructs a {@link Query} object.
@@ -39,6 +40,10 @@ public class Query {
     public void setProcessingTime(double processingTime){ this.processingTime = processingTime; }
 
     public double getProcessingTime(){ return processingTime; }
+
+    public double getfMeasure(){ return fMeasure; }
+
+    public void setfMeasure(double fMeasure){ this.fMeasure = fMeasure; }
 
     public void setQueryRecall(double accuracy){ this.queryRecall = accuracy; }
 

@@ -31,12 +31,16 @@ public class Evaluator {
                 precisionAtRank10(q, minimumRelevance);
             calculateRecall(q, minimumRelevance);
             calculateReciprocalRankPerQuery(q, minimumRelevance);
+            calculateFMeasure(q);
         }
-        double meeanPrecision = calculateMeanPrecision(queries);
-        double fMeasure = calculateFMeasure(queries);
+        double meanPrecision = calculateMeanPrecision(queries);
         double meanReciprocalRank = calculateMeanReciprocalRank(queries);
         double meanQueryLatency = calculateMeanQueryLatency(queries);
         double queryThroughput = calculateQueryThroughput(meanQueryLatency);
+        System.out.println("meanPrecision: " + meanPrecision);
+        System.out.println("meanReciprocalRank: " + meanReciprocalRank);
+        System.out.println("meanQueryLatency: " + meanQueryLatency);
+        System.out.println("queryThroughput: " + queryThroughput);
     }
 
     public void calculatePrecision(Query q, int minimumRelevance){
@@ -59,10 +63,12 @@ public class Evaluator {
 
         for(int docID : q.getSortedResults().keySet()){
             for(int i=minimumRelevance; i>0; i--){
-                if(relevanceMatrix.get(q.getId()).get(i).contains(docID)){
-                    reciprocalRank++;
-                    reciprocalFound = true;
-                    break;
+                if(relevanceMatrix.get(q.getId()).get(i) != null) {
+                    if (relevanceMatrix.get(q.getId()).get(i).contains(docID)) {
+                        reciprocalRank++;
+                        reciprocalFound = true;
+                        break;
+                    }
                 }
             }
             if(reciprocalFound)
@@ -72,16 +78,21 @@ public class Evaluator {
         q.setReciprocalRank(1/reciprocalRank);
     }
 
+    public void calculateFMeasure(Query q){
+       q.setfMeasure((2*q.getQueryPrecision()*q.getQueryRecall())/(q.getQueryPrecision()+q.getQueryRecall()));
+    }
 
     public void precisionAtRank10(Query q, int minimumRelevance){
         double returnedRelevance = 0;
         int count = 0;
         for(int docID : q.getSortedResults().keySet()){
             count++;
-            for(int i=minimumRelevance; i>0; i--){
-                if(relevanceMatrix.get(q.getId()).get(i).contains(docID)){
-                    returnedRelevance++;
-                    break;
+            for(int i=minimumRelevance; i>0; i--) {
+                if(relevanceMatrix.get(q.getId()).get(i) != null){
+                    if (relevanceMatrix.get(q.getId()).get(i).contains(docID)) {
+                        returnedRelevance++;
+                        break;
+                    }
                 }
             }
             if(count == 10)
@@ -95,9 +106,11 @@ public class Evaluator {
         double totalRelevance = 0;
         for(int docID : q.getDocIds()){
             for(int i=minimumRelevance; i>0; i--){
-                if(relevanceMatrix.get(q.getId()).get(i).contains(docID)){
-                    returnedRelevance++;
-                    break;
+                if(relevanceMatrix.get(q.getId()).get(i) != null) {
+                    if (relevanceMatrix.get(q.getId()).get(i).contains(docID)) {
+                        returnedRelevance++;
+                        break;
+                    }
                 }
             }
         }
@@ -118,14 +131,6 @@ public class Evaluator {
             totalPrecisionSum += q.getQueryPrecision();
         }
         return totalPrecisionSum/queries.size();
-    }
-
-    public double calculateFMeasure(List<Query> queries){
-        double totalFMeasure = 0;
-        for(Query q : queries){
-            totalFMeasure += (2*q.getQueryPrecision()*q.getQueryRecall())/(q.getQueryPrecision()+q.getQueryRecall());
-        }
-        return totalFMeasure / queries.size();
     }
 
     public double calculateMeanReciprocalRank(List<Query> queries){
