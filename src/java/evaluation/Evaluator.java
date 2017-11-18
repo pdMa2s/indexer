@@ -29,10 +29,8 @@ public class Evaluator {
 
     public void calculateSystemMeasures( int minimumRelevance, double threshold){
         for(Query q : queries){
-            if(threshold != THRESHOLDDEFAULTVALUE)
-                calculatePrecision(q, minimumRelevance);
-            else
-                precisionAtRank10(q, minimumRelevance);
+            calculatePrecision(q, minimumRelevance);
+            precisionAtRank10(q, minimumRelevance);
             calculateRecall(q, minimumRelevance);
             calculateReciprocalRankPerQuery(q, minimumRelevance);
             calculateFMeasure(q);
@@ -60,9 +58,11 @@ public class Evaluator {
 
         for(int docID : q.getDocIds()){
             for(int i=minimumRelevance; i>0; i--){
-                if(relevanceMatrix.get(q.getId()).get(i).contains(docID)){
-                    returnedRelevance++;
-                    break;
+                if(relevanceMatrix.get(q.getId()).get(i) != null) {
+                    if (relevanceMatrix.get(q.getId()).get(i).contains(docID)) {
+                        returnedRelevance++;
+                        break;
+                    }
                 }
             }
         }
@@ -91,7 +91,12 @@ public class Evaluator {
     }
 
     private void calculateFMeasure(Query q){
-       q.setfMeasure((2*q.getQueryPrecision()*q.getQueryRecall())/(q.getQueryPrecision()+q.getQueryRecall()));
+       double precision = q.getQueryPrecision();
+       double recall = q.getQueryRecall();
+       if(precision == 0 && recall == 0)
+           q.setfMeasure(0);
+       else
+           q.setfMeasure((2*precision*recall)/(precision+recall));
     }
 
     private void precisionAtRank10(Query q, int minimumRelevance){
@@ -110,7 +115,7 @@ public class Evaluator {
             if(count == 10)
                 break;
         }
-        q.setQueryPrecision(returnedRelevance/10);
+        q.setQueryPreisionAtRank10(returnedRelevance/count);
     }
 
     private void calculateRecall(Query q, int minimumRelevance){

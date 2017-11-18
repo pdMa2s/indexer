@@ -67,9 +67,6 @@ public class RankingMain {
             evaluator.calculateSystemMeasures(relevanceScore,threshold);
         }
 
-
-
-
     }
 
     private static Namespace parseParameters(String[] args){
