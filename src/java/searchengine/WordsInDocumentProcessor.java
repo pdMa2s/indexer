@@ -16,6 +16,7 @@ public class WordsInDocumentProcessor implements QueryProcessor {
     @Override
     public void processQueries(List<Query> queries, InvertedIndex index, double threshold) {
         for(Query query: queries) {
+            long startTime = System.currentTimeMillis();
             Map<Integer, Double> scores = query.getResults();
             for (String term : query.getTerms()) {
                 Set<Posting> postings = index.getPostings(term);
@@ -26,6 +27,9 @@ public class WordsInDocumentProcessor implements QueryProcessor {
                 }
             }
             filterResults(threshold, query);
+            long stopTime = System.currentTimeMillis();
+            long elapsedTime = stopTime - startTime;
+            query.setProcessingTime(elapsedTime);
         }
 
     }

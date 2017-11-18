@@ -17,6 +17,8 @@ public class Query {
     private Map<Integer, Double> results;
     private double queryRecall;
     private double queryPrecision;
+    private double reciprocalRank;
+    private double processingTime;
 
     /**
      * Constructs a {@link Query} object.
@@ -34,7 +36,15 @@ public class Query {
      */
     public void clearResults() { results.clear(); }
 
+    public void setProcessingTime(double processingTime){ this.processingTime = processingTime; }
+
+    public double getProcessingTime(){ return processingTime; }
+
     public void setQueryRecall(double accuracy){ this.queryRecall = accuracy; }
+
+    public void setReciprocalRank(double reciprocalRank) { this.reciprocalRank = reciprocalRank; }
+
+    public double getReciprocalRank() { return reciprocalRank; }
 
     public void setQueryPrecision(double precision){ this.queryPrecision = precision; }
 

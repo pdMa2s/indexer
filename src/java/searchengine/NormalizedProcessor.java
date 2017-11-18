@@ -26,6 +26,7 @@ public class NormalizedProcessor implements QueryProcessor{
     }
     public void calculateNormalizedRanking(List<Query> queries, InvertedIndex idx, double threshold){
         for(Query query : queries){
+            long startTime = System.currentTimeMillis();
             Vector queryVector = queryIndex.getVector(query.getId());
             Map<Integer, Double> scores = query.getResults();
 
@@ -39,6 +40,9 @@ public class NormalizedProcessor implements QueryProcessor{
                 }
             }
             filterResults(threshold, query);
+            long stopTime = System.currentTimeMillis();
+            long elapsedTime = stopTime - startTime;
+            query.setProcessingTime(elapsedTime);
         }
     }
 

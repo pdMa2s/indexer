@@ -63,7 +63,7 @@ public class RankingMain {
         Evaluator evaluator = checkEvaluatorParameter(parsedArgs, queries);
         if(evaluator != null){
             int relevanceScore = parsedArgs.getInt("relevanceScore");
-            evaluator.calculateSystemMeasures(queries, relevanceScore,threshold);
+            evaluator.calculateSystemMeasures(relevanceScore,threshold);
         }
 
 
