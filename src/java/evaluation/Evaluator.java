@@ -15,11 +15,15 @@ public class Evaluator {
     private File relevanceFile;
     private List<Query> queries;
     private Map<Integer, Map<Integer, ArrayList<Integer>>> relevanceMatrix;
+    private final String[] generalMetrics = {"MeanPrecision", "FMeasure",
+            "MeanReciprocalRank", "MeanQueryLatency", "QueryThroughput"};
+    private EfficiencyMetricsWriter efficiencyWriter;
 
-    public Evaluator(String relevanceFile, List<Query> queries){
+    public Evaluator(String relevanceFile, List<Query> queries, EfficiencyMetricsWriter metricsWriter){
         this.relevanceFile = new File(relevanceFile);
         this.relevanceMatrix = new HashMap<>();
         this.queries = queries;
+        this.efficiencyWriter = metricsWriter;
         parseRelevanceFile();
     }
 
@@ -33,6 +37,7 @@ public class Evaluator {
             calculateReciprocalRankPerQuery(q, minimumRelevance);
             calculateFMeasure(q);
         }
+<<<<<<< HEAD
         double meanPrecision = calculateMeanPrecision(queries);
         double meanReciprocalRank = calculateMeanReciprocalRank(queries);
         double meanQueryLatency = calculateMeanQueryLatency(queries);
@@ -41,6 +46,25 @@ public class Evaluator {
         System.out.println("meanReciprocalRank: " + meanReciprocalRank);
         System.out.println("meanQueryLatency: " + meanQueryLatency);
         System.out.println("queryThroughput: " + queryThroughput);
+=======
+        Map<String, Double> resultMap = createResultMap(queries);
+        efficiencyWriter.saveEfficiencyResults(resultMap, queries);
+
+    }
+
+    private Map<String, Double> createResultMap(List<Query> queries){
+        double meanQueryLatency = calculateMeanQueryLatency(queries);
+        double queryThroughput = calculateQueryThroughput(meanQueryLatency);
+
+        Double[] resultScores = {calculateMeanPrecision(queries), calculateFMeasure(queries),
+                calculateMeanReciprocalRank(queries),meanQueryLatency, queryThroughput };
+        Map<String, Double> resultMap = new HashMap<>();
+        for(int i= 0; i< resultScores.length; i++){
+            resultMap.put(generalMetrics[i], resultScores[i]);
+        }
+        return resultMap;
+
+>>>>>>> eab62b1e58845a39d75383cd6082d44acd38340a
     }
 
     public void calculatePrecision(Query q, int minimumRelevance){
