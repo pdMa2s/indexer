@@ -15,11 +15,15 @@ public class Evaluator {
     private File relevanceFile;
     private List<Query> queries;
     private Map<Integer, Map<Integer, ArrayList<Integer>>> relevanceMatrix;
+    private final String[] generalMetrics = {"MeanPrecision", "FMeasure",
+            "MeanReciprocalRank", "MeanQueryLatency", "QueryThroughput"};
+    private EfficiencyMetricsWriter efficiencyWriter;
 
-    public Evaluator(String relevanceFile, List<Query> queries){
+    public Evaluator(String relevanceFile, List<Query> queries, EfficiencyMetricsWriter metricsWriter){
         this.relevanceFile = new File(relevanceFile);
         this.relevanceMatrix = new HashMap<>();
         this.queries = queries;
+        this.efficiencyWriter = metricsWriter;
         parseRelevanceFile();
     }
 
@@ -32,11 +36,23 @@ public class Evaluator {
             calculateRecall(q, minimumRelevance);
             calculateReciprocalRankPerQuery(q, minimumRelevance);
         }
-        double meeanPrecision = calculateMeanPrecision(queries);
-        double fMeasure = calculateFMeasure(queries);
-        double meanReciprocalRank = calculateMeanReciprocalRank(queries);
+        Map<String, Double> resultMap = createResultMap(queries);
+        efficiencyWriter.saveEfficiencyResults(resultMap, queries);
+
+    }
+
+    private Map<String, Double> createResultMap(List<Query> queries){
         double meanQueryLatency = calculateMeanQueryLatency(queries);
         double queryThroughput = calculateQueryThroughput(meanQueryLatency);
+
+        Double[] resultScores = {calculateMeanPrecision(queries), calculateFMeasure(queries),
+                calculateMeanReciprocalRank(queries),meanQueryLatency, queryThroughput };
+        Map<String, Double> resultMap = new HashMap<>();
+        for(int i= 0; i< resultScores.length; i++){
+            resultMap.put(generalMetrics[i], resultScores[i]);
+        }
+        return resultMap;
+
     }
 
     public void calculatePrecision(Query q, int minimumRelevance){
