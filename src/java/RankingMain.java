@@ -55,19 +55,20 @@ public class RankingMain {
 
         List<Query> queries= searchEngine.processQueries(queryFile, invertedIndex);
         searchEngine.saveResults(rankingResultsFile);
-<<<<<<< HEAD
-        evaluator.calculateSystemMeasures(queries, 3);
-=======
-
-        Evaluator evaluator = checkEvaluatorParameter(parsedArgs, queries);
-        if(evaluator != null)
-            evaluator.calculateSystemMeasures(queries);
-
->>>>>>> d54cea3aaa28254e28c4878e0abdfbf77411de64
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
         System.out.println("Querying time: "+elapsedTime+"ms");
+
+        Evaluator evaluator = checkEvaluatorParameter(parsedArgs, queries);
+        if(evaluator != null){
+            int relevanceScore = parsedArgs.getInt("relevanceScore");
+            evaluator.calculateSystemMeasures(queries, relevanceScore,threshold);
+        }
+
+
+
+
     }
 
     private static Namespace parseParameters(String[] args){

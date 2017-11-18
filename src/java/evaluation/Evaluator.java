@@ -8,11 +8,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static src.java.constants.Constants.THRESHOLDDEFAULTVALUE;
+
 public class Evaluator {
 
     private File relevanceFile;
     private List<Query> queries;
     private Map<Integer, Map<Integer, ArrayList<Integer>>> relevanceMatrix;
+    private double meanPrecision;
+    private double fMeasure;
 
     public Evaluator(String relevanceFile, List<Query> queries){
         this.relevanceFile = new File(relevanceFile);
@@ -21,17 +25,16 @@ public class Evaluator {
         parseRelevanceFile();
     }
 
-<<<<<<< HEAD
-    public void calculateSystemMeasures(List<Query> queries, int minimumRelevance, double threshold){
+    public void calculateSystemMeasures( int minimumRelevance, double threshold){
         for(Query q : queries){
-            if(threshold != -1)
+            if(threshold != THRESHOLDDEFAULTVALUE)
                 calculatePrecision(q, minimumRelevance);
             else
-                calculateFixedPrecision(q, minimumRelevance);
+                precisionAtRank10(q, minimumRelevance);
             calculateRecall(q, minimumRelevance);
         }
-        double mediumPrecision = calculateMediumPrecision(queries);
-        double fMeasure = calculateFMeasure(queries);
+        meanPrecision = calculateMeanPrecision(queries);
+        fMeasure = calculateFMeasure(queries);
     }
 
     public void calculatePrecision(Query q, int minimumRelevance){
@@ -48,14 +51,9 @@ public class Evaluator {
         q.setQueryPrecision(returnedRelevance/q.getDocIds().size());
     }
 
-    public void calculateFixedPrecision(Query q, int minimumRelevance){
+    public void precisionAtRank10(Query q, int minimumRelevance){
         double returnedRelevance = 0;
         int count = 0;
-=======
-
-    public void calculateSystemMeasures(List<Query> queries){
->>>>>>> d54cea3aaa28254e28c4878e0abdfbf77411de64
-
         for(int docID : q.getSortedResults().keySet()){
             count++;
             for(int i=minimumRelevance; i>0; i--){
@@ -82,12 +80,13 @@ public class Evaluator {
             }
         }
         for(int i=minimumRelevance; i>0; i--){
-            totalRelevance += relevanceMatrix.get(q.getId()).get(i).size();
+            if(relevanceMatrix.get(q.getId()).containsKey(i))
+                totalRelevance += relevanceMatrix.get(q.getId()).get(i).size();
         }
         q.setQueryRecall(returnedRelevance/totalRelevance);
     }
 
-    public double calculateMediumPrecision(List<Query> queries){
+    public double calculateMeanPrecision(List<Query> queries){
         double totalPrecisionSum = 0;
         for(Query q : queries){
             totalPrecisionSum += q.getQueryPrecision();
@@ -150,5 +149,12 @@ public class Evaluator {
             total += query.getResults().size();
         }
         return total;
+    }
+
+    @Override
+    public String toString() {
+        return "Evaluator{" +
+                "relevanceMatrix=" + relevanceMatrix +
+                '}';
     }
 }
