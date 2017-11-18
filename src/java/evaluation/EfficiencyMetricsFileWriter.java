@@ -7,13 +7,13 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
-public class EfficencyMetricsFileWriter implements EfficiencyMetricsWriter{
+
+public class EfficiencyMetricsFileWriter implements EfficiencyMetricsWriter{
 
     private String metricFileName;
     private String delimiter = "\t";
-    public EfficencyMetricsFileWriter(String fileName){
+    public EfficiencyMetricsFileWriter(String fileName){
         this.metricFileName = fileName;
     }
     @Override
@@ -39,8 +39,10 @@ public class EfficencyMetricsFileWriter implements EfficiencyMetricsWriter{
         writer.write("query_id" + delimiter + "precision" + delimiter + "recall" + delimiter + "f-measure"+"\n");
 
         for(Query query: queries){
-            writer.write(query.getQueryPrecision() + delimiter + query.getQueryRecall()
-                        + delimiter + "\n");
+            System.out.println(query.getfMeasure());
+            writer.write( query.getId() + delimiter +
+                    formatter.format(query.getQueryPrecision()) + delimiter + formatter.format(query.getQueryRecall())
+                        + delimiter + formatter.format(query.getfMeasure())+"\n");
 
         }
     }
@@ -48,5 +50,6 @@ public class EfficencyMetricsFileWriter implements EfficiencyMetricsWriter{
         for(Map.Entry<String, Double> resultEntry : results.entrySet()){
             writer.write(resultEntry.getKey() + delimiter + formatter.format(resultEntry.getValue()) +"\n");
         }
+        writer.write("\n");
     }
 }

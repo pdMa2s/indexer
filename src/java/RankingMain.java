@@ -7,7 +7,7 @@ import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.MutuallyExclusiveGroup;
 import net.sourceforge.argparse4j.inf.Namespace;
-import src.java.evaluation.EfficencyMetricsFileWriter;
+import src.java.evaluation.EfficiencyMetricsFileWriter;
 import src.java.evaluation.Evaluator;
 import src.java.index.CSVIndexReader;
 import src.java.index.InvertedIndex;
@@ -123,7 +123,7 @@ public class RankingMain {
     private static Evaluator checkEvaluatorParameter(Namespace ns, List<Query> queries){
         String relevanceFile  = ns.getString("relevanceFile");
         if(relevanceFile != null)
-            return new Evaluator(relevanceFile, queries, new EfficencyMetricsFileWriter("relevanceResults"));
+            return new Evaluator(relevanceFile, queries, new EfficiencyMetricsFileWriter("relevanceResults"));
         return null;
     }
 
