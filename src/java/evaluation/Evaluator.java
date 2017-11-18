@@ -37,16 +37,6 @@ public class Evaluator {
             calculateReciprocalRankPerQuery(q, minimumRelevance);
             calculateFMeasure(q);
         }
-<<<<<<< HEAD
-        double meanPrecision = calculateMeanPrecision(queries);
-        double meanReciprocalRank = calculateMeanReciprocalRank(queries);
-        double meanQueryLatency = calculateMeanQueryLatency(queries);
-        double queryThroughput = calculateQueryThroughput(meanQueryLatency);
-        System.out.println("meanPrecision: " + meanPrecision);
-        System.out.println("meanReciprocalRank: " + meanReciprocalRank);
-        System.out.println("meanQueryLatency: " + meanQueryLatency);
-        System.out.println("queryThroughput: " + queryThroughput);
-=======
         Map<String, Double> resultMap = createResultMap(queries);
         efficiencyWriter.saveEfficiencyResults(resultMap, queries);
 
@@ -56,15 +46,13 @@ public class Evaluator {
         double meanQueryLatency = calculateMeanQueryLatency(queries);
         double queryThroughput = calculateQueryThroughput(meanQueryLatency);
 
-        Double[] resultScores = {calculateMeanPrecision(queries), calculateFMeasure(queries),
+        Double[] resultScores = {calculateMeanPrecision(queries),
                 calculateMeanReciprocalRank(queries),meanQueryLatency, queryThroughput };
         Map<String, Double> resultMap = new HashMap<>();
         for(int i= 0; i< resultScores.length; i++){
             resultMap.put(generalMetrics[i], resultScores[i]);
         }
         return resultMap;
-
->>>>>>> eab62b1e58845a39d75383cd6082d44acd38340a
     }
 
     public void calculatePrecision(Query q, int minimumRelevance){
