@@ -36,14 +36,12 @@ public class EfficencyMetricsFileWriter implements EfficiencyMetricsWriter{
         }
     }
     private void printMetricsForQueries(BufferedWriter writer,List<Query> queries, NumberFormat formatter) throws IOException {
-        for(Query query: queries){
-            writer.write("query_id" + delimiter + "precision" + delimiter + "recall" + "\n");
-            for(Map.Entry<Integer, Double> entry: query.getSortedResults().entrySet()){
+        writer.write("query_id" + delimiter + "precision" + delimiter + "recall" + delimiter + "f-measure"+"\n");
 
-                writer.write(query.getId() + delimiter + entry.getKey()
-                        + delimiter+ formatter.format(entry.getValue()) + "\n");
-            }
-            query.clearResults();
+        for(Query query: queries){
+            writer.write(query.getQueryPrecision() + delimiter + query.getQueryRecall()
+                        + delimiter + "\n");
+
         }
     }
     private void printGeneralMetrics(BufferedWriter writer, Map<String, Double> results, NumberFormat formatter) throws IOException {
