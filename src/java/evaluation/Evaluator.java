@@ -68,11 +68,15 @@ public class Evaluator {
                 }
             }
         }
-        q.setQueryPrecision(returnedRelevance/q.getDocIds().size());
+        int nDocs = q.getDocIds().size();
+        if(nDocs == 0)
+            q.setQueryPrecision(0);
+        else
+            q.setQueryPrecision(returnedRelevance/nDocs);
     }
 
    private void calculateReciprocalRankPerQuery(Query q, int minimumRelevance){
-        double reciprocalRank = 0;
+        int reciprocalRank = 0;
         boolean reciprocalFound = false;
 
         for(int docID : q.getSortedResults().keySet()){
@@ -89,7 +93,10 @@ public class Evaluator {
                 break;
             reciprocalRank++;
         }
-        q.setReciprocalRank(1/reciprocalRank);
+        if(reciprocalRank == 0)
+            q.setReciprocalRank(0);
+        else
+            q.setReciprocalRank(1/reciprocalRank);
     }
 
     private void calculateFMeasure(Query q){
@@ -117,7 +124,10 @@ public class Evaluator {
             if(count == 10)
                 break;
         }
-        q.setQueryPreisionAtRank10(returnedRelevance/count);
+        if(count == 0)
+            q.setQueryPreisionAtRank10(0);
+        else
+            q.setQueryPreisionAtRank10(returnedRelevance/count);
     }
 
     private void calculateRecall(Query q, int minimumRelevance){
@@ -137,7 +147,11 @@ public class Evaluator {
             if(relevanceMatrix.get(q.getId()).containsKey(i))
                 totalRelevance += relevanceMatrix.get(q.getId()).get(i).size();
         }
-        q.setQueryRecall(returnedRelevance/totalRelevance);
+
+        if(totalRelevance == 0)
+            q.setQueryRecall(0);
+        else
+            q.setQueryRecall(returnedRelevance/totalRelevance);
     }
 
     private double calculateQueryThroughput(double meanQueryLatency){
@@ -149,14 +163,14 @@ public class Evaluator {
         for(Query q : queries){
             totalPrecisionSum += q.getQueryPrecision();
         }
-        return totalPrecisionSum/queries.size();
+        return queries.size() != 0 ? totalPrecisionSum/queries.size() : 0;
     }
     private double calculateMeanFMeasure(List<Query> queries){
         double totalFMeasure = 0;
         for(Query q : queries){
             totalFMeasure += q.getfMeasure();
         }
-        return totalFMeasure/queries.size();
+        return queries.size() != 0 ? totalFMeasure/queries.size() : 0;
     }
 
     private double calculateMeanPrecisionAtRank10(List<Query> queries){
@@ -164,7 +178,7 @@ public class Evaluator {
         for(Query q : queries){
             totalPrecisionSum += q.getQueryPreisionAtRank10();
         }
-        return totalPrecisionSum/queries.size();
+        return queries.size() != 0 ? totalPrecisionSum/queries.size() : 0;
     }
 
     private double calculateMeanReciprocalRank(List<Query> queries){
@@ -172,14 +186,14 @@ public class Evaluator {
         for(Query q : queries){
             totalReciprocalRank += q.getReciprocalRank();
         }
-        return totalReciprocalRank / queries.size();
+        return queries.size() != 0 ? totalReciprocalRank / queries.size() : 0;
     }
     private double calculateMeanRecall(List<Query> queries){
         double totalRecall = 0;
         for(Query q : queries){
             totalRecall += q.getQueryRecall();
         }
-        return totalRecall / queries.size();
+        return queries.size() != 0 ? totalRecall / queries.size() : 0;
     }
 
     private double calculateMeanQueryLatency(List<Query> queries){
@@ -187,7 +201,7 @@ public class Evaluator {
         for(Query q : queries){
             totalQueryProcessingTime += q.getProcessingTime();
         }
-        return totalQueryProcessingTime / queries.size();
+        return queries.size() != 0 ? totalQueryProcessingTime / queries.size() : 0;
     }
 
     private void parseRelevanceFile(){

@@ -63,7 +63,7 @@ public class RankingMain {
 
         Evaluator evaluator = checkEvaluatorParameter(parsedArgs, queries);
         if(evaluator != null){
-            int relevanceScore = parsedArgs.getInt("relevanceScore");
+            int relevanceScore = Integer.parseInt(parsedArgs.getString("relevanceScore"));
             evaluator.calculateSystemMeasures(relevanceScore);
         }
 
@@ -89,7 +89,7 @@ public class RankingMain {
         parser.addArgument("-rvf","--relevanceFile")
                 .help("(Optional) The path to the file that contains the relevance scores");
         parser.addArgument("-rvs","--relevanceScore")
-                .choices(1, 2,3,4).setDefault(4)
+                .choices("1", "2","3","4").setDefault("4")
                 .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
 
 
