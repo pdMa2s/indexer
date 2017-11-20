@@ -15,8 +15,9 @@ public class Evaluator {
     private File relevanceFile;
     private List<Query> queries;
     private Map<Integer, Map<Integer, ArrayList<Integer>>> relevanceMatrix;
-    private final String[] generalMetrics = {"MeanPrecision",
-            "MeanReciprocalRank", "MeanQueryLatency", "QueryThroughput"};
+    private final String[] generalMetrics = {"MeanPrecision", "MeanPrecisionAtRank10",
+            "MeanReciprocalRank", "MeanQueryLatency", "MeanQueryThroughput",
+            "MeanFMeasure", "MeanRecall"};
     private EfficiencyMetricsWriter efficiencyWriter;
 
     public Evaluator(String relevanceFile, List<Query> queries, EfficiencyMetricsWriter metricsWriter){
@@ -27,7 +28,7 @@ public class Evaluator {
         parseRelevanceFile();
     }
 
-    public void calculateSystemMeasures( int minimumRelevance, double threshold){
+    public void calculateSystemMeasures( int minimumRelevance){
         for(Query q : queries){
             calculatePrecision(q, minimumRelevance);
             precisionAtRank10(q, minimumRelevance);
@@ -44,8 +45,9 @@ public class Evaluator {
         double meanQueryLatency = calculateMeanQueryLatency(queries);
         double queryThroughput = calculateQueryThroughput(meanQueryLatency);
 
-        Double[] resultScores = {calculateMeanPrecision(queries),
-                calculateMeanReciprocalRank(queries),meanQueryLatency, queryThroughput };
+        Double[] resultScores = {calculateMeanPrecision(queries),calculateMeanPrecisionAtRank10(queries),
+                calculateMeanReciprocalRank(queries),meanQueryLatency, queryThroughput,
+                calculateMeanFMeasure(queries), calculateMeanRecall(queries) };
         Map<String, Double> resultMap = new HashMap<>();
         for(int i= 0; i< resultScores.length; i++){
             resultMap.put(generalMetrics[i], resultScores[i]);
@@ -149,6 +151,21 @@ public class Evaluator {
         }
         return totalPrecisionSum/queries.size();
     }
+    private double calculateMeanFMeasure(List<Query> queries){
+        double totalFMeasure = 0;
+        for(Query q : queries){
+            totalFMeasure += q.getfMeasure();
+        }
+        return totalFMeasure/queries.size();
+    }
+
+    private double calculateMeanPrecisionAtRank10(List<Query> queries){
+        double totalPrecisionSum = 0;
+        for(Query q : queries){
+            totalPrecisionSum += q.getQueryPreisionAtRank10();
+        }
+        return totalPrecisionSum/queries.size();
+    }
 
     private double calculateMeanReciprocalRank(List<Query> queries){
         double totalReciprocalRank = 0;
@@ -156,6 +173,13 @@ public class Evaluator {
             totalReciprocalRank += q.getReciprocalRank();
         }
         return totalReciprocalRank / queries.size();
+    }
+    private double calculateMeanRecall(List<Query> queries){
+        double totalRecall = 0;
+        for(Query q : queries){
+            totalRecall += q.getQueryRecall();
+        }
+        return totalRecall / queries.size();
     }
 
     private double calculateMeanQueryLatency(List<Query> queries){

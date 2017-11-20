@@ -64,7 +64,7 @@ public class RankingMain {
         Evaluator evaluator = checkEvaluatorParameter(parsedArgs, queries);
         if(evaluator != null){
             int relevanceScore = parsedArgs.getInt("relevanceScore");
-            evaluator.calculateSystemMeasures(relevanceScore,threshold);
+            evaluator.calculateSystemMeasures(relevanceScore);
         }
 
     }
@@ -77,7 +77,7 @@ public class RankingMain {
         group.addArgument("-f","--frequencyOfQueryWords").action(Arguments.storeTrue())
                 .help("Calculates the frequency of the query words in each document");
         group.addArgument("-w","--wordsInDoc").action(Arguments.storeTrue())
-                .help("Calculates how many query words are in the document");
+                .help("Calculates how many query words are in the document (Option set by omission)");
         parser.addArgument("queryFile")
                 .help("The path to the file that contains the queries");
         parser.addArgument("-i","--indexFile").setDefault(INDEXDEAFAULTFILENAME)
@@ -95,8 +95,7 @@ public class RankingMain {
 
         Namespace ns = null;
         try {
-            ns = parser.parseArgs(args);
-            System.out.println(ns);
+            ns = parser.parseArgs(args);        
         }
         catch (HelpScreenException e){
             System.exit(1);
