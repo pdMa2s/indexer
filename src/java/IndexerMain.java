@@ -58,7 +58,7 @@ public class IndexerMain {
         parser.addArgument("corpusDirectory")
                 .help("The path to the directory of the corpus");
         parser.addArgument("indexFile").nargs("?").setDefault(INDEXDEAFAULTFILENAME)
-                .help("The name of the file where the index will be written in to");
+                .help("(Optional)The name of the file where the index will be written in to");
         Namespace ns = null;
         try {
             ns = parser.parseArgs(args);

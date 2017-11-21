@@ -45,7 +45,7 @@ public class QueryIndex extends Index {
             Vector temp = vectors.get(QueryID);
             for(String term : temp.getTerms()){
                 if(index.getPostings(term)!= null){
-                    double tfIdf = (1+Math.log10(temp.getScore(term)))*Math.log10(corpusSize/index.getPostings(term).size());
+                    double tfIdf = (1+Math.log10(temp.getScore(term)))*Math.log10((double)corpusSize/index.getPostings(term).size());
                     temp.put(term,tfIdf);
                 }
 
