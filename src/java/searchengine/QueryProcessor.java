@@ -16,6 +16,14 @@ import java.util.List;
  */
 public interface QueryProcessor {
 
+    /**
+     * Processes the queries calculates an appropriate result for them and stores results on their respective {@link Query}
+     * objects. The results are only stored if they are equal or higher than the threshold value.
+     * @param queries A {@link List} of {@link Query} objects that contains the term of the query and where the results
+     *                will be stored.
+     * @param idx An {@link InvertedIndex} that contains the index terms of the corpus
+     * @param threshold The minimum values of the result scores
+     */
     void processQueries( List<Query> queries, InvertedIndex idx, double threshold);
 }
 

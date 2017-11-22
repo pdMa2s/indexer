@@ -40,11 +40,17 @@ public class CSVIndexReader implements IndexReader {
         return tokenizer;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public int getCorpusSize() {
         return corpusSize;
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public String getScoringSystem() {
         return scoringSystem;

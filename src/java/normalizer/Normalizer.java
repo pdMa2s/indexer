@@ -6,8 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A Class that has functions useful for a ranked retrieval system
+ */
 public class Normalizer {
 
+    /**
+     * Applies tf weight to the terms and normalizes them
+     * @param docTerms A {@link List} os terms to be normalized
+     * @return A {@link Map} with the terms and their respective normalized score
+     */
     public Map<String, Double> normalize(List<String> docTerms ){
         double norm = 0;
         Map<String, Double> scores = createOccurrenceMap(docTerms);
@@ -29,6 +37,11 @@ public class Normalizer {
     private double tf(int occurrences){
         return 1+Math.log10(occurrences);
     }
+
+    /**
+     * Normalizes the values of the whole index
+     * @param index The index to be normalized
+     */
     public void normalize(Index index){
         double normal;
         for(Integer doc : index.getIds()){

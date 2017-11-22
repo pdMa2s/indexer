@@ -13,18 +13,34 @@ import java.util.stream.Collectors;
 
 import static src.java.constants.Constants.THRESHOLDDEFAULTVALUE;
 
+/**
+ * An implementation of {@link QueryProcessor} uses the dot product between vector to calculate th score for each
+ * document
+ */
 public class NormalizedProcessor implements QueryProcessor{
     private QueryIndex queryIndex;
 
+    /**
+     * Constructs an {@link NormalizedProcessor} object
+     * @param queryIndex A {@link src.java.query.QueryReader} to process the queries
+     */
     public NormalizedProcessor(QueryIndex queryIndex) {
         this.queryIndex = queryIndex;
     }
 
+    /**
+     * Calculates the scores for each document using the dot product and the normalized scores of the document and
+     * query
+     * @param queries A {@link List} of {@link Query} objects that contains the term of the query and where the results
+     *                will be stored.
+     * @param idx An {@link InvertedIndex} that contains the index terms of the corpus
+     * @param threshold The minimum values of the result scores
+     */
     @Override
     public void processQueries(List<Query> queries, InvertedIndex idx, double threshold) {
         calculateNormalizedRanking(queries, idx, threshold);
     }
-    public void calculateNormalizedRanking(List<Query> queries, InvertedIndex idx, double threshold){
+    private void calculateNormalizedRanking(List<Query> queries, InvertedIndex idx, double threshold){
         for(Query query : queries){
             long startTime = System.currentTimeMillis();
             Vector queryVector = queryIndex.getVector(query.getId());

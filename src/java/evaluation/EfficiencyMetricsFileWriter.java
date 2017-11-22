@@ -9,15 +9,28 @@ import java.util.List;
 import java.util.Map;
 
 
-public class EfficiencyMetricsFileWriter implements EfficiencyMetricsWriter{
+/**
+ * This implementation of {@link EfficiencyMetricsHandler} writes the results of the evaluation and efficiency metrics
+ * to a file.
+ */
+public class EfficiencyMetricsFileWriter implements EfficiencyMetricsHandler {
 
     private String metricFileName;
     private String delimiter = "\t";
+
+    /**
+     * Constructs a {@link EfficiencyMetricsFileWriter} object
+     * @param fileName The name of the file where the results will be written into.
+     */
     public EfficiencyMetricsFileWriter(String fileName){
         this.metricFileName = fileName;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void saveEfficiencyResults(Map<String, Double> results, List<Query> queries) {
+    public void handleEfficiencyResults(Map<String, Double> results, List<Query> queries) {
         BufferedWriter writer;
         FileWriter fw;
 
@@ -40,7 +53,7 @@ public class EfficiencyMetricsFileWriter implements EfficiencyMetricsWriter{
 
         for(Query query: queries){
             writer.write( query.getId() + delimiter +
-                    formatter.format(query.getQueryPrecision()) +delimiter+ query.getQueryPreisionAtRank10() +delimiter + formatter.format(query.getQueryRecall())
+                    formatter.format(query.getQueryPrecision()) +delimiter+ query.getQueryPrecisionAtRank10() +delimiter + formatter.format(query.getQueryRecall())
                         + delimiter + formatter.format(query.getfMeasure())+"\n");
 
         }

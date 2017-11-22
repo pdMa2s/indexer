@@ -26,8 +26,20 @@ public class Constants {
      * The tag that represents an {@link src.java.indexer.Indexer} with a {@link src.java.tokenizer.SimpleTokenizer}.
      */
     public static final String SIMPLETOKENIZER = "simple";
+    /**
+     * Identifies the ranking system that will be used, in this case Boolean Retrieval
+     */
     public static final String DOCFREQUENCY = "freq";
+    /**
+     * Identifies the ranking system that will be used, in this case Ranked Retrieval
+     */
     public static final String NORMALIZED = "norm";
+    /**
+     * The default name of the index that is written on disk
+     */
     public static final String INDEXDEAFAULTFILENAME = "index.csv";
+    /**
+     * The default value of the threshold that limits the results of the queries
+     */
     public static final double THRESHOLDDEFAULTVALUE = -1;
 }

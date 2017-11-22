@@ -7,13 +7,25 @@ import src.java.normalizer.Vector;
 
 import java.util.List;
 
+/**
+ * A extension of the class {@link Index} that is used to index queries and their respective vectors
+ */
 public class QueryIndex extends Index {
     private int corpusSize;
     private List<Query> queries;
+
+    /**
+     * Constructs an empty query index
+     * @param corpusSize The size of the corpus use to create a the system's index
+     */
     public QueryIndex(int corpusSize) {
         this.corpusSize = corpusSize;
     }
 
+    /**
+     * Fills the index with queries
+     * @param queries A {@link List} of {@link Query} objects to fill the index
+     */
     public void addQueries(List<Query> queries){
         this.queries = queries;
         for(Query query: queries) {
@@ -40,6 +52,10 @@ public class QueryIndex extends Index {
         }
     }
 
+    /**
+     * Applies the tf-idf weight to the query vectors
+     * @param index The {@link InvertedIndex} of the corpus
+     */
     public void applyTFAndIDFtoQueries(InvertedIndex index){
         for(Integer QueryID : getIds()){
             Vector temp = vectors.get(QueryID);
@@ -53,6 +69,10 @@ public class QueryIndex extends Index {
         }
     }
 
+    /**
+     *
+     * @return A {@link List} of {@link Query} objects stored in the index
+     */
     public List<Query> getQueries() {
         return queries;
     }

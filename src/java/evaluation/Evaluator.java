@@ -8,8 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static src.java.constants.Constants.THRESHOLDDEFAULTVALUE;
-
+/**
+ * This class is responsible for loading a file that contains the relevance scores of the corpus and calculate
+ * the results for several evaluation and efficiency metrics such as mean precision, mean precision at rank 10,
+ * mean reciprocal rank mean query latency, mean query throughput, mean f-measure and mean recall.
+ */
 public class Evaluator {
 
     private File relevanceFile;
@@ -18,17 +21,28 @@ public class Evaluator {
     private final String[] generalMetrics = {"MeanPrecision", "MeanPrecisionAtRank10",
             "MeanReciprocalRank", "MeanQueryLatency", "MeanQueryThroughput",
             "MeanFMeasure", "MeanRecall"};
-    private EfficiencyMetricsWriter efficiencyWriter;
+    private EfficiencyMetricsHandler efficiencyHandler;
 
-    public Evaluator(String relevanceFile, List<Query> queries, EfficiencyMetricsWriter metricsWriter){
+    /**
+     * Constructs an {@link Evaluator} object
+     * @param relevanceFile The name of the file that contains the relevance scores
+     * @param queries A {@link List} of {@link Query} objects to store their respective results
+     * @param metricsHandler A handler for the results
+     */
+    public Evaluator(String relevanceFile, List<Query> queries, EfficiencyMetricsHandler metricsHandler){
         this.relevanceFile = new File(relevanceFile);
         this.relevanceMatrix = new HashMap<>();
         this.queries = queries;
-        this.efficiencyWriter = metricsWriter;
+        this.efficiencyHandler = metricsHandler;
         parseRelevanceFile();
     }
 
+    /**
+     * Calculates the value of the several metrics, then asks the handler to take care of the results.
+     * @param minimumRelevance The minimum relevance to be taken into account.
+     */
     public void calculateSystemMeasures( int minimumRelevance){
+        checkMinimumRelevanceScore(minimumRelevance);
         for(Query q : queries){
             calculatePrecision(q, minimumRelevance);
             precisionAtRank10(q, minimumRelevance);
@@ -37,7 +51,7 @@ public class Evaluator {
             calculateFMeasure(q);
         }
         Map<String, Double> resultMap = createResultMap(queries);
-        efficiencyWriter.saveEfficiencyResults(resultMap, queries);
+        efficiencyHandler.handleEfficiencyResults(resultMap, queries);
 
     }
 
@@ -125,9 +139,9 @@ public class Evaluator {
                 break;
         }
         if(count == 0)
-            q.setQueryPreisionAtRank10(0);
+            q.setQueryPrecisionAtRank10(0);
         else
-            q.setQueryPreisionAtRank10(returnedRelevance/count);
+            q.setQueryPrecisionAtRank10(returnedRelevance/count);
     }
 
     private void calculateRecall(Query q, int minimumRelevance){
@@ -176,7 +190,7 @@ public class Evaluator {
     private double calculateMeanPrecisionAtRank10(List<Query> queries){
         double totalPrecisionSum = 0;
         for(Query q : queries){
-            totalPrecisionSum += q.getQueryPreisionAtRank10();
+            totalPrecisionSum += q.getQueryPrecisionAtRank10();
         }
         return queries.size() != 0 ? totalPrecisionSum/queries.size() : 0;
     }
@@ -213,10 +227,10 @@ public class Evaluator {
                 fillRelevanceMatrix(relevanceTuple);
             }
         }catch(FileNotFoundException e){
-            System.err.println("invertedIndex file not found!");
+            System.err.println("Relevance file not found!");
             System.exit(3);
         } catch(IOException e){
-            System.err.println("ERROR: Reading invertedIndex file");
+            System.err.println("ERROR: Reading relevance file");
             System.exit(2);
         }
     }
@@ -245,7 +259,13 @@ public class Evaluator {
         }
     }
 
+    private void checkMinimumRelevanceScore(int minScore){
+        if(minScore < 1 || minScore > 4){
+            System.err.println("Invalid relevance Score");
+            System.exit(3);
+        }
 
+    }
 
     @Override
     public String toString() {

@@ -28,6 +28,8 @@ public abstract class SearchEngineBuilder {
      * A super constructor for all the class that will derive this class.
      * @param invertedIndex An {@link InvertedIndex} object to be provided to the searchEngine.
      * @param tokenizer A {@link Tokenizer} to be provided to the {@link QueryReader} object.
+     * @param queryIndex A {@link QueryIndex} with the queries to be processed.
+     * @param threshold The minimum values of the result scores.
      */
     public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
                                QueryIndex queryIndex, double threshold) {
@@ -99,9 +101,21 @@ public abstract class SearchEngineBuilder {
      */
     public abstract void buildQueryTokenizer();
 
+    /**
+     * The purpose of this function is to configure a {@link QueryIndex} for the {@link SearchEngine} instance
+     * that is being built.
+     */
     public abstract void buildQueryIndex();
 
+    /**
+     * The purpose of this function is to configure a {@link Normalizer} for the {@link SearchEngine} instance
+     * that is being built.
+     */
     public abstract void buildNormalizer();
 
+    /**
+     * The purpose of this function is to configure a threshold for the results of the {@link SearchEngine} instance
+     * that is being built.
+     */
     public abstract void buildThreshold();
 }

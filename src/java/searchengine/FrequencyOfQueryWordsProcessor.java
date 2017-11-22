@@ -10,7 +10,18 @@ import java.util.stream.Collectors;
 
 import static src.java.constants.Constants.THRESHOLDDEFAULTVALUE;
 
+/**
+ * An implementation of {@link QueryProcessor} that sums the frequency of the query words that appear in a document
+ */
 public class FrequencyOfQueryWordsProcessor implements QueryProcessor {
+    /**
+     * Sums the frequency of document words that appear in a query.
+     * The results are stores in their respective {@link Query} object.
+     * @param index An {@link InvertedIndex} object where information is going to be extracted to answer the queries.
+     * @param queries A {@link List} of {@link Query} objects with the content of which query. After the query
+     *                as been processed it's results are going to be store in it's respective object.
+     * @param threshold The minimum value of the results
+     */
     @Override
     public void processQueries(List<Query> queries, InvertedIndex index, double threshold) {
         for(Query query: queries) {

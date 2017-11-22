@@ -22,10 +22,20 @@ public class InvertedIndex {
          this.index = new HashMap<>();
      }
 
+    /**
+     *
+     * @return A {@link Set} of key terms
+     */
     public Set<String> getTerms(){
         return index.keySet();
     }
 
+    /**
+     * Maps a term to a certain score for a document.
+     * @param term The term where the score will be associated to
+     * @param docID The id of the document
+     * @param score The score of the document
+     */
     public void addNormalizedScore(String term, int docID, double score){
         Set<Posting> entryList = index.get(term);
         if(entryList != null){
@@ -38,6 +48,12 @@ public class InvertedIndex {
         }
     }
 
+    /**
+     * Adds an occurrence of a token in a document with a certain ID to the index.
+     * @param token A word/token, its occurrence will be stored in the index.
+     * @param docID The ID of the document where the token appeared.
+     *
+     * */
     public void addTokenOccurrence(String token, int docID){
         Set<Posting> entryList = index.get(token);
 
@@ -54,13 +70,25 @@ public class InvertedIndex {
             index.put(token,newEntryList);
         }
     }
+
+    /**
+     *
+     * @param term the term to which the postings are associated
+     * @return The {@link Set} of {@link Posting} objects associated with the term, or null in case the term
+     * is not in the index
+     */
     public Set<Posting> getPostings(String term){
          return index.get(term);
      }
 
-    public void addTermAndPostings(String token, Set<Posting> postings){
-         if(!index.containsKey(token))
-            index.put(token, postings);
+    /**
+     *
+     * @param term A term to which the values will be mapped
+     * @param postings A {@link Set} of {@link Posting} objects associated with the term
+     */
+    public void addTermAndPostings(String term, Set<Posting> postings){
+         if(!index.containsKey(term))
+            index.put(term, postings);
     }
 
     /**

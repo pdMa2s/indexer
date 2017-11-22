@@ -27,6 +27,12 @@ public class SearchEngine {
     private Normalizer normalizer;
     private double threshold;
 
+    /**
+     * This method has the same purpose the {@link QueryProcessor#processQueries(List, InvertedIndex, double)}
+     * @param queryFile The file where the queries are contained
+     * @param idx The {@link InvertedIndex} with the terms of the corpus
+     * @return A {@link List} of {@link Query} objects that contains the results for them selves
+     */
     public List<Query> processQueries(File queryFile, InvertedIndex idx){
         if(normalizer == null)
             return processFrequencyQueries(queryFile, idx);
@@ -34,12 +40,12 @@ public class SearchEngine {
             return processNormalizedQueries(queryFile, idx);
     }
 
-    public List<Query> processFrequencyQueries(File queryFile, InvertedIndex idx){
+    private List<Query> processFrequencyQueries(File queryFile, InvertedIndex idx){
         queries = queryReader.loadQueries(queryFile, tokenizer);
         queryProcessor.processQueries(queries, idx, threshold);
         return queries;
     }
-    public List<Query> processNormalizedQueries(File queryFile, InvertedIndex idx){
+    private List<Query> processNormalizedQueries(File queryFile, InvertedIndex idx){
         queries = queryReader.loadQueries(queryFile, tokenizer);
         queryIndex.addQueries(queries);
         queryIndex.applyTFAndIDFtoQueries(invertedIndex);
@@ -96,14 +102,26 @@ public class SearchEngine {
         this.tokenizer = tokenizer;
     }
 
+    /**
+     *
+     * @param queryIndex A {@link QueryIndex} with the queries to be processed
+     */
     public void setQueryIndex(QueryIndex queryIndex) {
         this.queryIndex = queryIndex;
     }
 
+    /**
+     *
+     * @param normalizer A {@link Normalizer} used to normalize the queries
+     */
     public void setNormalizer(Normalizer normalizer) {
         this.normalizer = normalizer;
     }
 
+    /**
+     *
+     * @param threshold The minimum values of the result scores
+     */
     public void setThreshold(double threshold) {
         if(this.threshold < 0){
             System.err.println("Threshold cant be less than zero");

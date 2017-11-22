@@ -2,7 +2,10 @@ src.java
 src.java.constants
 src.java.corpus
 src.java.documentreader
-src.java.invertedIndex
+src.java.evaluation
+src.java.index
 src.java.indexer
+src.java.normalizer
 src.java.query
+src.java.searchengine
 src.java.tokenizer

@@ -29,6 +29,10 @@ public class Posting implements Comparable<Posting>{
         return docID;
     }
 
+    /**
+     *
+     * @return the weight of the document
+     */
     public double getWeight(){ return weight; }
     /**
      *
@@ -39,6 +43,10 @@ public class Posting implements Comparable<Posting>{
     }
 
 
+    /**
+     *
+     * @param weight the weight of the document
+     */
     public void setWeight(double weight) {
         this.weight = weight;
     }

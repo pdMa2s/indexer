@@ -17,7 +17,7 @@ public class Query {
     private Map<Integer, Double> results;
     private double queryRecall;
     private double queryPrecision;
-    private double queryPreisionAtRank10;
+    private double queryPrecisionAtRank10;
     private double reciprocalRank;
     private double processingTime;
     private double fMeasure;
@@ -58,12 +58,12 @@ public class Query {
 
     public double getQueryPrecision() { return queryPrecision; }
 
-    public double getQueryPreisionAtRank10() {
-        return queryPreisionAtRank10;
+    public double getQueryPrecisionAtRank10() {
+        return queryPrecisionAtRank10;
     }
 
-    public void setQueryPreisionAtRank10(double queryPreisionAtRank10) {
-        this.queryPreisionAtRank10 = queryPreisionAtRank10;
+    public void setQueryPrecisionAtRank10(double queryPrecisionAtRank10) {
+        this.queryPrecisionAtRank10 = queryPrecisionAtRank10;
     }
 
     /**
