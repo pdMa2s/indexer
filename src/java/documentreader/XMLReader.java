@@ -75,7 +75,7 @@ public class XMLReader implements DocumentReader {
         this.corpusLocation = corpusLocation;
     }
 
-    public void openAndParse(int id, Query query) {
+    public String openAndParse(int id, Query query) {
         this.contentFile = new File(corpusLocation+"/"+"cranfield"+id);
         try {
             saxParser.parse(contentFile, xmlHandler);
@@ -83,6 +83,6 @@ public class XMLReader implements DocumentReader {
             System.err.println("ERROR while parsing the xml file!");
             System.exit(1);
         }
-        query.addRelevanceFeedback(xmlHandler.getText());
+       return xmlHandler.getText();
     }
 }
