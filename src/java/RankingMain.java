@@ -87,10 +87,10 @@ public class RankingMain {
         parser.addArgument("-th","--threshold").setDefault(THRESHOLDDEFAULTVALUE)
                 .help("(Optional) The minimum value of the results");
         parser.addArgument("-rvf","--relevanceFile")
-                .help("(Optional) The path to the file that contains the relevance scores");
+                .help("(Optional) The path to the file that contains the relevancefeedback scores");
         parser.addArgument("-rvs","--relevanceScore")
                 .choices("1", "2","3","4").setDefault("4")
-                .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
+                .help("(Optional) The minimum relevancefeedback score to be considered when calculating the efficiency metrics");
 
 
         Namespace ns = null;

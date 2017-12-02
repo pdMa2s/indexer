@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class is responsible for loading a file that contains the relevance scores of the corpus and calculate
+ * This class is responsible for loading a file that contains the relevancefeedback scores of the corpus and calculate
  * the results for several evaluation and efficiency metrics such as mean precision, mean precision at rank 10,
  * mean reciprocal rank mean query latency, mean query throughput, mean f-measure and mean recall.
  */
@@ -25,7 +25,7 @@ public class Evaluator {
 
     /**
      * Constructs an {@link Evaluator} object
-     * @param relevanceFile The name of the file that contains the relevance scores
+     * @param relevanceFile The name of the file that contains the relevancefeedback scores
      * @param queries A {@link List} of {@link Query} objects to store their respective results
      * @param metricsHandler A handler for the results
      */
@@ -39,7 +39,7 @@ public class Evaluator {
 
     /**
      * Calculates the value of the several metrics, then asks the handler to take care of the results.
-     * @param minimumRelevance The minimum relevance to be taken into account.
+     * @param minimumRelevance The minimum relevancefeedback to be taken into account.
      */
     public void calculateSystemMeasures( int minimumRelevance){
         checkMinimumRelevanceScore(minimumRelevance);
@@ -230,7 +230,7 @@ public class Evaluator {
             System.err.println("Relevance file not found!");
             System.exit(3);
         } catch(IOException e){
-            System.err.println("ERROR: Reading relevance file");
+            System.err.println("ERROR: Reading relevancefeedback file");
             System.exit(2);
         }
     }
@@ -261,7 +261,7 @@ public class Evaluator {
 
     private void checkMinimumRelevanceScore(int minScore){
         if(minScore < 1 || minScore > 4){
-            System.err.println("Invalid relevance Score");
+            System.err.println("Invalid relevancefeedback Score");
             System.exit(3);
         }
 
