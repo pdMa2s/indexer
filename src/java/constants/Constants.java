@@ -42,4 +42,6 @@ public class Constants {
      * The default value of the threshold that limits the results of the queries
      */
     public static final double THRESHOLDDEFAULTVALUE = -1;
+
+    public static final String CORPUSLOCATION = "cranfield";
 }

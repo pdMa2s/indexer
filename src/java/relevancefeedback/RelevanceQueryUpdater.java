@@ -4,6 +4,6 @@ import src.java.query.Query;
 
 import java.util.List;
 
-public interface RevelanceQueryUpdater {
+public interface RelevanceQueryUpdater {
     void updateQueries(List<Query> queries);
 }

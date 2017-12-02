@@ -27,6 +27,7 @@ public class RankingMain {
         Namespace parsedArgs = parseParameters(args);
         File indexFile = new File(parsedArgs.getString("indexFile"));
         File queryFile = new File(parsedArgs.getString("queryFile"));
+        String corpuLocation = parsedArgs.getString("corpusLocation");
 
         String rankingResultsFile = parsedArgs.getString("resultFile");
 
@@ -90,7 +91,9 @@ public class RankingMain {
                 .help("(Optional) The path to the file that contains the relevancefeedback scores");
         parser.addArgument("-rvs","--relevanceScore")
                 .choices("1", "2","3","4").setDefault("4")
-                .help("(Optional) The minimum relevancefeedback score to be considered when calculating the efficiency metrics");
+                .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
+        parser.addArgument("-cL","--corpusLocation").setDefault(CORPUSLOCATION)
+                .help("(Optional) The path to the corpus location");
 
 
         Namespace ns = null;
