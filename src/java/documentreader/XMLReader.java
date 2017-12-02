@@ -1,12 +1,12 @@
 package src.java.documentreader;
 
 import org.xml.sax.SAXException;
+import src.java.query.Query;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * An implementation of a {@link DocumentReader} with the purpose of reading files in XML format.
@@ -21,6 +21,7 @@ public class XMLReader implements DocumentReader {
     private File contentFile;
     private DefaultCorpusXMLHandler xmlHandler;
     private SAXParser saxParser;
+    private String corpusLocation;
 
     /**
      * Constructs a XMLReader object and initializes a {@link SAXParser} using a {@link DefaultCorpusXMLHandler}.
@@ -68,5 +69,20 @@ public class XMLReader implements DocumentReader {
     @Override
     public int getDocumentID() {
         return xmlHandler.getID();
+    }
+
+    public void setCorpusLocation(String corpusLocation){
+        this.corpusLocation = corpusLocation;
+    }
+
+    public void openAndParse(int id, Query query) {
+        this.contentFile = new File(corpusLocation+"/"+"cranfield"+id);
+        try {
+            saxParser.parse(contentFile, xmlHandler);
+        } catch (SAXException | IOException e) {
+            System.err.println("ERROR while parsing the xml file!");
+            System.exit(1);
+        }
+        query.addRelevanceFeedback(xmlHandler.getText());
     }
 }
