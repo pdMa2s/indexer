@@ -44,4 +44,6 @@ public class Constants {
     public static final double THRESHOLDDEFAULTVALUE = -1;
 
     public static final String CORPUSLOCATION = "cranfield";
+
+    public static final String DOCUMENTINDEXFILE = "docIndexFile";
 }

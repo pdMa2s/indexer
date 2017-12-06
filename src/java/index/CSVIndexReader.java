@@ -2,6 +2,8 @@ package src.java.index;
 
 import org.tartarus.snowball.ext.englishStemmer;
 import src.java.normalizer.Normalizer;
+import src.java.normalizer.Vector;
+import src.java.query.DocumentIndex;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.SimpleTokenizer;
 import src.java.tokenizer.Tokenizer;
@@ -78,6 +80,40 @@ public class CSVIndexReader implements IndexReader {
             System.exit(2);
         }
     }
+
+    public void parseDocumentIndexFromFile(File docIndexFile, DocumentIndex docIndex){
+        BufferedReader reader;
+        try{
+            reader = new BufferedReader(new FileReader(docIndexFile));
+            String text;
+            while ((text = reader.readLine()) != null) {
+                parseTermsPerDocument(text, docIndex);
+            }
+        }catch(FileNotFoundException e){
+            System.err.println("invertedIndex file not found!");
+            System.exit(3);
+        } catch(IOException e){
+            System.err.println("ERROR: Reading invertedIndex file");
+            System.exit(2);
+        }
+    }
+
+    private void parseTermsPerDocument(String text, DocumentIndex docIndex){
+        String[] parsedTerms = text.split(",");
+        int docID = Integer.parseInt(parsedTerms[0]);
+        Vector newVector = new Vector();
+        for(int i=1; i<parsedTerms.length; i++){
+            String[] term = parsedTerms[i].split(delimiter);
+            if(term.length == 2) {
+                newVector.put(term[0], Double.parseDouble(term[1]));
+            }
+            else{
+                printError("ERROR while parsing documentIndex file");
+            }
+        }
+        docIndex.addVector(docID, newVector);
+    }
+
     private void parsePostingsPerTerm(String text, InvertedIndex index){
         Set<Posting> postings = new TreeSet<>();
         String[] parsedPosting = text.split(",");

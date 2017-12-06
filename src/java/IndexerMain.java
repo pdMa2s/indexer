@@ -9,6 +9,9 @@ import src.java.index.CSVIndexWriter;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexWriter;
 import src.java.indexer.*;
+import src.java.query.DocumentIndex;
+
+import java.io.File;
 
 import static src.java.constants.Constants.*;
 
@@ -19,8 +22,10 @@ public class IndexerMain {
         Namespace parsedArgs = parseParameters(args);
         String indexFile = parsedArgs.getString("indexFile");
         String dirName = parsedArgs.getString("corpusDirectory");
+        String docIndexFile = parsedArgs.getString("documentIndexFile");
         Indexer indexer;
         InvertedIndex index;
+        DocumentIndex docIndex = new DocumentIndex();
         IndexWriter writer = new CSVIndexWriter();
         IndexerBuilder builder;
         String scoringSystem = parsedArgs.getString("scoring");
@@ -31,10 +36,12 @@ public class IndexerMain {
 
         long startTime = System.currentTimeMillis();
         indexer = builder.constructIndexer();
+        indexer.setDocumentIndex(docIndex);
         index = indexer.createIndex();
         writer.saveIndexToFile(indexFile, index, builder.getTokenizerType(), indexer.getCorpusSize(),
                 scoringSystem);
-
+        if(scoringSystem.equals(NORMALIZED))
+            writer.saveDocumentIndexToFile(docIndexFile, docIndex);
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
 
@@ -58,6 +65,8 @@ public class IndexerMain {
         parser.addArgument("corpusDirectory")
                 .help("The path to the directory of the corpus");
         parser.addArgument("indexFile").nargs("?").setDefault(INDEXDEAFAULTFILENAME)
+                .help("(Optional)The name of the file where the index will be written in to");
+        parser.addArgument("documentIndexFile").nargs("?").setDefault(DOCUMENTINDEXFILE)
                 .help("(Optional)The name of the file where the index will be written in to");
         Namespace ns = null;
         try {

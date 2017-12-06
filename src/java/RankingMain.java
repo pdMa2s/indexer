@@ -12,6 +12,7 @@ import src.java.evaluation.Evaluator;
 import src.java.index.CSVIndexReader;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
+import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
 import src.java.searchengine.*;
@@ -27,6 +28,7 @@ public class RankingMain {
         Namespace parsedArgs = parseParameters(args);
         File indexFile = new File(parsedArgs.getString("indexFile"));
         File queryFile = new File(parsedArgs.getString("queryFile"));
+        File docIndexFile = new File(parsedArgs.getString("documentIndexFile"));
         String corpuLocation = parsedArgs.getString("corpusLocation");
 
         String rankingResultsFile = parsedArgs.getString("resultFile");
@@ -44,6 +46,8 @@ public class RankingMain {
         String scoringSystem = idr.getScoringSystem();
 
         if(scoringSystem.equals(NORMALIZED)){
+            DocumentIndex docIndex = new DocumentIndex();
+            idr.parseDocumentIndexFromFile(docIndexFile, docIndex);
             int corpusSize = idr.getCorpusSize();
             queryIndex = new QueryIndex(corpusSize);
              searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex,
@@ -94,6 +98,8 @@ public class RankingMain {
                 .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
         parser.addArgument("-cL","--corpusLocation").setDefault(CORPUSLOCATION)
                 .help("(Optional) The path to the corpus location");
+        parser.addArgument("documentIndexFile").nargs("?").setDefault(DOCUMENTINDEXFILE)
+                .help("(Optional)The name of the file where the index will be written in to");
 
 
         Namespace ns = null;
