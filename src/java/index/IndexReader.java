@@ -1,5 +1,6 @@
 package src.java.index;
 
+import src.java.query.DocumentIndex;
 import src.java.tokenizer.Tokenizer;
 
 import java.io.File;
@@ -35,4 +36,6 @@ import java.io.File;
      * @param indexFile The {@link File} on disk that contains the invertedIndex.
      */
     void parseInvertedIndex(File indexFile, InvertedIndex index);
+
+     void parseDocumentIndexFromFile(File docIndexFile, DocumentIndex docIndex);
 }

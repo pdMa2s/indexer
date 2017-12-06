@@ -1,5 +1,7 @@
 package src.java.index;
 
+import src.java.query.DocumentIndex;
+
 /**
  * An entity that writes an {@link InvertedIndex} on disk with a format depending on the implementation.
  * @author Pedro Matos
@@ -21,4 +23,6 @@ public interface IndexWriter {
      * @param scoringSystem The tag corresponding to the scoring system used to create the index
      */
     void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType, int corpusSize, String scoringSystem);
-}
+
+    void saveDocumentIndexToFile(String documentIndexFile, DocumentIndex docIndex);
+    }

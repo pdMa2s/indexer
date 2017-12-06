@@ -3,6 +3,7 @@ package src.java.indexer;
 import src.java.index.InvertedIndex;
 import src.java.corpus.CorpusReader;
 import src.java.normalizer.Normalizer;
+import src.java.query.DocumentIndex;
 import src.java.tokenizer.Tokenizer;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class Indexer {
     private Tokenizer tokenizer;
     private InvertedIndex index;
     private Normalizer normalizer;
+    private DocumentIndex documentIndex;
 
 
     public InvertedIndex createIndex() {
@@ -73,11 +75,12 @@ public class Indexer {
 
     private void fillIndexWithNormalizedTerms(InvertedIndex index , List<String> terms, int docId){
         Map<String, Double> normalizedScores = normalizer.normalize(terms);
+        documentIndex.addTermsPerDocID(docId, normalizedScores);
         for(String term : normalizedScores.keySet()){
             index.addNormalizedScore(term, docId, normalizedScores.get(term));
         }
-
     }
+
     private void fillIndexWithTermOccurrences(InvertedIndex index , List<String> tokens, int docId){
         for (String token: tokens) {
             index.addTokenOccurrence(token, docId);
@@ -108,4 +111,6 @@ public class Indexer {
     public int getCorpusSize(){
         return corpusReader.corpusSize();
     }
+
+    public void setDocumentIndex(DocumentIndex docIndex) {this.documentIndex = docIndex; }
 }
