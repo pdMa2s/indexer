@@ -43,7 +43,35 @@ public class Vector {
         return vector.keySet();
     }
 
+    public int size(){
+        return vector.size();
+    }
 
+    public static Vector addVectors(Vector a, Vector b){
+        Vector result = new Vector();
+        Vector tempBig;
+        Vector tempSmall;
+        if(a.size() > b.size()){
+            tempBig = a;
+            tempSmall = b;
+        }
+        else{
+            tempBig = b;
+            tempSmall = a;
+        }
+        for(String term : tempBig.getTerms()){
+            Double smallVectorScore = tempSmall.getScore(term);
+            Double bigVectorScore = tempBig.getScore(term);
+            if(smallVectorScore != null)
+                result.put(term, smallVectorScore + bigVectorScore);
+            else{
+                result.put(term, bigVectorScore);
+            }
+
+        }
+        return result;
+
+    }
     @Override
     public String toString() {
         return "Vector{" +

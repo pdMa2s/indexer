@@ -7,31 +7,24 @@ import java.util.List;
 import java.util.Map;
 
 public class RelevanceIndex {
-    private Map<Integer, Map<Integer, List<Integer>>> relevanceIndex;
+    private Map<Integer, HashMap<Integer, Integer>> relevanceIndex;
 
     public RelevanceIndex() {
         this.relevanceIndex = new HashMap<>();
     }
 
-    public void addRelevanceScore(int queryId, int relevance, int docId){
+    public Integer getRelevanceScore(int queryId, int docId){
+        return relevanceIndex.get(queryId).get(docId);
+    }
+    public void addRelevanceScore(int queryId, int docId, int relevance){
         if(relevanceIndex.containsKey(queryId)){
-            Map<Integer, List<Integer>> queryScores = relevanceIndex.get(queryId);
-            if(queryScores.containsKey(relevance)){
-                queryScores.get(relevance).add(docId);
-            }
-            else{
-                List<Integer> relevanceDocs = new ArrayList<>();
-                relevanceDocs.add(docId);
-                queryScores.put(relevance, relevanceDocs);
-            }
+            HashMap<Integer, Integer> queryScores = relevanceIndex.get(queryId);
+            queryScores.put(docId, relevance);
         }
         else{
-            Map<Integer, List<Integer>> queryScores = new HashMap<>();
-            List<Integer> relevanceDocs = new ArrayList<>();
-            relevanceDocs.add(docId);
-            queryScores.put(relevance, relevanceDocs);
+            HashMap<Integer, Integer> queryScores = new HashMap<>();
+            queryScores.put(docId, relevance);
             relevanceIndex.put(queryId, queryScores);
-
         }
     }
 }

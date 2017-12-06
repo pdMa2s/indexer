@@ -22,6 +22,7 @@ public class Query {
     private double processingTime;
     private double fMeasure;
 
+
     /**
      * Constructs a {@link Query} object.
      * @param id An int identifier for the query.
@@ -42,9 +43,9 @@ public class Query {
 
     public double getProcessingTime(){ return processingTime; }
 
-    public double getfMeasure(){ return fMeasure; }
+    public double geTfMeasure(){ return fMeasure; }
 
-    public void setfMeasure(double fMeasure){ this.fMeasure = fMeasure; }
+    public void seTfMeasure(double fMeasure){ this.fMeasure = fMeasure; }
 
     public void setQueryRecall(double accuracy){ this.queryRecall = accuracy; }
 
@@ -115,6 +116,19 @@ public class Query {
         return results;
     }
 
+    public Map<Integer, Double> getTop10Results(){
+        Map<Integer, Double> top10 = new TreeMap<>();
+        Map<Integer, Double> sorted = getSortedResults();
+        for(Map.Entry<Integer, Double> entry : sorted.entrySet()){
+            top10.put(entry.getKey(), entry.getValue());
+            if(top10.size() == 10)
+                break;
+        }
+        return top10;
+
+    }
+
+
     public Map<Integer, Double> getSortedResults(){
         ValueComparator bvc = new ValueComparator(results);
         TreeMap<Integer, Double> sortedMap = new TreeMap<>(bvc);
@@ -124,7 +138,7 @@ public class Query {
     class ValueComparator implements Comparator<Integer> {
         Map<Integer, Double> base;
 
-        public ValueComparator(Map<Integer, Double> base) {
+        ValueComparator(Map<Integer, Double> base) {
             this.base = base;
         }
 

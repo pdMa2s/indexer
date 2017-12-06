@@ -1,9 +1,7 @@
 package src.java.relevancefeedback;
 
-import src.java.query.Query;
-
-import java.util.List;
+import src.java.query.QueryIndex;
 
 public interface RelevanceQueryUpdater {
-    void updateQueries(List<Query> queries);
+    void updateQueries(QueryIndex queryIndex);
 }

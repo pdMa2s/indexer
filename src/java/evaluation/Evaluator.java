@@ -117,9 +117,9 @@ public class Evaluator {
        double precision = q.getQueryPrecision();
        double recall = q.getQueryRecall();
        if(precision == 0 && recall == 0)
-           q.setfMeasure(0);
+           q.seTfMeasure(0);
        else
-           q.setfMeasure((2*precision*recall)/(precision+recall));
+           q.seTfMeasure((2*precision*recall)/(precision+recall));
     }
 
     private void precisionAtRank10(Query q, int minimumRelevance){
@@ -182,7 +182,7 @@ public class Evaluator {
     private double calculateMeanFMeasure(List<Query> queries){
         double totalFMeasure = 0;
         for(Query q : queries){
-            totalFMeasure += q.getfMeasure();
+            totalFMeasure += q.geTfMeasure();
         }
         return queries.size() != 0 ? totalFMeasure/queries.size() : 0;
     }
