@@ -3,8 +3,10 @@ package src.java.searchengine;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
 import src.java.query.ColumnResultWriter;
+import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
+import src.java.relevancefeedback.GoldStandardRelevance;
 import src.java.tokenizer.Tokenizer;
 
 /**
@@ -15,8 +17,9 @@ public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
     /**
      *{@inheritDoc}
      */
-    public NormalizedSearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex, double threshold) {
-        super(invertedIndex, tokenizer, queryIndex, threshold);
+    public NormalizedSearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex,
+                                         double threshold) {
+        super(invertedIndex, tokenizer, queryIndex, null,threshold);
     }
     /**
      *{@inheritDoc}
@@ -75,5 +78,13 @@ public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
     @Override
     public void buildThreshold() {
         searchEngine.setThreshold(threshold);
+    }
+
+    @Override
+    public void buildDocumentIndex() {
+    }
+
+    @Override
+    public void buildRelevanceQueryUpdater() {
     }
 }

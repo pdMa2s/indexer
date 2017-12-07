@@ -47,7 +47,7 @@ public class Vector {
         return vector.size();
     }
 
-    public static Vector addVectors(Vector a, Vector b){
+    public static Vector sumVectors(Vector a, Vector b){
         Vector result = new Vector();
         Vector tempBig;
         Vector tempSmall;
@@ -71,6 +71,21 @@ public class Vector {
         }
         return result;
 
+    }
+
+    public static Vector subtractVectors(Vector a, Vector b){
+        Vector result = new Vector();
+        result = Vector.sumVectors(a, Vector.scalarProduct(-1, b));
+        return result;
+
+    }
+
+    public static Vector scalarProduct(double scalar, Vector a){
+        Vector result = new Vector();
+        for(Map.Entry<String, Double> entry : a.vector.entrySet()){
+            result.put(entry.getKey(), entry.getValue() * scalar);
+        }
+        return result;
     }
     @Override
     public String toString() {

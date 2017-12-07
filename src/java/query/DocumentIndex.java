@@ -20,7 +20,6 @@ public class DocumentIndex extends Index{
 
     public Set<Integer> getDocIds(){ return vectors.keySet(); }
 
-    public Vector getTermsVector(int id){ return getVector(id); }
 
     public void addVector(int docID, Vector newVector){ vectors.put(docID ,newVector);}
 }

@@ -66,7 +66,7 @@ public class IndexerMain {
                 .help("The path to the directory of the corpus");
         parser.addArgument("indexFile").nargs("?").setDefault(INDEXDEAFAULTFILENAME)
                 .help("(Optional)The name of the file where the index will be written in to");
-        parser.addArgument("documentIndexFile").nargs("?").setDefault(DOCUMENTINDEXFILE)
+        parser.addArgument("-di","--documentIndexFile").nargs("?").setDefault(DOCUMENTINDEXFILE)
                 .help("(Optional)The name of the file where the index will be written in to");
         Namespace ns = null;
         try {

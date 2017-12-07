@@ -47,7 +47,7 @@ public class CSVIndexWriter implements IndexWriter{
         }
         for(Integer docID: docIndex.getDocIds()){
             writer.print(docID);
-            Vector tempVector = docIndex.getTermsVector(docID);
+            Vector tempVector = docIndex.getVector(docID);
             for(String term : tempVector.getTerms()){
                 writer.print(","+term + delimiter + tempVector.getScore(term));
             }

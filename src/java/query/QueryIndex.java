@@ -35,6 +35,10 @@ public class QueryIndex extends Index {
         }
     }
 
+    public void putQueryVector(int queryId, Vector  vector){
+        vectors.put(queryId , vector);
+    }
+
     private void addQueryTermOccurrence(int queryId, String term ){
         Vector tempVector = vectors.get(queryId);
         if(tempVector != null){

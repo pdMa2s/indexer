@@ -15,7 +15,7 @@ public class WordsInDocBuilder extends SearchEngineBuilder {
      *{@inheritDoc}
      */
     public WordsInDocBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, double threshold) {
-        super(invertedIndex, tokenizer, null, threshold);
+        super(invertedIndex, tokenizer, null, null,threshold);
     }
 
     @Override
@@ -71,5 +71,13 @@ public class WordsInDocBuilder extends SearchEngineBuilder {
     @Override
     public void buildThreshold() {
         searchEngine.setThreshold(threshold);
+    }
+
+    @Override
+    public void buildDocumentIndex() { }
+
+    @Override
+    public void buildRelevanceQueryUpdater() {
+
     }
 }

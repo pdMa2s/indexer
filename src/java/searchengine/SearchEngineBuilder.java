@@ -2,6 +2,7 @@ package src.java.searchengine;
 
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
+import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryReader;
 import src.java.query.QueryResultWriter;
@@ -22,6 +23,7 @@ public abstract class SearchEngineBuilder {
     protected InvertedIndex invertedIndex;
     protected Tokenizer tokenizer;
     protected QueryIndex queryIndex;
+    protected DocumentIndex documentIndex;
     protected double threshold;
 
     /**
@@ -32,11 +34,12 @@ public abstract class SearchEngineBuilder {
      * @param threshold The minimum values of the result scores.
      */
     public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
-                               QueryIndex queryIndex, double threshold) {
+                               QueryIndex queryIndex, DocumentIndex documentIndex, double threshold) {
         this.invertedIndex = invertedIndex;
         this.tokenizer = tokenizer;
         this.queryIndex = queryIndex;
         this.threshold = threshold;
+        this.documentIndex = documentIndex;
     }
 
     /**
@@ -62,12 +65,14 @@ public abstract class SearchEngineBuilder {
         createSearchEngine();
         buildInvertedIndex();
         buildQueryIndex();
+        buildDocumentIndex();
         buildNormalizer();
         buildQueryProcessor();
         buildQueryReader();
         buildQueryResultWriter();
         buildQueryTokenizer();
         buildThreshold();
+        buildRelevanceQueryUpdater();
         return searchEngine;
     }
 
@@ -118,4 +123,9 @@ public abstract class SearchEngineBuilder {
      * that is being built.
      */
     public abstract void buildThreshold();
+
+    public abstract void buildDocumentIndex();
+
+    public abstract void buildRelevanceQueryUpdater();
+
 }

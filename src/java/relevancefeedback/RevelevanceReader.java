@@ -23,7 +23,7 @@ public class RevelevanceReader implements RelevanceFileReader{
                 int query = Integer.parseInt(lineContent[0]);
                 int docId = Integer.parseInt(lineContent[1]);
                 int relevance = Integer.parseInt(lineContent[2]);
-                revIndex.addRelevanceScore(query, relevance, docId);
+                revIndex.addRelevanceScore(query, docId, relevance);
             }
         }catch(FileNotFoundException e){
             System.err.println("Relevance file not found!");

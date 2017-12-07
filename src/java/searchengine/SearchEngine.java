@@ -3,6 +3,7 @@ package src.java.searchengine;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
 import src.java.query.*;
+import src.java.relevancefeedback.RelevanceQueryUpdater;
 import src.java.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
@@ -19,6 +20,7 @@ public class SearchEngine {
 
     private InvertedIndex invertedIndex;
     private QueryIndex queryIndex;
+    private DocumentIndex documentIndex;
     private QueryReader queryReader;
     private QueryProcessor queryProcessor;
     private QueryResultWriter queryResultWriter;
@@ -26,6 +28,7 @@ public class SearchEngine {
     private Tokenizer tokenizer;
     private Normalizer normalizer;
     private double threshold;
+    private RelevanceQueryUpdater updater;
 
     /**
      * This method has the same purpose the {@link QueryProcessor#processQueries(List, InvertedIndex, double)}
@@ -51,7 +54,17 @@ public class SearchEngine {
         queryIndex.applyTFAndIDFtoQueries(invertedIndex);
         normalizer.normalize(queryIndex);
         queryProcessor.processQueries(queries, idx, threshold);
+        updater.updateQueries(queryIndex, documentIndex);
+        queryProcessor.processQueries(queries, idx, threshold);
         return queries;
+    }
+
+    public void setDocumentIndex(DocumentIndex documentIndex) {
+        this.documentIndex = documentIndex;
+    }
+
+    public void setUpdater(RelevanceQueryUpdater updater) {
+        this.updater = updater;
     }
 
     /**

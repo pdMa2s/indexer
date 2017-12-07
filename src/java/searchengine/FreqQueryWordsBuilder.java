@@ -14,7 +14,7 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
      *{@inheritDoc}
      */
     public FreqQueryWordsBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, double threshold) {
-        super(invertedIndex, tokenizer, null, threshold);
+        super(invertedIndex, tokenizer, null, null,threshold);
     }
 
     /**
@@ -77,5 +77,15 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
     @Override
     public void buildThreshold() {
         searchEngine.setThreshold(threshold);
+    }
+
+    @Override
+    public void buildDocumentIndex() {
+
+    }
+
+    @Override
+    public void buildRelevanceQueryUpdater() {
+
     }
 }

@@ -29,7 +29,7 @@ public class RankingMain {
         File indexFile = new File(parsedArgs.getString("indexFile"));
         File queryFile = new File(parsedArgs.getString("queryFile"));
         File docIndexFile = new File(parsedArgs.getString("documentIndexFile"));
-        String corpuLocation = parsedArgs.getString("corpusLocation");
+        //String corpuLocation = parsedArgs.getString("corpusLocation");
 
         String rankingResultsFile = parsedArgs.getString("resultFile");
 
@@ -50,8 +50,8 @@ public class RankingMain {
             idr.parseDocumentIndexFromFile(docIndexFile, docIndex);
             int corpusSize = idr.getCorpusSize();
             queryIndex = new QueryIndex(corpusSize);
-             searchEngineBuilder = new NormalizedSearchEngineBuilder(invertedIndex,
-                    idr.getTokenizer(), queryIndex, threshold);
+             searchEngineBuilder = new ExplicitFeedBackSearchEngineBuilder(invertedIndex,
+                    idr.getTokenizer(), queryIndex, docIndex,threshold);
         }
         else{
             searchEngineBuilder = getBuilder(parsedArgs, invertedIndex, idr.getTokenizer(), threshold);
@@ -92,13 +92,13 @@ public class RankingMain {
         parser.addArgument("-th","--threshold").setDefault(THRESHOLDDEFAULTVALUE)
                 .help("(Optional) The minimum value of the results");
         parser.addArgument("-rvf","--relevanceFile")
-                .help("(Optional) The path to the file that contains the relevancefeedback scores");
+                .help("(Optional) The path to the file that contains the relevance feedback scores");
         parser.addArgument("-rvs","--relevanceScore")
                 .choices("1", "2","3","4").setDefault("4")
                 .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
-        parser.addArgument("-cL","--corpusLocation").setDefault(CORPUSLOCATION)
-                .help("(Optional) The path to the corpus location");
-        parser.addArgument("documentIndexFile").nargs("?").setDefault(DOCUMENTINDEXFILE)
+        /*parser.addArgument("-cL","--corpusLocation").setDefault(CORPUSLOCATION)
+                .help("(Optional) The path to the corpus location");*/
+        parser.addArgument("-di","--documentIndexFile").setDefault(DOCUMENTINDEXFILE)
                 .help("(Optional)The name of the file where the index will be written in to");
 
 
