@@ -49,12 +49,14 @@ public class EfficiencyMetricsFileWriter implements EfficiencyMetricsHandler {
         }
     }
     private void printMetricsForQueries(BufferedWriter writer,List<Query> queries, NumberFormat formatter) throws IOException {
-        writer.write("query_id" + delimiter + "precision"+ delimiter+ "precisionRank10" + delimiter + "recall" + delimiter + "f-measure"+"\n");
+        writer.write("query_id" + delimiter + "precision"+ delimiter+ "precisionRank10" + delimiter + "recall"
+                + delimiter + "f-measure"+ delimiter + "NDCG"+"\n");
 
         for(Query query: queries){
             writer.write( query.getId() + delimiter +
                     formatter.format(query.getQueryPrecision()) +delimiter+ query.getQueryPrecisionAtRank10() +delimiter + formatter.format(query.getQueryRecall())
-                        + delimiter + formatter.format(query.geTfMeasure())+"\n");
+                        + delimiter + formatter.format(query.geTfMeasure())+ delimiter +
+                     formatter.format(query.getNDCG())+"\n");
 
         }
     }

@@ -3,22 +3,21 @@ package src.java.searchengine;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
 import src.java.query.ColumnResultWriter;
+import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
+import src.java.relevancefeedback.*;
 import src.java.tokenizer.Tokenizer;
 
-/**
- * An implementation of {@link SearchEngineBuilder} creates a {@link SearchEngine} with a {@link NormalizedProcessor}.
- */
-public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
-
+public class ImplicitFeedBackEngineBuilder extends SearchEngineBuilder {
     /**
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
-    public NormalizedSearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex,
-                                         double threshold) {
-        super(invertedIndex, tokenizer, queryIndex, null,threshold);
+    public ImplicitFeedBackEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
+                                         QueryIndex queryIndex, DocumentIndex documentIndex, double threshold) {
+        super(invertedIndex, tokenizer, queryIndex, documentIndex, threshold);
     }
+
     /**
      *{@inheritDoc}
      */
@@ -80,9 +79,11 @@ public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
 
     @Override
     public void buildDocumentIndex() {
+        searchEngine.setDocumentIndex(documentIndex);
     }
 
     @Override
     public void buildRelevanceQueryUpdater() {
+        searchEngine.setUpdater(new ImplicitFeedBack());
     }
 }

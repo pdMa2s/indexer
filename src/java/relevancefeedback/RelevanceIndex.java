@@ -25,4 +25,5 @@ public class RelevanceIndex {
             relevanceIndex.put(queryId, queryScores);
         }
     }
+
 }

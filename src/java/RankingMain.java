@@ -8,13 +8,16 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.MutuallyExclusiveGroup;
 import net.sourceforge.argparse4j.inf.Namespace;
 import src.java.evaluation.EfficiencyMetricsFileWriter;
-import src.java.evaluation.Evaluator;
+import src.java.evaluation.MetricEvaluator;
 import src.java.index.CSVIndexReader;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexReader;
 import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
+import src.java.relevancefeedback.RelevanceFileReader;
+import src.java.relevancefeedback.RelevanceIndex;
+import src.java.relevancefeedback.RevelevanceReader;
 import src.java.searchengine.*;
 import src.java.tokenizer.Tokenizer;
 
@@ -29,11 +32,11 @@ public class RankingMain {
         File indexFile = new File(parsedArgs.getString("indexFile"));
         File queryFile = new File(parsedArgs.getString("queryFile"));
         File docIndexFile = new File(parsedArgs.getString("documentIndexFile"));
-        //String corpuLocation = parsedArgs.getString("corpusLocation");
 
         String rankingResultsFile = parsedArgs.getString("resultFile");
 
         double threshold = Double.parseDouble(parsedArgs.getString("threshold"));
+        String relevanceScoreFile = parsedArgs.getString("relevanceFile");
         InvertedIndex invertedIndex = new InvertedIndex();
         QueryIndex queryIndex;
 
@@ -45,16 +48,17 @@ public class RankingMain {
         SearchEngineBuilder searchEngineBuilder;
         String scoringSystem = idr.getScoringSystem();
 
+        RelevanceFileReader relevanceFileReader = new RevelevanceReader();
+        RelevanceIndex relevanceIndex = relevanceFileReader.parseRelevanceFile(relevanceScoreFile);
+
         if(scoringSystem.equals(NORMALIZED)){
-            DocumentIndex docIndex = new DocumentIndex();
-            idr.parseDocumentIndexFromFile(docIndexFile, docIndex);
             int corpusSize = idr.getCorpusSize();
             queryIndex = new QueryIndex(corpusSize);
-             searchEngineBuilder = new ExplicitFeedBackSearchEngineBuilder(invertedIndex,
-                    idr.getTokenizer(), queryIndex, docIndex,threshold);
+            searchEngineBuilder = getFeedBackBuilder(parsedArgs, invertedIndex, queryIndex,
+                     docIndexFile, idr, relevanceIndex,threshold);
         }
         else{
-            searchEngineBuilder = getBuilder(parsedArgs, invertedIndex, idr.getTokenizer(), threshold);
+            searchEngineBuilder = getCountBuilder(parsedArgs, invertedIndex, idr.getTokenizer(), threshold);
         }
 
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
@@ -66,7 +70,8 @@ public class RankingMain {
         long elapsedTime = stopTime - startTime;
         System.out.println("Querying time: "+elapsedTime+"ms");
 
-        Evaluator evaluator = checkEvaluatorParameter(parsedArgs, queries);
+
+        MetricEvaluator evaluator = checkEvaluatorParameter(parsedArgs, relevanceIndex,queries, relevanceScoreFile);
         if(evaluator != null){
             int relevanceScore = Integer.parseInt(parsedArgs.getString("relevanceScore"));
             evaluator.calculateSystemMeasures(relevanceScore);
@@ -78,10 +83,10 @@ public class RankingMain {
         ArgumentParser parser = ArgumentParsers.newFor("RankingMain").build()
                 .defaultHelp(true)
                 .description("Loads and index and answers queries, the results are stored in a file");
-        MutuallyExclusiveGroup group = parser.addMutuallyExclusiveGroup();
-        group.addArgument("-f","--frequencyOfQueryWords").action(Arguments.storeTrue())
+        MutuallyExclusiveGroup countGroup = parser.addMutuallyExclusiveGroup();
+        countGroup.addArgument("-f","--frequencyOfQueryWords").action(Arguments.storeTrue())
                 .help("Calculates the frequency of the query words in each document");
-        group.addArgument("-w","--wordsInDoc").action(Arguments.storeTrue())
+        countGroup.addArgument("-w","--wordsInDoc").action(Arguments.storeTrue())
                 .help("Calculates how many query words are in the document (Option set by omission)");
         parser.addArgument("queryFile")
                 .help("The path to the file that contains the queries");
@@ -91,20 +96,27 @@ public class RankingMain {
                 .help("(Optional) The name of the file that will store the results");
         parser.addArgument("-th","--threshold").setDefault(THRESHOLDDEFAULTVALUE)
                 .help("(Optional) The minimum value of the results");
-        parser.addArgument("-rvf","--relevanceFile")
+        parser.addArgument("-rvf","--relevanceFile").setDefault(RELEVANCESCOREFILE)
                 .help("(Optional) The path to the file that contains the relevance feedback scores");
         parser.addArgument("-rvs","--relevanceScore")
                 .choices("1", "2","3","4").setDefault("4")
                 .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
-        /*parser.addArgument("-cL","--corpusLocation").setDefault(CORPUSLOCATION)
-                .help("(Optional) The path to the corpus location");*/
+        parser.addArgument("-cem","--calculateEfficiencyMetrics")
+                .action(Arguments.storeTrue())
+                .help("Use this flag to calculate the system efficiency metrics");
         parser.addArgument("-di","--documentIndexFile").setDefault(DOCUMENTINDEXFILE)
-                .help("(Optional)The name of the file where the index will be written in to");
+                .help("(Optional)The name of the file where the document index will be written in to");
+        MutuallyExclusiveGroup feedBackGroup = parser.addMutuallyExclusiveGroup();
+        feedBackGroup.addArgument("-ex","--explicitFeedBack").action(Arguments.storeTrue())
+                .help("Update query results based on a explicit feedback");
+        feedBackGroup.addArgument("-im","--implicitFeedBack").action(Arguments.storeTrue())
+                .help("Update query results based on implicit feedback");
 
 
         Namespace ns = null;
         try {
-            ns = parser.parseArgs(args);        
+            ns = parser.parseArgs(args);
+            System.out.println(ns);
         }
         catch (HelpScreenException e){
             System.exit(1);
@@ -118,17 +130,37 @@ public class RankingMain {
     }
 
 
-    private static SearchEngineBuilder getBuilder(Namespace ns, InvertedIndex idx, Tokenizer tokenizer, double threshold){
+    private static SearchEngineBuilder getCountBuilder(Namespace ns, InvertedIndex idx, Tokenizer tokenizer, double threshold){
         if(ns.getBoolean("frequencyOfQueryWords"))
             return new FreqQueryWordsBuilder(idx, tokenizer, threshold);
         else
             return new WordsInDocBuilder(idx, tokenizer, threshold);
     }
 
-    private static Evaluator checkEvaluatorParameter(Namespace ns, List<Query> queries){
-        String relevanceFile  = ns.getString("relevanceFile");
-        if(relevanceFile != null)
-            return new Evaluator(relevanceFile, queries, new EfficiencyMetricsFileWriter("relevanceResults"));
+    private static SearchEngineBuilder getFeedBackBuilder(Namespace ns, InvertedIndex idx
+                                                          , QueryIndex queryIndex, File documentIndexFile,
+                                                          IndexReader indexReader, RelevanceIndex relevanceIndex,
+                                                          double threshold){
+
+        if(ns.getBoolean("explicitFeedBack")){
+            DocumentIndex docIndex = new DocumentIndex();
+            indexReader.parseDocumentIndexFromFile(documentIndexFile, docIndex);
+            return new ExplicitFeedBackEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold,
+                    relevanceIndex);
+        }
+
+        if(ns.getBoolean("implicitFeedBack")){
+            DocumentIndex docIndex = new DocumentIndex();
+            indexReader.parseDocumentIndexFromFile(documentIndexFile, docIndex);
+            return new ImplicitFeedBackEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold);
+        }
+        return new NormalizedSearchEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, threshold);
+    }
+
+    private static MetricEvaluator checkEvaluatorParameter(Namespace ns, RelevanceIndex relevanceIndex,List<Query> queries, String relevanceFile){
+
+        if(ns.getBoolean("calculateEfficiencyMetrics"))
+            return new MetricEvaluator(relevanceFile, queries, relevanceIndex,new EfficiencyMetricsFileWriter("relevanceResults"));
         return null;
     }
 

@@ -46,4 +46,6 @@ public class Constants {
     public static final String CORPUSLOCATION = "cranfield";
 
     public static final String DOCUMENTINDEXFILE = "docIndexFile";
+
+    public static final String RELEVANCESCOREFILE = "cranfield.query.relevance.txt";
 }

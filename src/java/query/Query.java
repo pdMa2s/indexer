@@ -21,6 +21,7 @@ public class Query {
     private double reciprocalRank;
     private double processingTime;
     private double fMeasure;
+    private double NDCG;
 
 
     /**
@@ -65,6 +66,14 @@ public class Query {
 
     public void setQueryPrecisionAtRank10(double queryPrecisionAtRank10) {
         this.queryPrecisionAtRank10 = queryPrecisionAtRank10;
+    }
+
+    public double getNDCG() {
+        return NDCG;
+    }
+
+    public void setNDCG(double NDCG) {
+        this.NDCG = NDCG;
     }
 
     /**
@@ -116,7 +125,7 @@ public class Query {
         return results;
     }
 
-    public Map<Integer, Double> getTop10Results(){
+    public Map<Integer, Double> getTop10SortedResults(){
         Map<Integer, Double> top10 = new TreeMap<>();
         Map<Integer, Double> sorted = getSortedResults();
         for(Map.Entry<Integer, Double> entry : sorted.entrySet()){

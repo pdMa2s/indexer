@@ -6,21 +6,21 @@ import src.java.query.ColumnResultWriter;
 import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
-import src.java.relevancefeedback.GoldStandardRelevance;
+import src.java.relevancefeedback.GoldStandardFeedBack;
 import src.java.relevancefeedback.RelevanceFileReader;
 import src.java.relevancefeedback.RelevanceIndex;
 import src.java.relevancefeedback.RevelevanceReader;
 import src.java.tokenizer.Tokenizer;
 
-public class ExplicitFeedBackSearchEngineBuilder extends SearchEngineBuilder{
-
+public class ExplicitFeedBackEngineBuilder extends SearchEngineBuilder{
     private RelevanceIndex relevanceIndex;
     /**
      *{@inheritDoc}
      */
-    public ExplicitFeedBackSearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex,
-                                               DocumentIndex documentIndex,double threshold) {
+    public ExplicitFeedBackEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex,
+                                         DocumentIndex documentIndex, double threshold, RelevanceIndex relevanceIndex) {
         super(invertedIndex, tokenizer, queryIndex, documentIndex,threshold);
+        this.relevanceIndex = relevanceIndex;
     }
     /**
      *{@inheritDoc}
@@ -88,8 +88,6 @@ public class ExplicitFeedBackSearchEngineBuilder extends SearchEngineBuilder{
 
     @Override
     public void buildRelevanceQueryUpdater() {
-        RelevanceFileReader relevanceFileReader = new RevelevanceReader();
-        relevanceIndex = relevanceFileReader.parseRelevanceFile("cranfield.query.relevance.txt");
-        searchEngine.setUpdater(new GoldStandardRelevance(relevanceIndex));
+        searchEngine.setUpdater(new GoldStandardFeedBack(relevanceIndex));
     }
 }

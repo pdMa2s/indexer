@@ -7,10 +7,11 @@ import src.java.query.QueryIndex;
 
 import java.util.Map;
 
-public class GoldStandardRelevance implements RelevanceQueryUpdater {
+public class GoldStandardFeedBack implements RelevanceQueryUpdater {
 
     private RelevanceIndex relevanceIndex;
-    public GoldStandardRelevance(RelevanceIndex relevanceIndex ) {
+    private int topScores = 5;
+    public GoldStandardFeedBack(RelevanceIndex relevanceIndex ) {
         this.relevanceIndex = relevanceIndex;
     }
 
@@ -22,24 +23,21 @@ public class GoldStandardRelevance implements RelevanceQueryUpdater {
             int nrIrrelevantDocs = 0;
             Vector positiveScore = new Vector();
             Vector negativeScore = new Vector();
-            Map<Integer, Double> queryTop10Results = query.getTop10Results();
+            Map<Integer, Double> queryTop10Results = query.getTop10SortedResults();
 
             for(int resultDocId : queryTop10Results.keySet()){
                 Integer docRelevanceScore = relevanceIndex.getRelevanceScore(query.getId(), resultDocId);
-                /*System.out.println(resultDocId);
-                System.out.println(docRelevanceScore);
-                System.exit(69);*/
                 if(docRelevanceScore != null){
                     positiveScore = Vector.scalarProduct(beta(docRelevanceScore) ,
                             Vector.sumVectors(positiveScore, docIndex.getVector(resultDocId)));
                     nrRelevantDocs++;
-                    //System.out.println(positiveScore);
+
                 }
                 else{
                     negativeScore = Vector.scalarProduct(sigma() ,
                             Vector.sumVectors(negativeScore, docIndex.getVector(resultDocId)));
                     nrIrrelevantDocs++;
-                    //System.out.println(negativeScore);
+
                 }
             }
 
@@ -49,18 +47,11 @@ public class GoldStandardRelevance implements RelevanceQueryUpdater {
                 negativeScore = Vector.scalarProduct(((1/(double)nrIrrelevantDocs)), negativeScore);
 
             newQueryVector = Vector.scalarProduct(alpha(),queryIndex.getVector(query.getId()));
-            //System.out.println("query " + newQueryVector);
-            System.out.println("positive " + positiveScore);
-            System.out.println("negative " + negativeScore);
-            System.out.println("sub " + Vector.subtractVectors(positiveScore , negativeScore));
-            newQueryVector = Vector.sumVectors(newQueryVector , Vector.subtractVectors(positiveScore , negativeScore));
+            newQueryVector = Vector.sumVectors(newQueryVector,
+                    Vector.subtractVectors(positiveScore , negativeScore).topScores(topScores));
             queryIndex.putQueryVector(query.getId(), newQueryVector);
-
-            //System.out.println(queryIndex.getVector(query.getId()));
-            //System.exit(69);
         }
     }
-
 
     private double alpha(){
         return 1;
