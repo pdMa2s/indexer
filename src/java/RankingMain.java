@@ -20,8 +20,10 @@ import src.java.relevancefeedback.RelevanceIndex;
 import src.java.relevancefeedback.RevelevanceReader;
 import src.java.searchengine.*;
 import src.java.tokenizer.Tokenizer;
+import src.java.word2vec.QueryExpansionWord2Vec;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import static src.java.constants.Constants.*;
@@ -52,6 +54,11 @@ public class RankingMain {
         RelevanceIndex relevanceIndex = relevanceFileReader.parseRelevanceFile(relevanceScoreFile);
 
         if(scoringSystem.equals(NORMALIZED)){
+            try {
+                QueryExpansionWord2Vec queryExpansionWord2Vec = new QueryExpansionWord2Vec("fullCorpusContent.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             int corpusSize = idr.getCorpusSize();
             queryIndex = new QueryIndex(corpusSize);
             searchEngineBuilder = getFeedBackBuilder(parsedArgs, invertedIndex, queryIndex,
@@ -106,6 +113,9 @@ public class RankingMain {
                 .help("Use this flag to calculate the system efficiency metrics");
         parser.addArgument("-di","--documentIndexFile").setDefault(DOCUMENTINDEXFILE)
                 .help("(Optional)The name of the file where the document index will be written in to");
+        parser.addArgument("-qe","--queryExpansion").action(Arguments.storeTrue())
+                .help("(Optional)Use this flag to allow query expansion");
+
         MutuallyExclusiveGroup feedBackGroup = parser.addMutuallyExclusiveGroup();
         feedBackGroup.addArgument("-ex","--explicitFeedBack").action(Arguments.storeTrue())
                 .help("Update query results based on a explicit feedback");

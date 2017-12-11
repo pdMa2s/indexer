@@ -17,8 +17,9 @@ import java.util.Map;
  * @since 10-16-2017
  * @see <a href="https://pt.wikipedia.org/wiki/Comma-separated_values">CSV</a>
  */
-public class CSVIndexWriter implements IndexWriter{
+public class CSVIndexWriter implements IndexWriter {
     private String delimiter = ":";
+
     /**
      * {@inheritDoc}
      */
@@ -37,38 +38,51 @@ public class CSVIndexWriter implements IndexWriter{
 
     }
 
-    public void saveDocumentIndexToFile(String documentIndexFile, DocumentIndex docIndex){
+    @Override
+    public void saveDocumentIndexToFile(String documentIndexFile, DocumentIndex docIndex) {
         PrintWriter writer = null;
-        try{
+        try {
             writer = new PrintWriter(documentIndexFile, "UTF-8");
-        } catch(UnsupportedEncodingException | FileNotFoundException e) {
+        } catch (UnsupportedEncodingException | FileNotFoundException e) {
             System.err.println("ERROR: Writing documentIndex to file");
             System.exit(4);
         }
-        for(Integer docID: docIndex.getDocIds()){
+        for (Integer docID : docIndex.getDocIds()) {
             writer.print(docID);
             Vector tempVector = docIndex.getVector(docID);
-            for(String term : tempVector.getTerms()){
-                writer.print(","+term + delimiter + tempVector.getScore(term));
+            for (String term : tempVector.getTerms()) {
+                writer.print("," + term + delimiter + tempVector.getScore(term));
             }
             writer.print("\n");
         }
         writer.close();
     }
 
-    private void writeHeader(PrintWriter writer, String tokenizerType, int corpusSize, String scoringSystem){
-        writer.println(scoringSystem+ delimiter +tokenizerType + delimiter + corpusSize);
+    private void writeHeader(PrintWriter writer, String tokenizerType, int corpusSize, String scoringSystem) {
+        writer.println(scoringSystem + delimiter + tokenizerType + delimiter + corpusSize);
     }
 
-    private void writeTerms(PrintWriter writer, InvertedIndex index){
-        for(String term: index.getTerms()){
+    private void writeTerms(PrintWriter writer, InvertedIndex index) {
+        for (String term : index.getTerms()) {
             writer.print(term);
-            for(Posting post : index.getPostings(term)){
-                writer.print(","+post.getDocID() + delimiter + post.getWeight());
+            for (Posting post : index.getPostings(term)) {
+                writer.print("," + post.getDocID() + delimiter + post.getWeight());
             }
             writer.print("\n");
         }
         writer.close();
     }
 
+    public void saveFileWithFullContent(String fullContent) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("fullCorpusContent.txt", "UTF-8");
+        } catch (UnsupportedEncodingException | FileNotFoundException e) {
+            System.err.println("ERROR: Writing fullCorpusContent to file");
+            System.exit(5);
+        }
+        writer.print(fullContent);
+        writer.close();
+
+    }
 }

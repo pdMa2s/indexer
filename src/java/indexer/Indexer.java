@@ -29,9 +29,11 @@ public class Indexer {
     private InvertedIndex index;
     private Normalizer normalizer;
     private DocumentIndex documentIndex;
+    private StringBuilder corpusFullCOntent;
 
 
     public InvertedIndex createIndex() {
+        corpusFullCOntent = new StringBuilder();
         if(normalizer == null)
             return createFrequencyIndex();
         else
@@ -60,11 +62,21 @@ public class Indexer {
         while (corpusReader.hasDocument()) {
             String docContent = corpusReader.processDocument();
             List<String> tokens = tokenizer.tokenize(docContent);
+            corpusFullCOntent.append(getCleanedString(tokens));
             fillIndexWithNormalizedTerms(index, tokens, corpusReader.getDocumentID());
         }
         return index;
     }
-
+    public String getCleanedString(List<String> tokens){
+        StringBuilder tokensText = new StringBuilder();
+        for(String token:tokens){
+            tokensText.append(token).append(" ");
+        }
+        return tokensText.toString();
+    }
+    public String getCorpusFullContent() {
+        return corpusFullCOntent.toString();
+    }
     /**
      * Gives access to the {@link InvertedIndex} that was created.
      * @return The invertedIndex that was created.

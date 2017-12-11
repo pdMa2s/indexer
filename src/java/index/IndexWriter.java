@@ -25,4 +25,6 @@ public interface IndexWriter {
     void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType, int corpusSize, String scoringSystem);
 
     void saveDocumentIndexToFile(String documentIndexFile, DocumentIndex docIndex);
+
+    void saveFileWithFullContent(String fullContent);
     }

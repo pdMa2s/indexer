@@ -11,8 +11,6 @@ import src.java.index.IndexWriter;
 import src.java.indexer.*;
 import src.java.query.DocumentIndex;
 
-import java.io.File;
-
 import static src.java.constants.Constants.*;
 
 public class IndexerMain {
@@ -40,10 +38,16 @@ public class IndexerMain {
         index = indexer.createIndex();
         writer.saveIndexToFile(indexFile, index, builder.getTokenizerType(), indexer.getCorpusSize(),
                 scoringSystem);
-        if(scoringSystem.equals(NORMALIZED))
+        if(scoringSystem.equals(NORMALIZED)){
             writer.saveDocumentIndexToFile(docIndexFile, docIndex);
+            writer.saveFileWithFullContent(indexer.getCorpusFullContent());
+        }
+
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
+
+
+
 
         System.out.println("Indexing time: "+elapsedTime+"ms");
         //System.out.println(invertedIndex);
