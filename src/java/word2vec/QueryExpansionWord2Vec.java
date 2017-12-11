@@ -11,8 +11,8 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFac
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.deeplearning4j.ui.api.UIServer;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
@@ -21,7 +21,8 @@ public class QueryExpansionWord2Vec {
 
     public QueryExpansionWord2Vec(String fullContentFile) throws IOException {
 
-        String filePath = new ClassPathResource(fullContentFile).getFile().getAbsolutePath();
+        File file = new File(fullContentFile);
+        String filePath = file.getAbsolutePath();
 
         log.info("Building model....");
         // Strip white space before and after for each line
@@ -47,10 +48,10 @@ public class QueryExpansionWord2Vec {
         log.info("Writing word vectors to text file....");
         //10 palavras mais perto
         log.info("Closest Words:");
-        Collection<String> lst = vec.wordsNearest("potenti", 10);
-        System.out.println(lst);
-        UiServer server = UiServer.getInstance();
-        System.out.println("Started on port " + server.getPort());
+        //Collection<String> lst = vec.wordsNearest("potenti", 10);
+        System.out.println(vec.wordsNearest("potenti", 10));
+        System.out.println(vec.wordsNearest("continu", 10));
+        System.out.println(vec.wordsNearest("exact", 10));
     }
 
 }
