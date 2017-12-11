@@ -5,6 +5,7 @@ import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
 
+import java.util.List;
 import java.util.Map;
 
 public class ImplicitFeedBack implements RelevanceQueryUpdater {
@@ -33,6 +34,12 @@ public class ImplicitFeedBack implements RelevanceQueryUpdater {
 
         }
     }
+
+    @Override
+    public void updateQueries(List<Query> queries) {
+
+    }
+
     private double alpha(){
         return 1;
     }

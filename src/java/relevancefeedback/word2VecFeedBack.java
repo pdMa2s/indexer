@@ -15,9 +15,9 @@ public class word2VecFeedBack implements RelevanceQueryUpdater{
     public word2VecFeedBack(QueryExpansionWord2Vec w2v){
         this.w2v = w2v;
     }
+
     @Override
-    public void updateQueries(QueryIndex queryIndex, DocumentIndex docIndex) {
-        List<Query> queries = queryIndex.getQueries();
+    public void updateQueries(List<Query> queries) {
         for(Query query : queries){
             List<String> terms = query.getTerms();
             for(String term : terms){
@@ -27,5 +27,10 @@ public class word2VecFeedBack implements RelevanceQueryUpdater{
                 }
             }
         }
+    }
+
+    @Override
+    public void updateQueries(QueryIndex queryIndex, DocumentIndex docIndex) {
+
     }
 }

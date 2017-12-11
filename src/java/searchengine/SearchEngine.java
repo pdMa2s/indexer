@@ -29,6 +29,7 @@ public class SearchEngine {
     private Normalizer normalizer;
     private double threshold;
     private RelevanceQueryUpdater updater;
+    private boolean w2v = false;
 
     /**
      * This method has the same purpose the {@link QueryProcessor#processQueries(List, InvertedIndex, double)}
@@ -37,10 +38,14 @@ public class SearchEngine {
      * @return A {@link List} of {@link Query} objects that contains the results for them selves
      */
     public List<Query> processQueries(File queryFile, InvertedIndex idx){
-        if(normalizer == null)
-            return processFrequencyQueries(queryFile, idx);
+        if(normalizer != null){
+            if(w2v == false)
+                return processNormalizedQueries(queryFile, idx);
+            else
+                return processNormalizedQueriesWithW2v(queryFile,idx);
+        }
         else
-            return processNormalizedQueries(queryFile, idx);
+            return processFrequencyQueries(queryFile, idx);
     }
 
     private List<Query> processFrequencyQueries(File queryFile, InvertedIndex idx){
@@ -58,6 +63,15 @@ public class SearchEngine {
             updater.updateQueries(queryIndex, documentIndex);
             queryProcessor.processQueries(queries, idx, threshold);
         }
+        return queries;
+    }
+    private List<Query> processNormalizedQueriesWithW2v(File queryFile, InvertedIndex idx){
+        queries = queryReader.loadQueries(queryFile, tokenizer);
+        updater.updateQueries(queries);
+        queryIndex.addQueries(queries);
+        queryIndex.applyTFAndIDFtoQueries(invertedIndex);
+        normalizer.normalize(queryIndex);
+        queryProcessor.processQueries(queries, idx, threshold);
         return queries;
     }
 
@@ -131,6 +145,10 @@ public class SearchEngine {
      */
     public void setNormalizer(Normalizer normalizer) {
         this.normalizer = normalizer;
+    }
+
+    public void setW2vTrue(){
+        w2v = true;
     }
 
     /**

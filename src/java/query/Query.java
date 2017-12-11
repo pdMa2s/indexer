@@ -146,8 +146,7 @@ public class Query {
     }
 
     public void addTerm(String term){
-        if(!terms.contains(term))
-            terms.add(term);
+        terms.add(term);
     }
 
     class ValueComparator implements Comparator<Integer> {

@@ -5,6 +5,7 @@ import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
 
+import java.util.List;
 import java.util.Map;
 
 public class GoldStandardFeedBack implements RelevanceQueryUpdater {
@@ -51,6 +52,11 @@ public class GoldStandardFeedBack implements RelevanceQueryUpdater {
                     Vector.subtractVectors(positiveScore , negativeScore).topScores(topScores));
             queryIndex.putQueryVector(query.getId(), newQueryVector);
         }
+    }
+
+    @Override
+    public void updateQueries(List<Query> queries) {
+
     }
 
     private double alpha(){
