@@ -18,6 +18,7 @@ import src.java.query.QueryIndex;
 import src.java.relevancefeedback.RelevanceFileReader;
 import src.java.relevancefeedback.RelevanceIndex;
 import src.java.relevancefeedback.RevelevanceReader;
+import src.java.relevancefeedback.word2VecFeedBack;
 import src.java.searchengine.*;
 import src.java.tokenizer.Tokenizer;
 import src.java.word2vec.QueryExpansionWord2Vec;
@@ -34,6 +35,7 @@ public class RankingMain {
         File indexFile = new File(parsedArgs.getString("indexFile"));
         File queryFile = new File(parsedArgs.getString("queryFile"));
         File docIndexFile = new File(parsedArgs.getString("documentIndexFile"));
+        QueryExpansionWord2Vec queryExpansionWord2Vec = null;
 
         String rankingResultsFile = parsedArgs.getString("resultFile");
 
@@ -55,14 +57,14 @@ public class RankingMain {
 
         if(scoringSystem.equals(NORMALIZED)){
             try {
-                QueryExpansionWord2Vec queryExpansionWord2Vec = new QueryExpansionWord2Vec("fullCorpusContent.txt");
+                 queryExpansionWord2Vec = new QueryExpansionWord2Vec("fullCorpusContent.txt");
             } catch (IOException e) {
                 e.printStackTrace();
             }
             int corpusSize = idr.getCorpusSize();
             queryIndex = new QueryIndex(corpusSize);
             searchEngineBuilder = getFeedBackBuilder(parsedArgs, invertedIndex, queryIndex,
-                     docIndexFile, idr, relevanceIndex,threshold);
+                     docIndexFile, idr, relevanceIndex,threshold, queryExpansionWord2Vec);
         }
         else{
             searchEngineBuilder = getCountBuilder(parsedArgs, invertedIndex, idr.getTokenizer(), threshold);
@@ -83,7 +85,6 @@ public class RankingMain {
             int relevanceScore = Integer.parseInt(parsedArgs.getString("relevanceScore"));
             evaluator.calculateSystemMeasures(relevanceScore);
         }
-
     }
 
     private static Namespace parseParameters(String[] args){
@@ -121,6 +122,8 @@ public class RankingMain {
                 .help("Update query results based on a explicit feedback");
         feedBackGroup.addArgument("-im","--implicitFeedBack").action(Arguments.storeTrue())
                 .help("Update query results based on implicit feedback");
+        feedBackGroup.addArgument("-w2v","--word2VecFeedBack").action(Arguments.storeTrue())
+                .help("Update query results based on word2Vec feedback");
 
 
         Namespace ns = null;
@@ -150,7 +153,7 @@ public class RankingMain {
     private static SearchEngineBuilder getFeedBackBuilder(Namespace ns, InvertedIndex idx
                                                           , QueryIndex queryIndex, File documentIndexFile,
                                                           IndexReader indexReader, RelevanceIndex relevanceIndex,
-                                                          double threshold){
+                                                          double threshold, QueryExpansionWord2Vec w2v){
 
         if(ns.getBoolean("explicitFeedBack")){
             DocumentIndex docIndex = new DocumentIndex();
@@ -163,6 +166,12 @@ public class RankingMain {
             DocumentIndex docIndex = new DocumentIndex();
             indexReader.parseDocumentIndexFromFile(documentIndexFile, docIndex);
             return new ImplicitFeedBackEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold);
+        }
+
+        if(ns.getBoolean("word2VecFeedBack")){
+            DocumentIndex docIndex = new DocumentIndex();
+            indexReader.parseDocumentIndexFromFile(documentIndexFile, docIndex);
+            return new word2VecFeedBackEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold, w2v);
         }
         return new NormalizedSearchEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, threshold);
     }

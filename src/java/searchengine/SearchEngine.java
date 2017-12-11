@@ -57,7 +57,6 @@ public class SearchEngine {
         if(updater != null){
             updater.updateQueries(queryIndex, documentIndex);
             queryProcessor.processQueries(queries, idx, threshold);
-
         }
         return queries;
     }

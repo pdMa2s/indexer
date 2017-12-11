@@ -18,6 +18,7 @@ import java.util.Collection;
 
 public class QueryExpansionWord2Vec {
     private static Logger log = LoggerFactory.getLogger(QueryExpansionWord2Vec.class);
+    private Word2Vec vec;
 
     public QueryExpansionWord2Vec(String fullContentFile) throws IOException {
 
@@ -32,7 +33,7 @@ public class QueryExpansionWord2Vec {
         t.setTokenPreProcessor(new CommonPreprocessor());
 
         log.info("Building model....");
-        Word2Vec vec = new Word2Vec.Builder()
+        this.vec = new Word2Vec.Builder()
                 .minWordFrequency(5)
                 .iterations(1)
                 .layerSize(100)
@@ -49,9 +50,12 @@ public class QueryExpansionWord2Vec {
         //10 palavras mais perto
         log.info("Closest Words:");
         //Collection<String> lst = vec.wordsNearest("potenti", 10);
-        System.out.println(vec.wordsNearest("potenti", 10));
-        System.out.println(vec.wordsNearest("continu", 10));
-        System.out.println(vec.wordsNearest("exact", 10));
+        //System.out.println(vec.wordsNearest("potenti", 10));
+        //System.out.println(vec.wordsNearest("continu", 10));
+        //System.out.println(vec.wordsNearest("exact", 10));
     }
 
+    public Collection<String> getSimilarWords(String word){
+        return vec.wordsNearest(word, 3);
+    }
 }

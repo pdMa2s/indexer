@@ -7,6 +7,7 @@ import src.java.query.QueryIndex;
 import src.java.query.QueryReader;
 import src.java.query.QueryResultWriter;
 import src.java.tokenizer.Tokenizer;
+import src.java.word2vec.QueryExpansionWord2Vec;
 
 /**
  * This abstract class serves as a starting point for the an implementation of the builder pattern with the
@@ -25,6 +26,7 @@ public abstract class SearchEngineBuilder {
     protected QueryIndex queryIndex;
     protected DocumentIndex documentIndex;
     protected double threshold;
+    protected QueryExpansionWord2Vec w2v;
 
     /**
      * A super constructor for all the class that will derive this class.
@@ -40,6 +42,16 @@ public abstract class SearchEngineBuilder {
         this.queryIndex = queryIndex;
         this.threshold = threshold;
         this.documentIndex = documentIndex;
+    }
+
+    public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
+                               QueryIndex queryIndex, DocumentIndex documentIndex, double threshold, QueryExpansionWord2Vec w2v) {
+        this.invertedIndex = invertedIndex;
+        this.tokenizer = tokenizer;
+        this.queryIndex = queryIndex;
+        this.threshold = threshold;
+        this.documentIndex = documentIndex;
+        this.w2v = w2v;
     }
 
     /**

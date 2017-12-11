@@ -144,6 +144,12 @@ public class Query {
         sortedMap.putAll(results);
         return sortedMap;
     }
+
+    public void addTerm(String term){
+        if(!terms.contains(term))
+            terms.add(term);
+    }
+
     class ValueComparator implements Comparator<Integer> {
         Map<Integer, Double> base;
 
