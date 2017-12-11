@@ -2,7 +2,6 @@ package src.java.word2vec;
 
 
 
-import org.datavec.api.util.ClassPathResource;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import org.deeplearning4j.text.sentenceiterator.BasicLineIterator;
 import org.deeplearning4j.text.sentenceiterator.SentenceIterator;

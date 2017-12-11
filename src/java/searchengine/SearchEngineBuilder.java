@@ -52,7 +52,6 @@ public abstract class SearchEngineBuilder {
         this.threshold = threshold;
         this.documentIndex = documentIndex;
         this.w2v = w2v;
-        searchEngine.setW2vTrue();
     }
 
     /**

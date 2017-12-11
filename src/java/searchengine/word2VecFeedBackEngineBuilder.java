@@ -14,7 +14,8 @@ import src.java.word2vec.QueryExpansionWord2Vec;
 public class word2VecFeedBackEngineBuilder extends SearchEngineBuilder {
 
     public word2VecFeedBackEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
-                                         QueryIndex queryIndex, DocumentIndex documentIndex, double threshold, QueryExpansionWord2Vec w2v){
+                                         QueryIndex queryIndex, DocumentIndex documentIndex,
+                                         double threshold, QueryExpansionWord2Vec w2v){
         super(invertedIndex, tokenizer, queryIndex, documentIndex, threshold, w2v);
     }
 
@@ -83,5 +84,6 @@ public class word2VecFeedBackEngineBuilder extends SearchEngineBuilder {
     @Override
     public void buildRelevanceQueryUpdater() {
         searchEngine.setUpdater(new word2VecFeedBack(w2v));
+        searchEngine.setW2vTrue();
     }
 }

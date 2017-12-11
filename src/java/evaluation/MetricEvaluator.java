@@ -84,8 +84,6 @@ public class MetricEvaluator {
         double realNdcg = 0;
         double optNdcg = 0;
 
-        System.out.println(relevanceScores);
-        System.out.println(sortedRelevanceScores);
         for (int i = 0; i < sortedRelevanceScores.size(); i++) {
             if (i == 0) {
                 optNdcg += sortedRelevanceScores.get(i);
@@ -96,8 +94,6 @@ public class MetricEvaluator {
             }
 
         }
-        System.out.println(realNdcg);
-        System.out.println(optNdcg);
         if(optNdcg == 0)
             query.setNDCG(0);
         else
