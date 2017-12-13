@@ -36,12 +36,11 @@ public class IndexerMain {
         indexer = builder.constructIndexer();
         indexer.setDocumentIndex(docIndex);
         index = indexer.createIndex();
+
         writer.saveIndexToFile(indexFile, index, builder.getTokenizerType(), indexer.getCorpusSize(),
                 scoringSystem);
-        if(scoringSystem.equals(NORMALIZED)){
-            writer.saveDocumentIndexToFile(docIndexFile, docIndex);
-            writer.saveFileWithFullContent(indexer.getCorpusFullContent());
-        }
+        writer.saveDocumentIndexToFile(docIndexFile, docIndex);
+        writer.saveFileWithFullContent(indexer.getCorpusFullContent());
 
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;

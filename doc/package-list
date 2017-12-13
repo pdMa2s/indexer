@@ -1,7 +1,7 @@
 src.java
 src.java.constants
 src.java.corpus
-src.java.documentreader
+src.java.corpus.documentreader
 src.java.evaluation
 src.java.index
 src.java.indexer

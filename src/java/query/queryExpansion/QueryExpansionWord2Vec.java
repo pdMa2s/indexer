@@ -1,4 +1,4 @@
-package src.java.word2vec;
+package src.java.query.queryExpansion;
 
 
 
@@ -12,14 +12,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.util.Collection;
 
 public class QueryExpansionWord2Vec {
     private static Logger log = LoggerFactory.getLogger(QueryExpansionWord2Vec.class);
     private Word2Vec vec;
 
-    public QueryExpansionWord2Vec(String fullContentFile) throws IOException {
+    public QueryExpansionWord2Vec(String fullContentFile) throws FileNotFoundException {
 
         File file = new File(fullContentFile);
         String filePath = file.getAbsolutePath();

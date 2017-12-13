@@ -1,15 +1,16 @@
-package src.java.relevancefeedback;
+package src.java.query.relevancefeedback;
 
 import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
-import src.java.word2vec.QueryExpansionWord2Vec;
+import src.java.query.RelevanceQueryUpdater;
+import src.java.query.queryExpansion.QueryExpansionWord2Vec;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class word2VecFeedBack implements RelevanceQueryUpdater{
+public class word2VecFeedBack implements RelevanceQueryUpdater {
 
     private QueryExpansionWord2Vec w2v;
 

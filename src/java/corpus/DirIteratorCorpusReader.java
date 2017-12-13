@@ -1,6 +1,6 @@
 package src.java.corpus;
 
-import src.java.documentreader.DocumentReader;
+import src.java.corpus.documentreader.DocumentReader;
 
 import java.io.File;
 import java.util.Arrays;

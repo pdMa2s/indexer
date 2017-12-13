@@ -1,7 +1,7 @@
 package src.java.evaluation;
 
 import src.java.query.Query;
-import src.java.relevancefeedback.RelevanceIndex;
+import src.java.query.relevancefeedback.RelevanceIndex;
 
 import java.io.*;
 import java.util.*;

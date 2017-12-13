@@ -7,7 +7,7 @@ import src.java.query.QueryIndex;
 import src.java.query.QueryReader;
 import src.java.query.QueryResultWriter;
 import src.java.tokenizer.Tokenizer;
-import src.java.word2vec.QueryExpansionWord2Vec;
+import src.java.query.queryExpansion.QueryExpansionWord2Vec;
 
 /**
  * This abstract class serves as a starting point for the an implementation of the builder pattern with the

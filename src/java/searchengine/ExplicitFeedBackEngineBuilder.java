@@ -6,10 +6,8 @@ import src.java.query.ColumnResultWriter;
 import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
-import src.java.relevancefeedback.GoldStandardFeedBack;
-import src.java.relevancefeedback.RelevanceFileReader;
-import src.java.relevancefeedback.RelevanceIndex;
-import src.java.relevancefeedback.RevelevanceReader;
+import src.java.query.relevancefeedback.GoldStandardFeedBack;
+import src.java.query.relevancefeedback.RelevanceIndex;
 import src.java.tokenizer.Tokenizer;
 
 public class ExplicitFeedBackEngineBuilder extends SearchEngineBuilder{

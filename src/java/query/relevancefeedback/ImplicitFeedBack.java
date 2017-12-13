@@ -1,9 +1,10 @@
-package src.java.relevancefeedback;
+package src.java.query.relevancefeedback;
 
 import src.java.normalizer.Vector;
 import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
+import src.java.query.RelevanceQueryUpdater;
 
 import java.util.List;
 import java.util.Map;

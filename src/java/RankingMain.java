@@ -15,12 +15,12 @@ import src.java.index.InvertedIndex;
 import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
-import src.java.relevancefeedback.RelevanceFileReader;
-import src.java.relevancefeedback.RelevanceIndex;
-import src.java.relevancefeedback.RevelevanceReader;
+import src.java.query.relevancefeedback.RelevanceFileReader;
+import src.java.query.relevancefeedback.RelevanceIndex;
+import src.java.query.relevancefeedback.RevelevanceReader;
 import src.java.searchengine.*;
 import src.java.tokenizer.Tokenizer;
-import src.java.word2vec.QueryExpansionWord2Vec;
+import src.java.query.queryExpansion.QueryExpansionWord2Vec;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +34,6 @@ public class RankingMain {
         File indexFile = new File(parsedArgs.getString("indexFile"));
         File queryFile = new File(parsedArgs.getString("queryFile"));
         File docIndexFile = new File(parsedArgs.getString("documentIndexFile"));
-        QueryExpansionWord2Vec queryExpansionWord2Vec = null;
 
         String rankingResultsFile = parsedArgs.getString("resultFile");
 
@@ -55,15 +54,10 @@ public class RankingMain {
         RelevanceIndex relevanceIndex = relevanceFileReader.parseRelevanceFile(relevanceScoreFile);
 
         if(scoringSystem.equals(NORMALIZED)){
-            try {
-                 queryExpansionWord2Vec = new QueryExpansionWord2Vec("fullCorpusContent.txt");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             int corpusSize = idr.getCorpusSize();
             queryIndex = new QueryIndex(corpusSize);
-            searchEngineBuilder = getFeedBackBuilder(parsedArgs, invertedIndex, queryIndex,
-                     docIndexFile, idr, relevanceIndex,threshold, queryExpansionWord2Vec);
+            searchEngineBuilder = getNormalizedBuilder(parsedArgs, invertedIndex, queryIndex,
+                     docIndexFile, idr, relevanceIndex,threshold);
         }
         else{
             searchEngineBuilder = getCountBuilder(parsedArgs, invertedIndex, idr.getTokenizer(), threshold);
@@ -97,7 +91,7 @@ public class RankingMain {
                 .help("Calculates how many query words are in the document (Option set by omission)");
         parser.addArgument("queryFile")
                 .help("The path to the file that contains the queries");
-        parser.addArgument("-i","--indexFile").setDefault(INDEXDEAFAULTFILENAME)
+        parser.addArgument("-idx","--indexFile").setDefault(INDEXDEAFAULTFILENAME)
                 .help("(Optional) The path to the file were the index is contained");
         parser.addArgument("-r","--resultFile").setDefault("queryResults")
                 .help("(Optional) The name of the file that will store the results");
@@ -113,16 +107,13 @@ public class RankingMain {
                 .help("Use this flag to calculate the system efficiency metrics");
         parser.addArgument("-di","--documentIndexFile").setDefault(DOCUMENTINDEXFILE)
                 .help("(Optional)The name of the file where the document index will be written in to");
-        parser.addArgument("-qe","--queryExpansion").action(Arguments.storeTrue())
-                .help("(Optional)Use this flag to allow query expansion");
-
         MutuallyExclusiveGroup feedBackGroup = parser.addMutuallyExclusiveGroup();
-        feedBackGroup.addArgument("-ex","--explicitFeedBack").action(Arguments.storeTrue())
-                .help("Update query results based on a explicit feedback");
-        feedBackGroup.addArgument("-im","--implicitFeedBack").action(Arguments.storeTrue())
-                .help("Update query results based on implicit feedback");
-        feedBackGroup.addArgument("-w2v","--word2VecFeedBack").action(Arguments.storeTrue())
-                .help("Update query results based on word2Vec feedback");
+        feedBackGroup.addArgument("-exf","--explicitFeedBack").action(Arguments.storeTrue())
+                .help("(Optional)Update query results based on a explicit feedback");
+        feedBackGroup.addArgument("-imf","--implicitFeedBack").action(Arguments.storeTrue())
+                .help("(Optional)Update query results based on implicit feedback");
+        feedBackGroup.addArgument("-qex","--queryExpansion").action(Arguments.storeTrue())
+                .help("(Optional)Update query results based on query expansion");
 
 
         Namespace ns = null;
@@ -149,10 +140,10 @@ public class RankingMain {
             return new WordsInDocBuilder(idx, tokenizer, threshold);
     }
 
-    private static SearchEngineBuilder getFeedBackBuilder(Namespace ns, InvertedIndex idx
+    private static SearchEngineBuilder getNormalizedBuilder(Namespace ns, InvertedIndex idx
                                                           , QueryIndex queryIndex, File documentIndexFile,
-                                                          IndexReader indexReader, RelevanceIndex relevanceIndex,
-                                                          double threshold, QueryExpansionWord2Vec w2v){
+                                                            IndexReader indexReader, RelevanceIndex relevanceIndex,
+                                                            double threshold){
 
         if(ns.getBoolean("explicitFeedBack")){
             DocumentIndex docIndex = new DocumentIndex();
@@ -167,10 +158,17 @@ public class RankingMain {
             return new ImplicitFeedBackEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold);
         }
 
-        if(ns.getBoolean("word2VecFeedBack")){
+        if(ns.getBoolean("queryExpansion")){
+            QueryExpansionWord2Vec w2v = null;
+            try {
+                w2v = new QueryExpansionWord2Vec("fullCorpusContent.txt");
+            } catch (IOException e) {
+                printError(4, "ERROR full corpus content file not found");
+            }
+
             DocumentIndex docIndex = new DocumentIndex();
             indexReader.parseDocumentIndexFromFile(documentIndexFile, docIndex);
-            return new word2VecFeedBackEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold, w2v);
+            return new QueryExpansionEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold, w2v);
         }
         return new NormalizedSearchEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, threshold);
     }
@@ -180,6 +178,11 @@ public class RankingMain {
         if(ns.getBoolean("calculateEfficiencyMetrics"))
             return new MetricEvaluator(relevanceFile, queries, relevanceIndex,new EfficiencyMetricsFileWriter("relevanceResults"));
         return null;
+    }
+
+    private static void printError(int errorCode, String message){
+        System.err.println(message);
+        System.exit(errorCode);
     }
 
 }

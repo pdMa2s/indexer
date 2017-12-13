@@ -3,7 +3,7 @@ package src.java.searchengine;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
 import src.java.query.*;
-import src.java.relevancefeedback.RelevanceQueryUpdater;
+import src.java.query.RelevanceQueryUpdater;
 import src.java.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
@@ -42,7 +42,7 @@ public class SearchEngine {
             if(w2v == false)
                 return processNormalizedQueries(queryFile, idx);
             else
-                return processNormalizedQueriesWithW2v(queryFile,idx);
+                return processNormalizedQueriesWithQueryExpansion(queryFile,idx);
         }
         else
             return processFrequencyQueries(queryFile, idx);
@@ -65,7 +65,7 @@ public class SearchEngine {
         }
         return queries;
     }
-    private List<Query> processNormalizedQueriesWithW2v(File queryFile, InvertedIndex idx){
+    private List<Query> processNormalizedQueriesWithQueryExpansion(File queryFile, InvertedIndex idx){
         queries = queryReader.loadQueries(queryFile, tokenizer);
         updater.updateQueries(queries);
         queryIndex.addQueries(queries);

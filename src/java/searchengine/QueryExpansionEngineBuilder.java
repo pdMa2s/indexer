@@ -6,16 +6,15 @@ import src.java.query.ColumnResultWriter;
 import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
-import src.java.relevancefeedback.ImplicitFeedBack;
-import src.java.relevancefeedback.word2VecFeedBack;
+import src.java.query.relevancefeedback.word2VecFeedBack;
 import src.java.tokenizer.Tokenizer;
-import src.java.word2vec.QueryExpansionWord2Vec;
+import src.java.query.queryExpansion.QueryExpansionWord2Vec;
 
-public class word2VecFeedBackEngineBuilder extends SearchEngineBuilder {
+public class QueryExpansionEngineBuilder extends SearchEngineBuilder {
 
-    public word2VecFeedBackEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
-                                         QueryIndex queryIndex, DocumentIndex documentIndex,
-                                         double threshold, QueryExpansionWord2Vec w2v){
+    public QueryExpansionEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
+                                       QueryIndex queryIndex, DocumentIndex documentIndex,
+                                       double threshold, QueryExpansionWord2Vec w2v){
         super(invertedIndex, tokenizer, queryIndex, documentIndex, threshold, w2v);
     }
 

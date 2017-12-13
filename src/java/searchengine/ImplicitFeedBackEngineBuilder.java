@@ -6,7 +6,7 @@ import src.java.query.ColumnResultWriter;
 import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
-import src.java.relevancefeedback.*;
+import src.java.query.relevancefeedback.*;
 import src.java.tokenizer.Tokenizer;
 
 public class ImplicitFeedBackEngineBuilder extends SearchEngineBuilder {

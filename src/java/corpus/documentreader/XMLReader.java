@@ -1,4 +1,4 @@
-package src.java.documentreader;
+package src.java.corpus.documentreader;
 
 import org.xml.sax.SAXException;
 import src.java.query.Query;

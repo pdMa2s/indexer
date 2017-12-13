@@ -1,8 +1,4 @@
-package src.java.relevancefeedback;
-
-import src.java.query.DocumentIndex;
-import src.java.query.Query;
-import src.java.query.QueryIndex;
+package src.java.query;
 
 import java.util.List;
 

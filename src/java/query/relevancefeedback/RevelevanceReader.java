@@ -1,4 +1,4 @@
-package src.java.relevancefeedback;
+package src.java.query.relevancefeedback;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

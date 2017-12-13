@@ -2,8 +2,8 @@ package src.java.indexer;
 
 import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
-import src.java.documentreader.XMLDocumentHandler;
-import src.java.documentreader.XMLReader;
+import src.java.corpus.documentreader.XMLDocumentHandler;
+import src.java.corpus.documentreader.XMLReader;
 import src.java.tokenizer.ComplexTokenizer;
 import src.java.tokenizer.Tokenizer;
 import org.xml.sax.SAXException;
