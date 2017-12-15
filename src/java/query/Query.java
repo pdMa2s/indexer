@@ -40,38 +40,94 @@ public class Query {
      */
     public void clearResults() { results.clear(); }
 
+    /**
+     *
+     * @param processingTime The time that the query took to be processed
+     */
     public void setProcessingTime(double processingTime){ this.processingTime = processingTime; }
 
+    /**
+     *
+     * @return The processing time of the query
+     */
     public double getProcessingTime(){ return processingTime; }
 
-    public double geTfMeasure(){ return fMeasure; }
+    /**
+     *
+     * @return The query f measure
+     */
+    public double getFMeasure(){ return fMeasure; }
 
-    public void seTfMeasure(double fMeasure){ this.fMeasure = fMeasure; }
+    /**
+     *
+     * @param fMeasure The query's f measure
+     */
+    public void setFMeasure(double fMeasure){ this.fMeasure = fMeasure; }
 
+    /**
+     *
+     * @param accuracy The recall of the query
+     */
     public void setQueryRecall(double accuracy){ this.queryRecall = accuracy; }
 
+    /**
+     *
+     * @param reciprocalRank The reciprocal rank of the query
+     */
     public void setReciprocalRank(double reciprocalRank) { this.reciprocalRank = reciprocalRank; }
 
+    /**
+     *
+     * @return The queries reciprocal rank
+     */
     public double getReciprocalRank() { return reciprocalRank; }
 
+    /**
+     *
+     * @param precision The precision of the query
+     */
     public void setQueryPrecision(double precision){ this.queryPrecision = precision; }
 
+    /**
+     *
+     * @return The recall of the query
+     */
     public double getQueryRecall() { return queryRecall; }
 
+    /**
+     *
+     * @return The precision of the query
+     */
     public double getQueryPrecision() { return queryPrecision; }
 
+    /**
+     *
+     * @return The precision at rank 10
+     */
     public double getQueryPrecisionAtRank10() {
         return queryPrecisionAtRank10;
     }
 
+    /**
+     *
+     * @param queryPrecisionAtRank10 The precision of the query at rank 10
+     */
     public void setQueryPrecisionAtRank10(double queryPrecisionAtRank10) {
         this.queryPrecisionAtRank10 = queryPrecisionAtRank10;
     }
 
+    /**
+     *
+     * @return The NDCG of the query
+     */
     public double getNDCG() {
         return NDCG;
     }
 
+    /**
+     *
+     * @param NDCG The NDCG of the query
+     */
     public void setNDCG(double NDCG) {
         this.NDCG = NDCG;
     }
@@ -92,6 +148,11 @@ public class Query {
     public void addScore(int docId, double score){
         results.put(docId, score);
     }
+
+    /**
+     *
+     * @param results A {@link Map} object that contains the results for each term
+     */
     public void setResults(Map<Integer, Double> results){
         this.results = results;
     }
@@ -121,10 +182,19 @@ public class Query {
         return terms;
     }
 
+    /**
+     *
+     * @return A {@link Map} where the keys are the ids of the documents and the values are the scores of each
+     * respective document.
+     */
     public Map<Integer, Double> getResults(){
         return results;
     }
 
+    /**
+     *
+     * @return Similar to getSortedResults but only results the 10 highest results
+     */
     public Map<Integer, Double> getTop10SortedResults(){
         Map<Integer, Double> top10 = new TreeMap<>();
         Map<Integer, Double> sorted = getSortedResults();
@@ -137,7 +207,10 @@ public class Query {
 
     }
 
-
+    /**
+     *
+     * @return Similar to getResults but the results are sorted from the highest to lowest score
+     */
     public Map<Integer, Double> getSortedResults(){
         ValueComparator bvc = new ValueComparator(results);
         TreeMap<Integer, Double> sortedMap = new TreeMap<>(bvc);
@@ -145,6 +218,10 @@ public class Query {
         return sortedMap;
     }
 
+    /**
+     * Adds a term to the query
+     * @param term The term to add
+     */
     public void addTerm(String term){
         terms.add(term);
     }

@@ -24,7 +24,16 @@ public interface IndexWriter {
      */
     void saveIndexToFile(String fileName, InvertedIndex index, String tokenizerType, int corpusSize, String scoringSystem);
 
+    /**
+     * Save the {@link DocumentIndex} on a file.
+     * @param documentIndexFile The name of the file where the document will be saved in to.
+     * @param docIndex The {@link DocumentIndex} object to be saved.
+     */
     void saveDocumentIndexToFile(String documentIndexFile, DocumentIndex docIndex);
 
+    /**
+     * Saves the full content of the corpus.
+     * @param fullContent A {@link String} that contains the full content of the corpus.
+     */
     void saveFileWithFullContent(String fullContent);
     }

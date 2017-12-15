@@ -41,10 +41,20 @@ public class Vector {
         return vector.keySet();
     }
 
+    /**
+     *
+     * @return The vector dimension
+     */
     public int size(){
         return vector.size();
     }
 
+    /**
+     * Makes the sum between two vectors.
+     * @param a The first vector
+     * @param b The second vector
+     * @return The resulting vector of the sum.
+     */
     public static Vector sumVectors(Vector a, Vector b){
         Vector result = new Vector();
         Vector tempBig;
@@ -73,12 +83,24 @@ public class Vector {
 
     }
 
+    /**
+     * Makes the subtraction between two vectors.
+     * @param a The first vector
+     * @param b The second vector
+     * @return The resulting vector of the subtraction.
+     */
     public static Vector subtractVectors(Vector a, Vector b){
 
         return Vector.sumVectors(a, Vector.scalarProduct(-1, b));
 
     }
 
+    /**
+     *
+     * @param scalar A scalar
+     * @param a The vector
+     * @return The scalar product between two vectors
+     */
     public static Vector scalarProduct(double scalar, Vector a){
         Vector result = new Vector();
         for(Map.Entry<String, Double> entry : a.vector.entrySet()){
@@ -87,6 +109,11 @@ public class Vector {
         return result;
     }
 
+    /**
+     *
+     * @param top The number of top scores
+     * @return The top scores of the vector
+     */
     public Vector topScores(int top){
         List<Map.Entry<String, Double>> l = new ArrayList<>(vector.entrySet());
         l.sort((o1, o2) -> {
@@ -100,7 +127,7 @@ public class Vector {
         });
         List<Map.Entry<String, Double>> temp = new ArrayList<>();
         for (Map.Entry<String, Double> aL : l) {
-            if (temp.size() > 5)
+            if (temp.size() == top)
                 break;
             temp.add(aL);
         }

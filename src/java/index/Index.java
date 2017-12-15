@@ -7,6 +7,9 @@ import java.util.TreeMap;
 
 /**
  * The base class for an index that maps an id to a {@link Vector}
+ * @author Pedro Matos
+ * @author David Ferreira
+ * @since 12-15-2017
  */
 public abstract class Index {
     protected Map<Integer, Vector> vectors;
@@ -33,5 +36,14 @@ public abstract class Index {
      */
     public Vector getVector(int id){
         return vectors.get(id);
+    }
+
+    /**
+     * Adds a document vector, if the id of the document is already in the data structure, the value will be updated
+     * @param id The id of the document
+     * @param v The vector of the document
+     */
+    public void addVector(int id ,Vector v){
+        vectors.put(id, v);
     }
 }

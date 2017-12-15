@@ -5,7 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class RevelevanceReader implements RelevanceFileReader{
+/**
+ * This implementation of {@link RelevanceFileReader} reads a file where the data is organized by columns and separated
+ * by a whitespace or more
+ */
+public class RelevanceReader implements RelevanceFileReader{
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public RelevanceIndex parseRelevanceFile(String filePath) {
         RelevanceIndex revIndex = new RelevanceIndex();

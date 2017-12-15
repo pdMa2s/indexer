@@ -1,7 +1,5 @@
 package src.java.query;
 
-import src.java.normalizer.Normalizer;
-
 import java.util.List;
 
 /**

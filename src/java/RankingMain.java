@@ -17,7 +17,7 @@ import src.java.query.Query;
 import src.java.query.QueryIndex;
 import src.java.query.relevancefeedback.RelevanceFileReader;
 import src.java.query.relevancefeedback.RelevanceIndex;
-import src.java.query.relevancefeedback.RevelevanceReader;
+import src.java.query.relevancefeedback.RelevanceReader;
 import src.java.searchengine.*;
 import src.java.corpus.tokenizer.Tokenizer;
 
@@ -35,29 +35,23 @@ public class RankingMain {
 
         String rankingResultsFile = parsedArgs.getString("resultFile");
 
-        double threshold = Double.parseDouble(parsedArgs.getString("threshold"));
         String relevanceScoreFile = parsedArgs.getString("relevanceFile");
+
+        IndexReader idr = new CSVIndexReader();
+
+
+        RelevanceFileReader relevanceFileReader = new RelevanceReader();
+        RelevanceIndex relevanceIndex = relevanceFileReader.parseRelevanceFile(relevanceScoreFile);
         InvertedIndex invertedIndex = new InvertedIndex();
+        idr.parseInvertedIndex(indexFile,invertedIndex);
 
-
+        String scoringSystem = idr.getScoringSystem();
+        checkScoringParameters(scoringSystem, parsedArgs);
 
         long startTime = System.currentTimeMillis();
 
-        IndexReader idr = new CSVIndexReader();
-        idr.parseInvertedIndex(indexFile,invertedIndex);
-        SearchEngineBuilder searchEngineBuilder;
-        String scoringSystem = idr.getScoringSystem();
 
-        RelevanceFileReader relevanceFileReader = new RevelevanceReader();
-        RelevanceIndex relevanceIndex = relevanceFileReader.parseRelevanceFile(relevanceScoreFile);
-
-        if(scoringSystem.equals(NORMALIZED)){
-            searchEngineBuilder = getNormalizedBuilder(parsedArgs, invertedIndex,
-                     docIndexFile, idr, relevanceIndex,threshold);
-        }
-        else{
-            searchEngineBuilder = getCountBuilder(parsedArgs, invertedIndex, idr.getTokenizer(), threshold);
-        }
+        SearchEngineBuilder searchEngineBuilder = getBuilder(scoringSystem,invertedIndex, docIndexFile, idr, relevanceIndex, parsedArgs);
 
         SearchEngine searchEngine = searchEngineBuilder.constructSearEngine();
 
@@ -80,27 +74,27 @@ public class RankingMain {
         ArgumentParser parser = ArgumentParsers.newFor("RankingMain").build()
                 .defaultHelp(true)
                 .description("Loads and index and answers queries, the results are stored in a file");
-        MutuallyExclusiveGroup countGroup = parser.addMutuallyExclusiveGroup();
-        countGroup.addArgument("-f","--frequencyOfQueryWords").action(Arguments.storeTrue())
-                .help("Calculates the frequency of the query words in each document");
-        countGroup.addArgument("-w","--wordsInDoc").action(Arguments.storeTrue())
-                .help("Calculates how many query words are in the document (Option set by omission)");
         parser.addArgument("queryFile")
                 .help("The path to the file that contains the queries");
+        MutuallyExclusiveGroup countGroup = parser.addMutuallyExclusiveGroup();
+        countGroup.addArgument("-f","--frequencyOfQueryWords").action(Arguments.storeTrue())
+                .help("(Optional) Calculates the frequency of the query words in each document");
+        countGroup.addArgument("-w","--wordsInDoc").action(Arguments.storeTrue())
+                .help("(Optional) Calculates how many query words are in the document (Option set by omission)");
         parser.addArgument("-idx","--indexFile").setDefault(INDEXDEAFAULTFILENAME)
                 .help("(Optional) The path to the file were the index is contained");
         parser.addArgument("-r","--resultFile").setDefault("queryResults")
                 .help("(Optional) The name of the file that will store the results");
         parser.addArgument("-th","--threshold").setDefault(THRESHOLDDEFAULTVALUE)
                 .help("(Optional) The minimum value of the results");
+        parser.addArgument("-cem","--calculateEfficiencyMetrics")
+                .action(Arguments.storeTrue())
+                .help("(Optional)Use this flag to calculate the system efficiency metrics");
         parser.addArgument("-rvf","--relevanceFile").setDefault(RELEVANCESCOREFILE)
                 .help("(Optional) The path to the file that contains the relevance feedback scores");
         parser.addArgument("-rvs","--relevanceScore")
                 .choices("1", "2","3","4").setDefault("4")
                 .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
-        parser.addArgument("-cem","--calculateEfficiencyMetrics")
-                .action(Arguments.storeTrue())
-                .help("Use this flag to calculate the system efficiency metrics");
         parser.addArgument("-di","--documentIndexFile").setDefault(DOCUMENTINDEXFILE)
                 .help("(Optional)The name of the file where the document index will be written in to");
         MutuallyExclusiveGroup feedBackGroup = parser.addMutuallyExclusiveGroup();
@@ -125,6 +119,15 @@ public class RankingMain {
         }
 
         return ns;
+    }
+
+    private static void checkScoringParameters(String scoringSystem, Namespace args){
+        if(scoringSystem.equals(RANKEDRETRIEVAL)){
+            if(args.getBoolean("frequencyOfQueryWords") || args.getBoolean("wordsInDoc")){
+               printError(2, "ERROR Invalid operation!\nThe index provided is ready for boolean retrieval");
+            }
+        }
+
     }
 
 
@@ -163,6 +166,22 @@ public class RankingMain {
         }
         return new NormalizedSearchEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, threshold);
     }
+    private static SearchEngineBuilder getBuilder(String scoringSystem ,InvertedIndex invertedIndex, File docIndexFile
+            ,IndexReader idr, RelevanceIndex relevanceIndex ,Namespace parsedArgs){
+
+        double threshold = Double.parseDouble(parsedArgs.getString("threshold"));
+
+        SearchEngineBuilder searchEngineBuilder;
+
+        if(scoringSystem.equals(RANKEDRETRIEVAL)){
+            searchEngineBuilder = getNormalizedBuilder(parsedArgs, invertedIndex,
+                    docIndexFile, idr, relevanceIndex,threshold);
+        }
+        else{
+            searchEngineBuilder = getCountBuilder(parsedArgs, invertedIndex, idr.getTokenizer(), threshold);
+        }
+        return searchEngineBuilder;
+    }
 
     private static MetricEvaluator checkEvaluatorParameter(Namespace ns, RelevanceIndex relevanceIndex,List<Query> queries, String relevanceFile){
 
@@ -170,7 +189,10 @@ public class RankingMain {
             return new MetricEvaluator(relevanceFile, queries, relevanceIndex,new EfficiencyMetricsFileWriter("relevanceResults"));
         return null;
     }
-
+    private static void printError(int errorCode, String message){
+        System.err.println(message);
+        System.exit(errorCode);
+    }
 
 
 }

@@ -78,6 +78,9 @@ public class CSVIndexReader implements IndexReader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void parseDocumentIndexFromFile(File docIndexFile, DocumentIndex docIndex){
         BufferedReader reader;
         try{

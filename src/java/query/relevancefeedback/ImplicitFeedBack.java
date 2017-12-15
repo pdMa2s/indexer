@@ -4,16 +4,37 @@ import src.java.normalizer.Vector;
 import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
-import src.java.query.RelevanceQueryUpdater;
+import src.java.query.QueryUpdater;
 
 import java.util.List;
 import java.util.Map;
 
-public class ImplicitFeedBack implements RelevanceQueryUpdater {
+/**
+ * This implementation of {@link QueryUpdater} uses the top 10 results of the queries as positive
+ * feedback to apply relevance feedback.
+ */
+public class ImplicitFeedBack implements QueryUpdater {
+    private QueryIndex queryIndex;
+    private DocumentIndex docIndex;
+
     private int topScore = 5;
+
+    /**
+     * Builds a ImplicitFeedBack object
+     * @param queryIndex The {@link QueryIndex} that contains the query vectors
+     * @param docIndex The {@link DocumentIndex} that contains the document vectors
+     */
+    public ImplicitFeedBack(QueryIndex queryIndex, DocumentIndex docIndex) {
+        this.queryIndex = queryIndex;
+        this.docIndex = docIndex;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateQueries(QueryIndex queryIndex, DocumentIndex docIndex) {
-        for (Query query : queryIndex.getQueries()) {
+    public void updateQueries(List<Query> queries) {
+        for (Query query : queries) {
             Vector newQueryVector;
             int nrRelevantDocs = 0;
             Vector positiveScore = new Vector();
@@ -34,11 +55,6 @@ public class ImplicitFeedBack implements RelevanceQueryUpdater {
             queryIndex.putQueryVector(query.getId(), newQueryVector);
 
         }
-    }
-
-    @Override
-    public void updateQueries(List<Query> queries) {
-
     }
 
     private double alpha(){

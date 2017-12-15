@@ -1,4 +1,4 @@
-package src.java.indexer;
+package src.java.indexer.indexerbuilders;
 
 import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
@@ -6,48 +6,52 @@ import src.java.corpus.documentreader.XMLDocumentHandler;
 import src.java.corpus.documentreader.XMLReader;
 import src.java.corpus.tokenizer.ComplexTokenizer;
 import src.java.corpus.tokenizer.Tokenizer;
+import org.tartarus.snowball.ext.englishStemmer;
 import org.xml.sax.SAXException;
+import src.java.indexer.Indexer;
+import src.java.indexer.IndexerBuilder;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import static src.java.constants.Constants.COMPLEXTOKENIZER;
+import static src.java.constants.Constants.COMPLEXTOKENIZERSTEMMING;
 
 /**
- *An implementation of IndexerBuilder. Constructs an Indexer with a {@link ComplexTokenizer} and with
- *  a {@link DirIteratorCorpusReader}
+ * A builder that constructs {@link Indexer} with a {@link ComplexTokenizer} that uses an English Stemmer,
+ * the {@link CorpusReader} used here is a {@link DirIteratorCorpusReader}.
  * @author Pedro Matos - 73941
  * @author David Ferreira
  * @since 09-27-2017
+ *
  */
-public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
+public class CTStemmingIndexerBuilder extends IndexerBuilder {
+
     /**
-     *
-     *{@inheritDoc}
+     * {@inheritDoc}
      */
-    public ComplexTokenizerIndexerBuilder(String dirName) {
+    public CTStemmingIndexerBuilder(String dirName) {
         super(dirName);
     }
-
 
     /**
      * Configures a {@link CorpusReader} of a type {@link DirIteratorCorpusReader} with a {@link XMLReader}.
      */
+
     @Override
     public void buildCorpusReader() {
         indexer.setCorpusReader(new DirIteratorCorpusReader(directoryName,initializeReader()));
     }
 
     /**
-     * Configures a {@link Tokenizer} of a type {@link ComplexTokenizer}.
+     * Configures a {@link Tokenizer} of a type {@link ComplexTokenizer} with Stemming.
+     * Uses an English Stemmer of the type {@link org.tartarus.snowball.SnowballStemmer}.
      */
     @Override
     public void buildTokenizer() {
-        indexer.setTokenizer(new ComplexTokenizer());
+        indexer.setTokenizer(new ComplexTokenizer(new englishStemmer()));
     }
 
     @Override
     public void buildNormalizer() {
-
     }
 
     /**
@@ -55,8 +59,9 @@ public class ComplexTokenizerIndexerBuilder extends IndexerBuilder {
      */
     @Override
     public String getTokenizerType() {
-        return COMPLEXTOKENIZER;
+        return COMPLEXTOKENIZERSTEMMING;
     }
+
 
     private XMLReader initializeReader(){
         try {

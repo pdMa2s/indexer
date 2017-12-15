@@ -35,6 +35,11 @@ public class QueryIndex extends Index {
         }
     }
 
+    /**
+     * Associates a vector to a query id, if the id is already stored, the vector will be updated.
+     * @param queryId The if of the query
+     * @param vector The query vector
+     */
     public void putQueryVector(int queryId, Vector  vector){
         vectors.put(queryId , vector);
     }

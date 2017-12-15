@@ -35,8 +35,14 @@ import java.io.File;
      * of {@link Tokenizer} used in the indexation, after that loads an {@link InvertedIndex} object with terms and their
      * respective {@link Posting} lists.
      * @param indexFile The {@link File} on disk that contains the invertedIndex.
+     * @param index The {@link InvertedIndex} object to be filled in the contents of the index file.
      */
     void parseInvertedIndex(File indexFile, InvertedIndex index);
 
+    /**
+     * This function parses the file that contains the document index
+     * @param docIndexFile The file where the document index is written in to
+     * @param docIndex The {@link DocumentIndex} object to be filled in the contents of the file
+     */
     void parseDocumentIndexFromFile(File docIndexFile, DocumentIndex docIndex);
 }

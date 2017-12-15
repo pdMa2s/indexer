@@ -26,10 +26,10 @@ public class SimpleTokenizer implements Tokenizer{
     public List<String> tokenize(String docInfo) {
         return Stream
                 .of(docInfo)
-                .map(w -> w.replaceAll("[^a-z\\s]+", "")).parallel()
-                .map(w -> w.replaceAll("\\b[a-z]{1,2}\\b", "")).parallel()
-                .map(w -> w.trim())
-                .map(String::toLowerCase).parallel()
+                .map(w -> w.replaceAll("[^a-z\\s]+", ""))
+                .map(w -> w.replaceAll("\\b[a-z]{1,2}\\b", ""))
+                .map(String::trim)
+                .map(String::toLowerCase)
                 .map(s -> s.split("\\s+")).flatMap(Arrays::stream).parallel()
                 .collect(Collectors.toList());
     }

@@ -28,5 +28,9 @@ public interface CorpusReader {
      */
     int getDocumentID();
 
+    /**
+     *
+     * @return The number of documents in the corpus
+     */
     int corpusSize();
 }

@@ -10,6 +10,10 @@ import src.java.query.relevancefeedback.GoldStandardFeedBack;
 import src.java.query.relevancefeedback.RelevanceIndex;
 import src.java.corpus.tokenizer.Tokenizer;
 
+/**
+ * An extension of {@link SearchEngineBuilder} that builds a {@link SearchEngine} object that uses explicit form
+ * the gold standard relevance file for relevance feedback to update queries.
+ */
 public class ExplicitFeedBackEngineBuilder extends SearchEngineBuilder{
     private RelevanceIndex relevanceIndex;
     /**
@@ -79,13 +83,19 @@ public class ExplicitFeedBackEngineBuilder extends SearchEngineBuilder{
         searchEngine.setThreshold(threshold);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void buildDocumentIndex() {
         searchEngine.setDocumentIndex(documentIndex);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void buildQueryUpdater() {
-        searchEngine.setUpdater(new GoldStandardFeedBack(relevanceIndex));
+        searchEngine.setUpdater(new GoldStandardFeedBack(relevanceIndex, queryIndex, documentIndex));
     }
 }

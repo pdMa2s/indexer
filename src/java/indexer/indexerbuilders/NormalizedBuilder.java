@@ -1,4 +1,4 @@
-package src.java.indexer;
+package src.java.indexer.indexerbuilders;
 
 import org.tartarus.snowball.ext.englishStemmer;
 import org.xml.sax.SAXException;
@@ -6,6 +6,7 @@ import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
 import src.java.corpus.documentreader.XMLDocumentHandler;
 import src.java.corpus.documentreader.XMLReader;
+import src.java.indexer.IndexerBuilder;
 import src.java.normalizer.Normalizer;
 import src.java.corpus.tokenizer.ComplexTokenizer;
 import src.java.corpus.tokenizer.Tokenizer;

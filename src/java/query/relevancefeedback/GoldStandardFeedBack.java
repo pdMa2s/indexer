@@ -4,22 +4,44 @@ import src.java.normalizer.Vector;
 import src.java.query.DocumentIndex;
 import src.java.query.Query;
 import src.java.query.QueryIndex;
-import src.java.query.RelevanceQueryUpdater;
+import src.java.query.QueryUpdater;
 
 import java.util.List;
 import java.util.Map;
 
-public class GoldStandardFeedBack implements RelevanceQueryUpdater {
+/**
+ * This implementation of {@link QueryUpdater} uses the cranfield relevance scores, the gold standard,
+ * to apply relevance feedback to the queries.
+ *
+ * @author Pedro Matos - 73941
+ * @author David Ferreira
+ * @since 09-27-2017
+ */
+public class GoldStandardFeedBack implements QueryUpdater {
 
     private RelevanceIndex relevanceIndex;
+    private QueryIndex queryIndex;
+    private DocumentIndex docIndex;
     private int topScores = 5;
-    public GoldStandardFeedBack(RelevanceIndex relevanceIndex ) {
+
+    /**
+     * Constructs a GoldStandardFeedBack object.
+     * @param relevanceIndex A {@link RelevanceIndex} object to consult the scores of each query
+     * @param queryIndex A {@link QueryIndex} object with the query vectors
+     * @param documentIndex A {@link DocumentIndex} object with the document vectors
+     */
+    public GoldStandardFeedBack(RelevanceIndex relevanceIndex, QueryIndex queryIndex, DocumentIndex documentIndex) {
         this.relevanceIndex = relevanceIndex;
+        this.queryIndex = queryIndex;
+        this.docIndex = documentIndex;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void updateQueries(QueryIndex queryIndex, DocumentIndex docIndex) {
-        for(Query query : queryIndex.getQueries()){
+    public void updateQueries(List<Query> queries) {
+        for(Query query : queries){
             Vector newQueryVector;
             int nrRelevantDocs = 0;
             int nrIrrelevantDocs = 0;
@@ -55,10 +77,6 @@ public class GoldStandardFeedBack implements RelevanceQueryUpdater {
         }
     }
 
-    @Override
-    public void updateQueries(List<Query> queries) {
-
-    }
 
     private double alpha(){
         return 1;

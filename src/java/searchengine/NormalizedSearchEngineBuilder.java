@@ -77,11 +77,15 @@ public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
     public void buildThreshold() {
         searchEngine.setThreshold(threshold);
     }
-
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public void buildDocumentIndex() {
     }
-
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public void buildQueryUpdater() {
     }

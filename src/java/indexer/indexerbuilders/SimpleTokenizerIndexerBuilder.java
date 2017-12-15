@@ -1,4 +1,4 @@
-package src.java.indexer;
+package src.java.indexer.indexerbuilders;
 
 import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
@@ -7,6 +7,8 @@ import src.java.corpus.documentreader.XMLReader;
 import src.java.corpus.tokenizer.SimpleTokenizer;
 import src.java.corpus.tokenizer.Tokenizer;
 import org.xml.sax.SAXException;
+import src.java.indexer.IndexerBuilder;
+
 import javax.xml.parsers.ParserConfigurationException;
 import static src.java.constants.Constants.SIMPLETOKENIZER;
 

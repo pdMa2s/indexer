@@ -38,6 +38,9 @@ public class CSVIndexWriter implements IndexWriter {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void saveDocumentIndexToFile(String documentIndexFile, DocumentIndex docIndex) {
         PrintWriter writer = null;
@@ -73,6 +76,9 @@ public class CSVIndexWriter implements IndexWriter {
         writer.close();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void saveFileWithFullContent(String fullContent) {
         PrintWriter writer = null;
         try {

@@ -15,10 +15,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
+/**
+ * This finds the similarities between the words of the corpus and calculates how closely related the other words are
+ * to one another
+ */
 public class QueryExpansionWord2Vec {
     private static Logger log = LoggerFactory.getLogger(QueryExpansionWord2Vec.class);
     private Word2Vec vec;
 
+    /**
+     * Constructs a QueryExpansionWord2Vec object
+     * @param fullContentFile The file that contains the full content of the corpus
+     * @throws FileNotFoundException Throw when the fullContentFile is not found
+     */
     public QueryExpansionWord2Vec(String fullContentFile) throws FileNotFoundException {
 
         File file = new File(fullContentFile);
@@ -46,14 +55,14 @@ public class QueryExpansionWord2Vec {
         vec.fit();
 
         log.info("Writing word vectors to text file....");
-        //10 palavras mais perto
         log.info("Closest Words:");
-        //Collection<String> lst = vec.wordsNearest("potenti", 10);
-        //System.out.println(vec.wordsNearest("potenti", 10));
-        //System.out.println(vec.wordsNearest("continu", 10));
-        //System.out.println(vec.wordsNearest("exact", 10));
+
     }
 
+    /**
+     * @param word The reference word.
+     * @return The 3 nearest words to the reference word.
+     */
     public Collection<String> getSimilarWords(String word){
         return vec.wordsNearest(word, 3);
     }

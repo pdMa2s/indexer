@@ -9,6 +9,9 @@ import src.java.query.QueryLoader;
 import src.java.query.relevancefeedback.*;
 import src.java.corpus.tokenizer.Tokenizer;
 
+/**
+ * A extension of {@link SearchEngineBuilder} that builds a {@link SearchEngine} object that uses implicit
+ */
 public class ImplicitFeedBackEngineBuilder extends SearchEngineBuilder {
     /**
      * {@inheritDoc}
@@ -84,6 +87,6 @@ public class ImplicitFeedBackEngineBuilder extends SearchEngineBuilder {
 
     @Override
     public void buildQueryUpdater() {
-        searchEngine.setUpdater(new ImplicitFeedBack());
+        searchEngine.setUpdater(new ImplicitFeedBack(queryIndex, documentIndex));
     }
 }

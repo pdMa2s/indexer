@@ -9,6 +9,10 @@ import src.java.index.CSVIndexWriter;
 import src.java.index.InvertedIndex;
 import src.java.index.IndexWriter;
 import src.java.indexer.*;
+import src.java.indexer.indexerbuilders.CTStemmingIndexerBuilder;
+import src.java.indexer.indexerbuilders.ComplexTokenizerIndexerBuilder;
+import src.java.indexer.indexerbuilders.NormalizedBuilder;
+import src.java.indexer.indexerbuilders.SimpleTokenizerIndexerBuilder;
 import src.java.query.DocumentIndex;
 
 import static src.java.constants.Constants.*;
@@ -29,7 +33,7 @@ public class IndexerMain {
         String scoringSystem = parsedArgs.getString("scoring");
 
 
-        if(!scoringSystem.equals(NORMALIZED))
+        if(!scoringSystem.equals(RANKEDRETRIEVAL))
              builder = parseTokenizerType(parsedArgs.getString("tokenizer"), dirName);
         else
             builder = new NormalizedBuilder(dirName);
@@ -62,7 +66,7 @@ public class IndexerMain {
                 .defaultHelp(true)
                 .description("Creates an inverted index on disk mapping terms, to their respective document and frequency on that document.");
         parser.addArgument("-s", "--scoring")
-                .choices(DOCFREQUENCY, NORMALIZED).setDefault(NORMALIZED)
+                .choices(BOOLEANRETRIEVAL, RANKEDRETRIEVAL).setDefault(RANKEDRETRIEVAL)
                 .help("Specify the scoring system");
         parser.addArgument("-t", "--tokenizer")
                 .choices(SIMPLETOKENIZER, COMPLEXTOKENIZER, COMPLEXTOKENIZERSTEMMING).setDefault("complexStemming")

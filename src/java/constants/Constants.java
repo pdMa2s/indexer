@@ -29,11 +29,11 @@ public class Constants {
     /**
      * Identifies the ranking system that will be used, in this case Boolean Retrieval
      */
-    public static final String DOCFREQUENCY = "freq";
+    public static final String BOOLEANRETRIEVAL = "bool";
     /**
      * Identifies the ranking system that will be used, in this case Ranked Retrieval
      */
-    public static final String NORMALIZED = "norm";
+    public static final String RANKEDRETRIEVAL = "ranked";
     /**
      * The default name of the index that is written on disk
      */

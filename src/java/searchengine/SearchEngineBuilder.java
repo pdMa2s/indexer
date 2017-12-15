@@ -33,18 +33,10 @@ public abstract class SearchEngineBuilder {
      * @param tokenizer A {@link Tokenizer} to be provided to the {@link QueryReader} object.
      * @param queryIndex A {@link QueryIndex} with the queries to be processed.
      * @param threshold The minimum values of the result scores.
+     * @param documentIndex A {@link DocumentIndex} with the document vectors
      */
     public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
                                QueryIndex queryIndex, DocumentIndex documentIndex, double threshold) {
-        this.invertedIndex = invertedIndex;
-        this.tokenizer = tokenizer;
-        this.queryIndex = queryIndex;
-        this.threshold = threshold;
-        this.documentIndex = documentIndex;
-    }
-
-    public SearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
-                               QueryIndex queryIndex, DocumentIndex documentIndex, double threshold, QueryExpansionWord2Vec w2v) {
         this.invertedIndex = invertedIndex;
         this.tokenizer = tokenizer;
         this.queryIndex = queryIndex;
@@ -134,8 +126,16 @@ public abstract class SearchEngineBuilder {
      */
     public abstract void buildThreshold();
 
+    /**
+     * The purpose of this function is to configure a {@link DocumentIndex} for the {@link SearchEngine} instance
+     * that is being built.
+     */
     public abstract void buildDocumentIndex();
 
+    /**
+     * The purpose of this function is to configure a {@link src.java.query.QueryUpdater} for the {@link SearchEngine} instance
+     * that is being built.
+     */
     public abstract void buildQueryUpdater();
 
 }

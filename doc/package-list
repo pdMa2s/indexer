@@ -2,10 +2,13 @@ src.java
 src.java.constants
 src.java.corpus
 src.java.corpus.documentreader
+src.java.corpus.tokenizer
 src.java.evaluation
 src.java.index
 src.java.indexer
+src.java.indexer.indexerbuilders
 src.java.normalizer
 src.java.query
+src.java.query.queryExpansion
+src.java.query.relevancefeedback
 src.java.searchengine
-src.java.corpus.tokenizer

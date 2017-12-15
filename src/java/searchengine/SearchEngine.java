@@ -3,7 +3,7 @@ package src.java.searchengine;
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
 import src.java.query.*;
-import src.java.query.RelevanceQueryUpdater;
+import src.java.query.QueryUpdater;
 import src.java.corpus.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
@@ -28,7 +28,7 @@ public class SearchEngine {
     private Tokenizer tokenizer;
     private Normalizer normalizer;
     private double threshold;
-    private RelevanceQueryUpdater updater;
+    private QueryUpdater updater;
     private boolean queryExpansion = false;
 
     /**
@@ -60,7 +60,7 @@ public class SearchEngine {
         normalizer.normalize(queryIndex);
         queryProcessor.processQueries(queries, idx, threshold);
         if(updater != null){
-            updater.updateQueries(queryIndex, documentIndex);
+            updater.updateQueries(queries);
             queryProcessor.processQueries(queries, idx, threshold);
         }
         return queries;
@@ -79,7 +79,7 @@ public class SearchEngine {
         this.documentIndex = documentIndex;
     }
 
-    public void setUpdater(RelevanceQueryUpdater updater) {
+    public void setUpdater(QueryUpdater updater) {
         this.updater = updater;
     }
 

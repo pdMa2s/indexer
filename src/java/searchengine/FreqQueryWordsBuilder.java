@@ -79,11 +79,17 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
         searchEngine.setThreshold(threshold);
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public void buildDocumentIndex() {
 
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public void buildQueryUpdater() {
 

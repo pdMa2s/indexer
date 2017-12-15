@@ -55,7 +55,7 @@ public class EfficiencyMetricsFileWriter implements EfficiencyMetricsHandler {
         for(Query query: queries){
             writer.write( query.getId() + delimiter +
                     formatter.format(query.getQueryPrecision()) +delimiter+ query.getQueryPrecisionAtRank10() +delimiter + formatter.format(query.getQueryRecall())
-                        + delimiter + formatter.format(query.geTfMeasure())+ delimiter +
+                        + delimiter + formatter.format(query.getFMeasure())+ delimiter +
                      formatter.format(query.getNDCG())+"\n");
 
         }

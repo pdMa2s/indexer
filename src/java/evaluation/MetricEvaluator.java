@@ -25,8 +25,9 @@ public class MetricEvaluator {
     /**
      * Constructs an {@link MetricEvaluator} object
      *
-     * @param relevanceFile  The name of the file that contains the relevancefeedback scores
+     * @param relevanceFile  The name of the file that contains the relevance feedback scores
      * @param queries        A {@link List} of {@link Query} objects to store their respective results
+     * @param relevanceIndex A {@link RelevanceIndex} with the relevance scores
      * @param metricsHandler A handler for the results
      */
     public MetricEvaluator(String relevanceFile, List<Query> queries, RelevanceIndex relevanceIndex,EfficiencyMetricsHandler metricsHandler) {
@@ -172,9 +173,9 @@ public class MetricEvaluator {
         double precision = q.getQueryPrecision();
         double recall = q.getQueryRecall();
         if (precision == 0 && recall == 0)
-            q.seTfMeasure(0);
+            q.setFMeasure(0);
         else
-            q.seTfMeasure((2 * precision * recall) / (precision + recall));
+            q.setFMeasure((2 * precision * recall) / (precision + recall));
     }
 
     private void precisionAtRank10(Query q, int minimumRelevance) {
@@ -238,7 +239,7 @@ public class MetricEvaluator {
     private double calculateMeanFMeasure(List<Query> queries) {
         double totalFMeasure = 0;
         for (Query q : queries) {
-            totalFMeasure += q.geTfMeasure();
+            totalFMeasure += q.getFMeasure();
         }
         return queries.size() != 0 ? totalFMeasure / queries.size() : 0;
     }
