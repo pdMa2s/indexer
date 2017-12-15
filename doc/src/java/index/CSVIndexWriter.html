@@ -167,7 +167,7 @@ implements <a href="../../../src/java/index/IndexWriter.html" title="interface i
                int&nbsp;corpusSize,
                java.lang.String&nbsp;scoringSystem)</code>
 <div class="block">The implementation of this function should write in the first line of the file an header
- that only contains a tag that identifies the <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> that was used
+ that only contains a tag that identifies the <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> that was used
  to create the @param invertedIndex.</div>
 </td>
 </tr>
@@ -222,7 +222,7 @@ implements <a href="../../../src/java/index/IndexWriter.html" title="interface i
                             int&nbsp;corpusSize,
                             java.lang.String&nbsp;scoringSystem)</pre>
 <div class="block">The implementation of this function should write in the first line of the file an header
- that only contains a tag that identifies the <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> that was used
+ that only contains a tag that identifies the <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> that was used
  to create the @param invertedIndex.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -230,7 +230,7 @@ implements <a href="../../../src/java/index/IndexWriter.html" title="interface i
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>fileName</code> - The of the file where the invertedIndex will be written.</dd>
 <dd><code>index</code> - The <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index"><code>InvertedIndex</code></a> object to be written on disk.</dd>
-<dd><code>tokenizerType</code> - A tag that represents the type of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> that was used
+<dd><code>tokenizerType</code> - A tag that represents the type of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> that was used
                       in the indexation process. This tags are located in <a href="../../../src/java/constants/Constants.html" title="class in src.java.constants"><code>Constants</code></a>.</dd>
 <dd><code>corpusSize</code> - The size of the corpus</dd>
 <dd><code>scoringSystem</code> - The tag corresponding to the scoring system used to create the index</dd>

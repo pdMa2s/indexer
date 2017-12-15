@@ -7,15 +7,17 @@ import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
 import src.java.query.relevancefeedback.word2VecFeedBack;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 import src.java.query.queryExpansion.QueryExpansionWord2Vec;
+
+import java.io.IOException;
 
 public class QueryExpansionEngineBuilder extends SearchEngineBuilder {
 
     public QueryExpansionEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
                                        QueryIndex queryIndex, DocumentIndex documentIndex,
-                                       double threshold, QueryExpansionWord2Vec w2v){
-        super(invertedIndex, tokenizer, queryIndex, documentIndex, threshold, w2v);
+                                       double threshold){
+        super(invertedIndex, tokenizer, queryIndex, documentIndex, threshold);
     }
 
 
@@ -81,8 +83,19 @@ public class QueryExpansionEngineBuilder extends SearchEngineBuilder {
     }
 
     @Override
-    public void buildRelevanceQueryUpdater() {
+    public void buildQueryUpdater() {
+        QueryExpansionWord2Vec w2v = null;
+        try {
+            w2v = new QueryExpansionWord2Vec("fullCorpusContent.txt");
+        } catch (IOException e) {
+            printError(4, "ERROR full corpus content file not found");
+        }
+
         searchEngine.setUpdater(new word2VecFeedBack(w2v));
-        searchEngine.setW2vTrue();
+        searchEngine.expandQueries();
+    }
+    private void printError(int errorCode, String message){
+        System.err.println(message);
+        System.exit(errorCode);
     }
 }

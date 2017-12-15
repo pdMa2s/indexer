@@ -8,7 +8,7 @@ import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
 import src.java.query.relevancefeedback.GoldStandardFeedBack;
 import src.java.query.relevancefeedback.RelevanceIndex;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 
 public class ExplicitFeedBackEngineBuilder extends SearchEngineBuilder{
     private RelevanceIndex relevanceIndex;
@@ -85,7 +85,7 @@ public class ExplicitFeedBackEngineBuilder extends SearchEngineBuilder{
     }
 
     @Override
-    public void buildRelevanceQueryUpdater() {
+    public void buildQueryUpdater() {
         searchEngine.setUpdater(new GoldStandardFeedBack(relevanceIndex));
     }
 }

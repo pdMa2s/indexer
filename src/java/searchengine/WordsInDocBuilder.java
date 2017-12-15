@@ -2,9 +2,8 @@ package src.java.searchengine;
 
 import src.java.index.InvertedIndex;
 import src.java.query.ColumnResultWriter;
-import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 
 /**
  * An implementation of {@link SearchEngineBuilder} creates a {@link SearchEngine} with a {@link WordsInDocumentProcessor}.
@@ -77,7 +76,7 @@ public class WordsInDocBuilder extends SearchEngineBuilder {
     public void buildDocumentIndex() { }
 
     @Override
-    public void buildRelevanceQueryUpdater() {
+    public void buildQueryUpdater() {
 
     }
 }

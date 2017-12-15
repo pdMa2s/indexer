@@ -27,6 +27,8 @@ public class IndexerMain {
         IndexWriter writer = new CSVIndexWriter();
         IndexerBuilder builder;
         String scoringSystem = parsedArgs.getString("scoring");
+
+
         if(!scoringSystem.equals(NORMALIZED))
              builder = parseTokenizerType(parsedArgs.getString("tokenizer"), dirName);
         else

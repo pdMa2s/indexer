@@ -3,7 +3,7 @@ package src.java.searchengine;
 import src.java.index.InvertedIndex;
 import src.java.query.ColumnResultWriter;
 import src.java.query.QueryLoader;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 
 /**
  * An implementation of {@link SearchEngineBuilder} creates a {@link SearchEngine} with a {@link FrequencyOfQueryWordsProcessor}.
@@ -85,7 +85,7 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
     }
 
     @Override
-    public void buildRelevanceQueryUpdater() {
+    public void buildQueryUpdater() {
 
     }
 }

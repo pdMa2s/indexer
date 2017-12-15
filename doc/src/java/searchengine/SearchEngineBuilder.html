@@ -158,7 +158,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/searchengine/SearchEngineBuilder.html#threshold">threshold</a></span></code>&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>protected <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer">Tokenizer</a></code></td>
+<td class="colFirst"><code>protected <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer">Tokenizer</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/searchengine/SearchEngineBuilder.html#tokenizer">tokenizer</a></span></code>&nbsp;</td>
 </tr>
 </table>
@@ -177,7 +177,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../src/java/searchengine/SearchEngineBuilder.html#SearchEngineBuilder-src.java.index.InvertedIndex-src.java.tokenizer.Tokenizer-src.java.query.QueryIndex-double-">SearchEngineBuilder</a></span>(<a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index">InvertedIndex</a>&nbsp;invertedIndex,
-                   <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer">Tokenizer</a>&nbsp;tokenizer,
+                   <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer">Tokenizer</a>&nbsp;tokenizer,
                    <a href="../../../src/java/query/QueryIndex.html" title="class in src.java.query">QueryIndex</a>&nbsp;queryIndex,
                    double&nbsp;threshold)</code>
 <div class="block">A super constructor for all the class that will derive this class.</div>
@@ -243,7 +243,7 @@ extends java.lang.Object</pre>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>abstract void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/searchengine/SearchEngineBuilder.html#buildQueryTokenizer--">buildQueryTokenizer</a></span>()</code>
-<div class="block">The purpose of this function is to configure a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> for the <a href="../../../src/java/searchengine/SearchEngine.html" title="class in src.java.searchengine"><code>SearchEngine</code></a> instance
+<div class="block">The purpose of this function is to configure a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> for the <a href="../../../src/java/searchengine/SearchEngine.html" title="class in src.java.searchengine"><code>SearchEngine</code></a> instance
  that is being built.</div>
 </td>
 </tr>
@@ -316,7 +316,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>tokenizer</h4>
-<pre>protected&nbsp;<a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer">Tokenizer</a> tokenizer</pre>
+<pre>protected&nbsp;<a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer">Tokenizer</a> tokenizer</pre>
 </li>
 </ul>
 <a name="queryIndex">
@@ -352,14 +352,14 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>SearchEngineBuilder</h4>
 <pre>public&nbsp;SearchEngineBuilder(<a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index">InvertedIndex</a>&nbsp;invertedIndex,
-                           <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer">Tokenizer</a>&nbsp;tokenizer,
+                           <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer">Tokenizer</a>&nbsp;tokenizer,
                            <a href="../../../src/java/query/QueryIndex.html" title="class in src.java.query">QueryIndex</a>&nbsp;queryIndex,
                            double&nbsp;threshold)</pre>
 <div class="block">A super constructor for all the class that will derive this class.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>invertedIndex</code> - An <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index"><code>InvertedIndex</code></a> object to be provided to the searchEngine.</dd>
-<dd><code>tokenizer</code> - A <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> to be provided to the <a href="../../../src/java/query/QueryReader.html" title="interface in src.java.query"><code>QueryReader</code></a> object.</dd>
+<dd><code>tokenizer</code> - A <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> to be provided to the <a href="../../../src/java/query/QueryReader.html" title="interface in src.java.query"><code>QueryReader</code></a> object.</dd>
 <dd><code>queryIndex</code> - A <a href="../../../src/java/query/QueryIndex.html" title="class in src.java.query"><code>QueryIndex</code></a> with the queries to be processed.</dd>
 <dd><code>threshold</code> - The minimum values of the result scores.</dd>
 </dl>
@@ -461,7 +461,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>buildQueryTokenizer</h4>
 <pre>public abstract&nbsp;void&nbsp;buildQueryTokenizer()</pre>
-<div class="block">The purpose of this function is to configure a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> for the <a href="../../../src/java/searchengine/SearchEngine.html" title="class in src.java.searchengine"><code>SearchEngine</code></a> instance
+<div class="block">The purpose of this function is to configure a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> for the <a href="../../../src/java/searchengine/SearchEngine.html" title="class in src.java.searchengine"><code>SearchEngine</code></a> instance
  that is being built.</div>
 </li>
 </ul>

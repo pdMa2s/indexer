@@ -1,17 +1,14 @@
 package src.java.index;
 
 import org.tartarus.snowball.ext.englishStemmer;
-import src.java.normalizer.Normalizer;
 import src.java.normalizer.Vector;
 import src.java.query.DocumentIndex;
-import src.java.tokenizer.ComplexTokenizer;
-import src.java.tokenizer.SimpleTokenizer;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.ComplexTokenizer;
+import src.java.corpus.tokenizer.SimpleTokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 
 import java.io.*;
-import java.util.ArrayList;
 
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 

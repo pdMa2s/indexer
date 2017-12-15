@@ -4,8 +4,8 @@ import src.java.corpus.CorpusReader;
 import src.java.corpus.DirIteratorCorpusReader;
 import src.java.corpus.documentreader.XMLDocumentHandler;
 import src.java.corpus.documentreader.XMLReader;
-import src.java.tokenizer.ComplexTokenizer;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.ComplexTokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

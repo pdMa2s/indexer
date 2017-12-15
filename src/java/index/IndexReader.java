@@ -1,7 +1,7 @@
 package src.java.index;
 
 import src.java.query.DocumentIndex;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 
 import java.io.File;
 
@@ -29,6 +29,7 @@ import java.io.File;
      * @see src.java.constants.Constants
      */
     String getScoringSystem();
+
     /**
      * This function parses the file that contains the invertedIndex, reads the header from file which indicates the type
      * of {@link Tokenizer} used in the indexation, after that loads an {@link InvertedIndex} object with terms and their
@@ -37,5 +38,5 @@ import java.io.File;
      */
     void parseInvertedIndex(File indexFile, InvertedIndex index);
 
-     void parseDocumentIndexFromFile(File docIndexFile, DocumentIndex docIndex);
+    void parseDocumentIndexFromFile(File docIndexFile, DocumentIndex docIndex);
 }

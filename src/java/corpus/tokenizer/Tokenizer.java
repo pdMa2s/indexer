@@ -1,4 +1,4 @@
-package src.java.tokenizer;
+package src.java.corpus.tokenizer;
 
 import java.util.List;
 

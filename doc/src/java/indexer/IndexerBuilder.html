@@ -116,7 +116,7 @@ var activeTableTab = "activeTableTab";
 extends java.lang.Object</pre>
 <div class="block">This abstract class serves as a starting point for the an implementation of the builder pattern with the
  purpose of creating an instance of an Indexer.
- An indexer class needs a <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a> and a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a>, as such, this class can have many configurations depending on the
+ An indexer class needs a <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a> and a <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a>, as such, this class can have many configurations depending on the
  user's preferences, so, in order to hide some complexity a builder pattern is applied.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -124,7 +124,7 @@ extends java.lang.Object</pre>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../src/java/indexer/Indexer.html" title="class in src.java.indexer"><code>Indexer</code></a>, 
 <a href="../../../src/java/corpus/CorpusReader.html" title="interface in src.java.corpus"><code>CorpusReader</code></a>, 
-<a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a>, 
+<a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a>,
 <a href="../../../src/java/indexer/ComplexTokenizerIndexerBuilder.html" title="class in src.java.indexer"><code>ComplexTokenizerIndexerBuilder</code></a></dd>
 </dl>
 </li>
@@ -354,7 +354,7 @@ extends java.lang.Object</pre>
 <div class="block">The purpose of this function is to configure a tokenizer for this Indexer instance.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a></dd>
+<dd><a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -376,7 +376,7 @@ extends java.lang.Object</pre>
 <pre>public abstract&nbsp;java.lang.String&nbsp;getTokenizerType()</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The tag locate on <a href="../../../src/java/constants/Constants.html" title="class in src.java.constants"><code>Constants</code></a> that represents the type of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a>
+<dd>The tag locate on <a href="../../../src/java/constants/Constants.html" title="class in src.java.constants"><code>Constants</code></a> that represents the type of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a>
  that is being used to create the <a href="../../../src/java/indexer/Indexer.html" title="class in src.java.indexer"><code>Indexer</code></a>.</dd>
 </dl>
 </li>

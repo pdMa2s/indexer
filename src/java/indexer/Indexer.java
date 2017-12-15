@@ -4,7 +4,7 @@ import src.java.index.InvertedIndex;
 import src.java.corpus.CorpusReader;
 import src.java.normalizer.Normalizer;
 import src.java.query.DocumentIndex;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 
 import java.util.List;
 import java.util.Map;

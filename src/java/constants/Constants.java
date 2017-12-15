@@ -11,19 +11,19 @@ package src.java.constants;
  */
 public class Constants {
     /**
-     * The tag that represents an {@link src.java.indexer.Indexer} with a {@link src.java.tokenizer.ComplexTokenizer}
+     * The tag that represents an {@link src.java.indexer.Indexer} with a {@link src.java.corpus.tokenizer.ComplexTokenizer}
      * without stemming.
      */
     public static final String COMPLEXTOKENIZER = "complex";
 
     /**
-     * The tag that represents an {@link src.java.indexer.Indexer} with a {@link src.java.tokenizer.ComplexTokenizer}
+     * The tag that represents an {@link src.java.indexer.Indexer} with a {@link src.java.corpus.tokenizer.ComplexTokenizer}
      * with stemming.
      */
     public static final String COMPLEXTOKENIZERSTEMMING = "complexStemming";
 
     /**
-     * The tag that represents an {@link src.java.indexer.Indexer} with a {@link src.java.tokenizer.SimpleTokenizer}.
+     * The tag that represents an {@link src.java.indexer.Indexer} with a {@link src.java.corpus.tokenizer.SimpleTokenizer}.
      */
     public static final String SIMPLETOKENIZER = "simple";
     /**

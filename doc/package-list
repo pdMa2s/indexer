@@ -8,4 +8,4 @@ src.java.indexer
 src.java.normalizer
 src.java.query
 src.java.searchengine
-src.java.tokenizer
+src.java.corpus.tokenizer

@@ -1,7 +1,7 @@
 package src.java.query;
 
 import src.java.index.InvertedIndex;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 
 import java.io.File;
 import java.util.List;

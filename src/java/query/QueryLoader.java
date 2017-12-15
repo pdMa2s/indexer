@@ -1,7 +1,7 @@
 package src.java.query;
 
 
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 import java.io.*;
 import java.util.*;
 

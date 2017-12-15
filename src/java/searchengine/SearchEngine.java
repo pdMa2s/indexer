@@ -4,7 +4,7 @@ import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
 import src.java.query.*;
 import src.java.query.RelevanceQueryUpdater;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 import java.io.File;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class SearchEngine {
     private Normalizer normalizer;
     private double threshold;
     private RelevanceQueryUpdater updater;
-    private boolean w2v = false;
+    private boolean queryExpansion = false;
 
     /**
      * This method has the same purpose the {@link QueryProcessor#processQueries(List, InvertedIndex, double)}
@@ -39,7 +39,7 @@ public class SearchEngine {
      */
     public List<Query> processQueries(File queryFile, InvertedIndex idx){
         if(normalizer != null){
-            if(w2v == false)
+            if(!queryExpansion)
                 return processNormalizedQueries(queryFile, idx);
             else
                 return processNormalizedQueriesWithQueryExpansion(queryFile,idx);
@@ -147,8 +147,8 @@ public class SearchEngine {
         this.normalizer = normalizer;
     }
 
-    public void setW2vTrue(){
-        w2v = true;
+    public void expandQueries(){
+        queryExpansion = true;
     }
 
     /**

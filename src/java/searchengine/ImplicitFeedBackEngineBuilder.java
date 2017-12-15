@@ -7,7 +7,7 @@ import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
 import src.java.query.relevancefeedback.*;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 
 public class ImplicitFeedBackEngineBuilder extends SearchEngineBuilder {
     /**
@@ -83,7 +83,7 @@ public class ImplicitFeedBackEngineBuilder extends SearchEngineBuilder {
     }
 
     @Override
-    public void buildRelevanceQueryUpdater() {
+    public void buildQueryUpdater() {
         searchEngine.setUpdater(new ImplicitFeedBack());
     }
 }

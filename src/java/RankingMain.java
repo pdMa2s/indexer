@@ -19,11 +19,9 @@ import src.java.query.relevancefeedback.RelevanceFileReader;
 import src.java.query.relevancefeedback.RelevanceIndex;
 import src.java.query.relevancefeedback.RevelevanceReader;
 import src.java.searchengine.*;
-import src.java.tokenizer.Tokenizer;
-import src.java.query.queryExpansion.QueryExpansionWord2Vec;
+import src.java.corpus.tokenizer.Tokenizer;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import static src.java.constants.Constants.*;
@@ -40,7 +38,7 @@ public class RankingMain {
         double threshold = Double.parseDouble(parsedArgs.getString("threshold"));
         String relevanceScoreFile = parsedArgs.getString("relevanceFile");
         InvertedIndex invertedIndex = new InvertedIndex();
-        QueryIndex queryIndex;
+
 
 
         long startTime = System.currentTimeMillis();
@@ -54,9 +52,7 @@ public class RankingMain {
         RelevanceIndex relevanceIndex = relevanceFileReader.parseRelevanceFile(relevanceScoreFile);
 
         if(scoringSystem.equals(NORMALIZED)){
-            int corpusSize = idr.getCorpusSize();
-            queryIndex = new QueryIndex(corpusSize);
-            searchEngineBuilder = getNormalizedBuilder(parsedArgs, invertedIndex, queryIndex,
+            searchEngineBuilder = getNormalizedBuilder(parsedArgs, invertedIndex,
                      docIndexFile, idr, relevanceIndex,threshold);
         }
         else{
@@ -119,7 +115,6 @@ public class RankingMain {
         Namespace ns = null;
         try {
             ns = parser.parseArgs(args);
-            System.out.println(ns);
         }
         catch (HelpScreenException e){
             System.exit(1);
@@ -141,10 +136,12 @@ public class RankingMain {
     }
 
     private static SearchEngineBuilder getNormalizedBuilder(Namespace ns, InvertedIndex idx
-                                                          , QueryIndex queryIndex, File documentIndexFile,
+                                                          , File documentIndexFile,
                                                             IndexReader indexReader, RelevanceIndex relevanceIndex,
                                                             double threshold){
 
+        int corpusSize = indexReader.getCorpusSize();
+        QueryIndex queryIndex = new QueryIndex(corpusSize);
         if(ns.getBoolean("explicitFeedBack")){
             DocumentIndex docIndex = new DocumentIndex();
             indexReader.parseDocumentIndexFromFile(documentIndexFile, docIndex);
@@ -159,16 +156,10 @@ public class RankingMain {
         }
 
         if(ns.getBoolean("queryExpansion")){
-            QueryExpansionWord2Vec w2v = null;
-            try {
-                w2v = new QueryExpansionWord2Vec("fullCorpusContent.txt");
-            } catch (IOException e) {
-                printError(4, "ERROR full corpus content file not found");
-            }
 
             DocumentIndex docIndex = new DocumentIndex();
             indexReader.parseDocumentIndexFromFile(documentIndexFile, docIndex);
-            return new QueryExpansionEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold, w2v);
+            return new QueryExpansionEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, docIndex, threshold);
         }
         return new NormalizedSearchEngineBuilder(idx, indexReader.getTokenizer(), queryIndex, threshold);
     }
@@ -180,9 +171,6 @@ public class RankingMain {
         return null;
     }
 
-    private static void printError(int errorCode, String message){
-        System.err.println(message);
-        System.exit(errorCode);
-    }
+
 
 }

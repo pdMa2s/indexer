@@ -137,7 +137,7 @@ var activeTableTab = "activeTableTab";
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/IndexReader.html#getScoringSystem--">getScoringSystem</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer">Tokenizer</a></code></td>
+<td class="colFirst"><code><a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer">Tokenizer</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/IndexReader.html#getTokenizer--">getTokenizer</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -145,7 +145,7 @@ var activeTableTab = "activeTableTab";
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../src/java/index/IndexReader.html#parseInvertedIndex-java.io.File-src.java.index.InvertedIndex-">parseInvertedIndex</a></span>(java.io.File&nbsp;indexFile,
                   <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index">InvertedIndex</a>&nbsp;index)</code>
 <div class="block">This function parses the file that contains the invertedIndex, reads the header from file which indicates the type
- of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> used in the indexation, after that loads an <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index"><code>InvertedIndex</code></a> object with terms and their
+ of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> used in the indexation, after that loads an <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index"><code>InvertedIndex</code></a> object with terms and their
  respective <a href="../../../src/java/index/Posting.html" title="class in src.java.index"><code>Posting</code></a> lists.</div>
 </td>
 </tr>
@@ -170,10 +170,10 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <h4>getTokenizer</h4>
-<pre><a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer">Tokenizer</a>&nbsp;getTokenizer()</pre>
+<pre><a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer">Tokenizer</a>&nbsp;getTokenizer()</pre>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> that was used to create the <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index"><code>InvertedIndex</code></a>, this information is located
+<dd>The <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> that was used to create the <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index"><code>InvertedIndex</code></a>, this information is located
  on the header of the invertedIndex file, more precisely, the first line of the file.</dd>
 </dl>
 </li>
@@ -215,7 +215,7 @@ var activeTableTab = "activeTableTab";
 <pre>void&nbsp;parseInvertedIndex(java.io.File&nbsp;indexFile,
                         <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index">InvertedIndex</a>&nbsp;index)</pre>
 <div class="block">This function parses the file that contains the invertedIndex, reads the header from file which indicates the type
- of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.tokenizer"><code>Tokenizer</code></a> used in the indexation, after that loads an <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index"><code>InvertedIndex</code></a> object with terms and their
+ of <a href="../../../src/java/tokenizer/Tokenizer.html" title="interface in src.java.corpus.tokenizer"><code>Tokenizer</code></a> used in the indexation, after that loads an <a href="../../../src/java/index/InvertedIndex.html" title="class in src.java.index"><code>InvertedIndex</code></a> object with terms and their
  respective <a href="../../../src/java/index/Posting.html" title="class in src.java.index"><code>Posting</code></a> lists.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

@@ -6,7 +6,7 @@ import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryReader;
 import src.java.query.QueryResultWriter;
-import src.java.tokenizer.Tokenizer;
+import src.java.corpus.tokenizer.Tokenizer;
 import src.java.query.queryExpansion.QueryExpansionWord2Vec;
 
 /**
@@ -26,7 +26,6 @@ public abstract class SearchEngineBuilder {
     protected QueryIndex queryIndex;
     protected DocumentIndex documentIndex;
     protected double threshold;
-    protected QueryExpansionWord2Vec w2v;
 
     /**
      * A super constructor for all the class that will derive this class.
@@ -51,7 +50,6 @@ public abstract class SearchEngineBuilder {
         this.queryIndex = queryIndex;
         this.threshold = threshold;
         this.documentIndex = documentIndex;
-        this.w2v = w2v;
     }
 
     /**
@@ -84,7 +82,7 @@ public abstract class SearchEngineBuilder {
         buildQueryResultWriter();
         buildQueryTokenizer();
         buildThreshold();
-        buildRelevanceQueryUpdater();
+        buildQueryUpdater();
         return searchEngine;
     }
 
@@ -138,6 +136,6 @@ public abstract class SearchEngineBuilder {
 
     public abstract void buildDocumentIndex();
 
-    public abstract void buildRelevanceQueryUpdater();
+    public abstract void buildQueryUpdater();
 
 }
