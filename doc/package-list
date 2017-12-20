@@ -12,3 +12,5 @@ src.java.query
 src.java.query.queryExpansion
 src.java.query.relevancefeedback
 src.java.searchengine
+src.java.searchengine.queryprocessors
+src.java.searchengine.searchenginebuilders

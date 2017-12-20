@@ -43,14 +43,24 @@ public class Constants {
      */
     public static final double THRESHOLDDEFAULTVALUE = -1;
 
-    public static final String CORPUSLOCATION = "cranfield";
-
+    /**
+     * The name of the file that contains the document index
+     */
     public static final String DOCUMENTINDEXFILE = "docIndexFile";
 
+    /**
+     * The name of the file of the relevance scores
+     */
     public static final String RELEVANCESCOREFILE = "cranfield.query.relevance.txt";
 
+    /**
+     * The name of the file that contains the word2vec trained model
+     */
     public static final String WORD2VECMODEL = "word2VecModel";
 
+    /**
+     * The file that contains the full content of the corpus
+     */
     public static final String FULLCONTENTFILE = "fullCorpusContent";
 
 }
