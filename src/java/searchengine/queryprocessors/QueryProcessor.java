@@ -1,8 +1,7 @@
-package src.java.searchengine;
+package src.java.searchengine.queryprocessors;
 
 
 import src.java.index.InvertedIndex;
-import src.java.normalizer.Normalizer;
 import src.java.query.Query;
 
 import java.util.List;

@@ -48,4 +48,9 @@ public class Constants {
     public static final String DOCUMENTINDEXFILE = "docIndexFile";
 
     public static final String RELEVANCESCOREFILE = "cranfield.query.relevance.txt";
+
+    public static final String WORD2VECMODEL = "word2VecModel";
+
+    public static final String FULLCONTENTFILE = "fullCorpusContent";
+
 }

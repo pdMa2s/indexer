@@ -1,4 +1,4 @@
-package src.java.searchengine;
+package src.java.searchengine.searchenginebuilders;
 
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
@@ -9,6 +9,9 @@ import src.java.query.QueryLoader;
 import src.java.query.relevancefeedback.GoldStandardFeedBack;
 import src.java.query.relevancefeedback.RelevanceIndex;
 import src.java.corpus.tokenizer.Tokenizer;
+import src.java.searchengine.queryprocessors.NormalizedProcessor;
+import src.java.searchengine.queryprocessors.QueryProcessor;
+import src.java.searchengine.SearchEngine;
 
 /**
  * An extension of {@link SearchEngineBuilder} that builds a {@link SearchEngine} object that uses explicit form

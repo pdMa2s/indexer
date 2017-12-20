@@ -8,6 +8,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import static src.java.constants.Constants.FULLCONTENTFILE;
+
 /**
  * This implementation of {@link IndexWriter} writes an {@link InvertedIndex} object on disk, with a format similar
  * to CSV.<br>
@@ -82,7 +84,7 @@ public class CSVIndexWriter implements IndexWriter {
     public void saveFileWithFullContent(String fullContent) {
         PrintWriter writer = null;
         try {
-            writer = new PrintWriter("fullCorpusContent.txt", "UTF-8");
+            writer = new PrintWriter(FULLCONTENTFILE, "UTF-8");
         } catch (UnsupportedEncodingException | FileNotFoundException e) {
             System.err.println("ERROR: Writing fullCorpusContent to file");
             System.exit(5);

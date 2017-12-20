@@ -1,9 +1,12 @@
-package src.java.searchengine;
+package src.java.searchengine.searchenginebuilders;
 
 import src.java.index.InvertedIndex;
 import src.java.query.ColumnResultWriter;
 import src.java.query.QueryLoader;
 import src.java.corpus.tokenizer.Tokenizer;
+import src.java.searchengine.queryprocessors.QueryProcessor;
+import src.java.searchengine.SearchEngine;
+import src.java.searchengine.queryprocessors.WordsInDocumentProcessor;
 
 /**
  * An implementation of {@link SearchEngineBuilder} creates a {@link SearchEngine} with a {@link WordsInDocumentProcessor}.

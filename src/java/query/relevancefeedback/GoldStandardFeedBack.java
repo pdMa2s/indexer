@@ -82,7 +82,7 @@ public class GoldStandardFeedBack implements QueryUpdater {
         return 1;
     }
     private double sigma(){
-        return 0.2;
+        return 0.5;
     }
 
     private double beta(int relevanceScore){

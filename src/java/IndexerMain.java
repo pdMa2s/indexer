@@ -5,15 +5,16 @@ import net.sourceforge.argparse4j.helper.HelpScreenException;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 import net.sourceforge.argparse4j.inf.Namespace;
-import src.java.index.CSVIndexWriter;
-import src.java.index.InvertedIndex;
-import src.java.index.IndexWriter;
+import src.java.index.*;
 import src.java.indexer.*;
 import src.java.indexer.indexerbuilders.CTStemmingIndexerBuilder;
 import src.java.indexer.indexerbuilders.ComplexTokenizerIndexerBuilder;
 import src.java.indexer.indexerbuilders.NormalizedBuilder;
 import src.java.indexer.indexerbuilders.SimpleTokenizerIndexerBuilder;
 import src.java.query.DocumentIndex;
+import src.java.query.queryExpansion.QueryExpansionWord2Vec;
+
+import java.io.FileNotFoundException;
 
 import static src.java.constants.Constants.*;
 
@@ -53,13 +54,21 @@ public class IndexerMain {
 
 
 
-
         System.out.println("Indexing time: "+elapsedTime+"ms");
-        //System.out.println(invertedIndex);
+
         System.out.println("Vocabulary size: " +index.vocabularySize());
+        createQueryExpansionModel();
 
     }
-
+    private static void createQueryExpansionModel(){
+        QueryExpansionWord2Vec queryExpansionWord2Vec = new QueryExpansionWord2Vec();
+        try {
+            queryExpansionWord2Vec.createModel(FULLCONTENTFILE);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        queryExpansionWord2Vec.persistModel(WORD2VECMODEL);
+    }
 
     private static Namespace parseParameters(String[] args){
         ArgumentParser parser = ArgumentParsers.newFor("IndexerMain").build()

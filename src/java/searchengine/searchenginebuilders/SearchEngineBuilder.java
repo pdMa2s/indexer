@@ -1,4 +1,4 @@
-package src.java.searchengine;
+package src.java.searchengine.searchenginebuilders;
 
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
@@ -7,7 +7,8 @@ import src.java.query.QueryIndex;
 import src.java.query.QueryReader;
 import src.java.query.QueryResultWriter;
 import src.java.corpus.tokenizer.Tokenizer;
-import src.java.query.queryExpansion.QueryExpansionWord2Vec;
+import src.java.searchengine.queryprocessors.QueryProcessor;
+import src.java.searchengine.SearchEngine;
 
 /**
  * This abstract class serves as a starting point for the an implementation of the builder pattern with the

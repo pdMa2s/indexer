@@ -1,4 +1,4 @@
-package src.java.searchengine;
+package src.java.searchengine.queryprocessors;
 
 import src.java.index.InvertedIndex;
 import src.java.index.Posting;
@@ -11,11 +11,12 @@ import java.util.stream.Collectors;
 import static src.java.constants.Constants.THRESHOLDDEFAULTVALUE;
 
 /**
- * An implementation of {@link QueryProcessor} that sums the frequency of the query words that appear in a document
+ * An implementation of {@link QueryProcessor} that counts the number of the query words that appear in a document
  */
-public class FrequencyOfQueryWordsProcessor implements QueryProcessor {
+public class WordsInDocumentProcessor implements QueryProcessor {
+
     /**
-     * Sums the frequency of document words that appear in a query.
+     * Counts the number of words in a query that appear in a document.
      * The results are stores in their respective {@link Query} object.
      * @param index An {@link InvertedIndex} object where information is going to be extracted to answer the queries.
      * @param queries A {@link List} of {@link Query} objects with the content of which query. After the query
@@ -33,7 +34,6 @@ public class FrequencyOfQueryWordsProcessor implements QueryProcessor {
                     for (Posting pst : postings) {
                         calculateScore(scores, pst);
                     }
-
                 }
             }
             filterResults(threshold, query);
@@ -41,7 +41,9 @@ public class FrequencyOfQueryWordsProcessor implements QueryProcessor {
             long elapsedTime = stopTime - startTime;
             query.setProcessingTime(elapsedTime);
         }
+
     }
+
     private void filterResults(double threshold, Query query){
         Map<Integer, Double> scores = query.getResults();
         if(threshold != THRESHOLDDEFAULTVALUE){
@@ -52,7 +54,14 @@ public class FrequencyOfQueryWordsProcessor implements QueryProcessor {
         }
 
     }
+
     private void calculateScore(Map<Integer, Double> scores, Posting pst){
-        scores.merge(pst.getDocID(), pst.getWeight(), (a, b) -> a + b);
+        Double docScore = scores.get(pst.getDocID());
+        if(docScore == null){
+            scores.put(pst.getDocID(), (double) 1);
+        }
+        else{
+            scores.put(pst.getDocID(), docScore + 1);
+        }
     }
 }

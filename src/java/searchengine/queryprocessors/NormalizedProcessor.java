@@ -1,4 +1,4 @@
-package src.java.searchengine;
+package src.java.searchengine.queryprocessors;
 
 import src.java.index.InvertedIndex;
 import src.java.index.Posting;

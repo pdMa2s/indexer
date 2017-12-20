@@ -1,22 +1,28 @@
-package src.java.searchengine;
+package src.java.searchengine.searchenginebuilders;
 
 import src.java.index.InvertedIndex;
+import src.java.normalizer.Normalizer;
 import src.java.query.ColumnResultWriter;
+import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
 import src.java.corpus.tokenizer.Tokenizer;
+import src.java.searchengine.SearchEngine;
+import src.java.searchengine.searchenginebuilders.SearchEngineBuilder;
+import src.java.searchengine.queryprocessors.NormalizedProcessor;
+import src.java.searchengine.queryprocessors.QueryProcessor;
 
 /**
- * An implementation of {@link SearchEngineBuilder} creates a {@link SearchEngine} with a {@link FrequencyOfQueryWordsProcessor}.
+ * An implementation of {@link SearchEngineBuilder} creates a {@link SearchEngine} with a {@link NormalizedProcessor}.
  */
-public class FreqQueryWordsBuilder extends SearchEngineBuilder {
+public class NormalizedSearchEngineBuilder extends SearchEngineBuilder {
 
     /**
      *{@inheritDoc}
      */
-    public FreqQueryWordsBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, double threshold) {
-        super(invertedIndex, tokenizer, null, null,threshold);
+    public NormalizedSearchEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer, QueryIndex queryIndex,
+                                         double threshold) {
+        super(invertedIndex, tokenizer, queryIndex, null,threshold);
     }
-
     /**
      *{@inheritDoc}
      */
@@ -34,13 +40,12 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
     }
 
     /**
-     * Configures the searchEngine's {@link QueryProcessor} with a {@link FrequencyOfQueryWordsProcessor}
+     * Configures the searchEngine's {@link QueryProcessor} with a {@link NormalizedProcessor}
      */
     @Override
     public void buildQueryProcessor() {
-        searchEngine.setQueryProcessor(new FrequencyOfQueryWordsProcessor());
+        searchEngine.setQueryProcessor(new NormalizedProcessor(queryIndex));
     }
-
     /**
      * Configures the searchEngine's {@link src.java.query.QueryResultWriter} with a {@link ColumnResultWriter}
      */
@@ -48,7 +53,6 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
     public void buildQueryResultWriter() {
         searchEngine.setQueryResultWriter(new ColumnResultWriter());
     }
-
     /**
      *{@inheritDoc}
      */
@@ -56,21 +60,20 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
     public void buildQueryTokenizer() {
         searchEngine.setTokenizer(tokenizer);
     }
-
     /**
      *{@inheritDoc}
      */
     @Override
     public void buildQueryIndex() {
+        searchEngine.setQueryIndex(queryIndex);
     }
-
     /**
-     *{@inheritDoc}
+     * Configures the searchEngine's with a {@link Normalizer}
      */
     @Override
     public void buildNormalizer() {
+        searchEngine.setNormalizer(new Normalizer());
     }
-
     /**
      *{@inheritDoc}
      */
@@ -78,20 +81,16 @@ public class FreqQueryWordsBuilder extends SearchEngineBuilder {
     public void buildThreshold() {
         searchEngine.setThreshold(threshold);
     }
-
     /**
      *{@inheritDoc}
      */
     @Override
     public void buildDocumentIndex() {
-
     }
-
     /**
      *{@inheritDoc}
      */
     @Override
     public void buildQueryUpdater() {
-
     }
 }

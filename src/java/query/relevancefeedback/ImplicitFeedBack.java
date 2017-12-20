@@ -62,6 +62,6 @@ public class ImplicitFeedBack implements QueryUpdater {
     }
 
     private double beta(){
-        return 0.5;
+        return 0.55;
     }
 }

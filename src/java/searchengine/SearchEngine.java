@@ -5,6 +5,8 @@ import src.java.normalizer.Normalizer;
 import src.java.query.*;
 import src.java.query.QueryUpdater;
 import src.java.corpus.tokenizer.Tokenizer;
+import src.java.searchengine.queryprocessors.QueryProcessor;
+
 import java.io.File;
 import java.util.List;
 

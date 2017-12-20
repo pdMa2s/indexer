@@ -20,6 +20,7 @@ import src.java.query.relevancefeedback.RelevanceIndex;
 import src.java.query.relevancefeedback.RelevanceReader;
 import src.java.searchengine.*;
 import src.java.corpus.tokenizer.Tokenizer;
+import src.java.searchengine.searchenginebuilders.*;
 
 import java.io.File;
 import java.util.List;
@@ -76,11 +77,6 @@ public class RankingMain {
                 .description("Loads and index and answers queries, the results are stored in a file");
         parser.addArgument("queryFile")
                 .help("The path to the file that contains the queries");
-        MutuallyExclusiveGroup countGroup = parser.addMutuallyExclusiveGroup();
-        countGroup.addArgument("-f","--frequencyOfQueryWords").action(Arguments.storeTrue())
-                .help("(Optional) Calculates the frequency of the query words in each document");
-        countGroup.addArgument("-w","--wordsInDoc").action(Arguments.storeTrue())
-                .help("(Optional) Calculates how many query words are in the document (Option set by omission)");
         parser.addArgument("-idx","--indexFile").setDefault(INDEXDEAFAULTFILENAME)
                 .help("(Optional) The path to the file were the index is contained");
         parser.addArgument("-r","--resultFile").setDefault("queryResults")
@@ -97,15 +93,17 @@ public class RankingMain {
                 .help("(Optional) The minimum relevance score to be considered when calculating the efficiency metrics");
         parser.addArgument("-di","--documentIndexFile").setDefault(DOCUMENTINDEXFILE)
                 .help("(Optional)The name of the file where the document index will be written in to");
-        MutuallyExclusiveGroup feedBackGroup = parser.addMutuallyExclusiveGroup();
-        feedBackGroup.addArgument("-exf","--explicitFeedBack").action(Arguments.storeTrue())
+        MutuallyExclusiveGroup opGroup = parser.addMutuallyExclusiveGroup();
+        opGroup.addArgument("-exf","--explicitFeedBack").action(Arguments.storeTrue())
                 .help("(Optional)Update query results based on a explicit feedback");
-        feedBackGroup.addArgument("-imf","--implicitFeedBack").action(Arguments.storeTrue())
+        opGroup.addArgument("-imf","--implicitFeedBack").action(Arguments.storeTrue())
                 .help("(Optional)Update query results based on implicit feedback");
-        feedBackGroup.addArgument("-qex","--queryExpansion").action(Arguments.storeTrue())
+        opGroup.addArgument("-qex","--queryExpansion").action(Arguments.storeTrue())
                 .help("(Optional)Update query results based on query expansion");
-
-
+        opGroup.addArgument("-f","--frequencyOfQueryWords").action(Arguments.storeTrue())
+                .help("(Optional) Calculates the frequency of the query words in each document");
+        opGroup.addArgument("-w","--wordsInDoc").action(Arguments.storeTrue())
+                .help("(Optional) Calculates how many query words are in the document (Option set by omission)");
         Namespace ns = null;
         try {
             ns = parser.parseArgs(args);

@@ -1,4 +1,4 @@
-package src.java.searchengine;
+package src.java.searchengine.searchenginebuilders;
 
 import src.java.index.InvertedIndex;
 import src.java.normalizer.Normalizer;
@@ -6,21 +6,27 @@ import src.java.query.ColumnResultWriter;
 import src.java.query.DocumentIndex;
 import src.java.query.QueryIndex;
 import src.java.query.QueryLoader;
-import src.java.query.queryExpansion.Word2VecQueryExpansionUpdater;
+import src.java.query.relevancefeedback.*;
 import src.java.corpus.tokenizer.Tokenizer;
-import src.java.query.queryExpansion.QueryExpansionWord2Vec;
+import src.java.searchengine.queryprocessors.NormalizedProcessor;
+import src.java.searchengine.queryprocessors.QueryProcessor;
+import src.java.searchengine.SearchEngine;
 
-import java.io.IOException;
-
-public class QueryExpansionEngineBuilder extends SearchEngineBuilder {
-
-    public QueryExpansionEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
-                                       QueryIndex queryIndex, DocumentIndex documentIndex,
-                                       double threshold){
+/**
+ * A extension of {@link SearchEngineBuilder} that builds a {@link SearchEngine} object that uses implicit
+ */
+public class ImplicitFeedBackEngineBuilder extends SearchEngineBuilder {
+    /**
+     * {@inheritDoc}
+     */
+    public ImplicitFeedBackEngineBuilder(InvertedIndex invertedIndex, Tokenizer tokenizer,
+                                         QueryIndex queryIndex, DocumentIndex documentIndex, double threshold) {
         super(invertedIndex, tokenizer, queryIndex, documentIndex, threshold);
     }
 
-
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public void buildInvertedIndex() {
         searchEngine.setInvertedIndex(invertedIndex);
@@ -84,18 +90,6 @@ public class QueryExpansionEngineBuilder extends SearchEngineBuilder {
 
     @Override
     public void buildQueryUpdater() {
-        QueryExpansionWord2Vec w2v = null;
-        try {
-            w2v = new QueryExpansionWord2Vec("fullCorpusContent.txt");
-        } catch (IOException e) {
-            printError(4, "ERROR full corpus content file not found");
-        }
-
-        searchEngine.setUpdater(new Word2VecQueryExpansionUpdater(w2v));
-        searchEngine.expandQueries();
-    }
-    private void printError(int errorCode, String message){
-        System.err.println(message);
-        System.exit(errorCode);
+        searchEngine.setUpdater(new ImplicitFeedBack(queryIndex, documentIndex));
     }
 }
