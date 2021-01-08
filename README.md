@@ -1,5 +1,8 @@
+# indexer
 University of Aveiro
+
 Departamento de Electrónica, Telecomunicações e Informática
+
 MEI
 
 This work was developed for the course of Information Retrieval.
